@@ -22,5 +22,5 @@ Description:
 Description:
 ![CHART11](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TICKET_ROI_ZSCORE.PNG)
 Description:
-!CHART12](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TRANSACTIONAL_CHOP.PNG)
+![CHART12](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TRANSACTIONAL_CHOP.PNG)
 Description:
