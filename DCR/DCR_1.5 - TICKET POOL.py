@@ -44,15 +44,16 @@ df_1 = pd.DataFrame(Dcr_circ)
 df_2 = df / df_1
 
 # Calc Stake Pool % of Supply MA & Ratio
-MA_ = df_2.rolling(window=360).mean()
+MA_ = df_2.rolling(window=284).mean()
 ratio = df_2 / MA_
 
 # Merge DCRBTC & DCRUSD Data to compare, & Print to check values
 ratio['DCRUSD'] = df_precio
+ratio['Raw Value of % Staked'] = df_2
 print(ratio)
 """ISSUES MERGING THE DATASETS (LINING UP THE START AND END OF DATASET), CLEAN UP"""
 # Pull to Excel worksheet
-ratio.to_excel('ticket pool.xlsx')
+ratio.to_excel('ticket_pool.xlsx')
 
 # Plot values to check indicator
 plt.figure()

@@ -18,6 +18,7 @@ df_sum63 = df.rolling(window=63).sum()
 new_sum = df_sum63 - (63*300)
 # add time to dataframe and print to check that it worked
 new_sum['Time'] = df_1
+new_sum['Raw'] = df
 print(new_sum)
 # plot
 plt.plot(new_sum['Time'], new_sum[0])
