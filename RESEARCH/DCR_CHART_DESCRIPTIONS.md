@@ -1,7 +1,7 @@
 **#IGNORE NUMBER LABELING IN IMAGES, TO BE CLEANED UP AT LATER DATE**
 
 ![CHART1](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/142_TIX_VOL_SUM.PNG)
-**Description**: 
+- **Description**: 
 - Tickets that have not voted within the Decred network after being live for 142 days expire and locked DCR are released. This attribute makes 142 a significant number within the network, and one that should be specifically tracked when analyzing ticket data. The 142 day sum of USD that has gone into tickets gives users a glance at the psychology of HODLers by showing historically good buys are when network value < 25% of ticket purchased over the previous 142 days.
 **Origin:**
 - Published by Permbaull Nino here: [142 Day Sum into Tickets](https://medium.com/@permabullnino/decred-on-chain-macro-micro-outlook-12a26930623e)
