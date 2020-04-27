@@ -26,4 +26,4 @@ Description:
 Description:
 ![CHART13](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/BLOCK_TIME_EXTREMES.PNG)
 Description:
-![CHART14]
+![CHART14](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/BLOCK_TIME_TREND.PNG)
