@@ -8,8 +8,8 @@ import cm_data_converter
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
-# List all available metrics for DCR.
-asset = "bsv"
+# List all available metrics for alts.
+asset = "eth"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)

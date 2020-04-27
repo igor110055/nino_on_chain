@@ -15,7 +15,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-04-23"
+date_2 = "2020-04-25"
 isstot = cm.get_asset_data_for_time_range(asset, "IssTotUSD", date_1, date_2)
 mkt = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
 # clean CM data
@@ -43,12 +43,7 @@ df_1['treintados'] = threetwo_prem
 df_1['seiscuatro'] = sixfour_prem
 print(df_1)
 # plot the data
-"""plt.figure()
-ax1 = plt.subplot(2, 1, 1)
-plt.plot()
-plt.title("Address Average Ratio")
 
-plt.subplot(2, 1, 2, sharex=ax1)"""
 plt.plot(df_1)
 plt.title("Market Cap versus Monetary Premiums")
 plt.yscale('log')

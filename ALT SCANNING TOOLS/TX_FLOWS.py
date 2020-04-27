@@ -9,7 +9,7 @@ import cm_data_converter
 cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
-asset = "bsv"
+asset = "eth"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)

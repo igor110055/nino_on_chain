@@ -8,8 +8,8 @@ import cm_data_converter
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
-# List all available metrics for DCR.
-asset = "bsv"
+# List all available metrics for BTC.
+asset = "btc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
@@ -27,18 +27,21 @@ df_1 = pd.DataFrame(price_clean)
 # calculate block times in seconds
 dia_seconds = 86400
 blk_time = dia_seconds / df
-print(blk_time)
+#print(blk_time)
+#calculate average block time
+avg_blk = blk_time.rolling(window=42).mean()
 # merge price and blk time into a dataset, then send to excel
 blk_time['Price'] = df_1
-
-#blk_time.to_excel('bsv_blk_times.xlsx')
+blk_time['Avg'] = avg_blk
+print(blk_time)
+#blk_time.to_excel('blk_times.xlsx')
 #plot blk time versus price
 plt.figure()
-plt.subplot(2, 1, 1)
-plt.plot(blk_time[0])
+ax1 = plt.subplot(2, 1, 1)
+plt.plot(blk_time['Avg'])
 plt.title("Block Time")
 
-plt.subplot(2, 1, 2)
+plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df_1)
 plt.title("Price")
 plt.yscale('log')
