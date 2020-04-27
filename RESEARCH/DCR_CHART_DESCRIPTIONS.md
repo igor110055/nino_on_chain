@@ -36,9 +36,12 @@
 **Origin:**
 - Published by Permabull Nino here: [Adjusted Coins Moved](https://medium.com/@permabullnino/decred-on-chain-macro-micro-outlook-12a26930623e)
 ![CHART8](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/THROUGHPUT_THERMOMETER.PNG)
-Description:
+**Description:**
+- The Throughput Thermometer takes the approach from the adjusted coins moved model (the metric explained above) and applies it across networks, to evaluate on-chain activity between networks more fairly.
+**Origin:**
+- Published by Permabull Nino here: [Throughput Thermometer](https://medium.com/@permabullnino/decred-on-chain-macro-micro-outlook-12a26930623e)
 ![CHART9](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TICKET%20CHOP.PNG)
-Description:
+**Description:** 
 ![CHART10](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TICKET_FUNDINGRATE.PNG)
 Description:
 ![CHART11](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TICKET_ROI_ZSCORE.PNG)
