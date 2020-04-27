@@ -22,7 +22,7 @@
 - Published by Permabull Nino here: [On-Chain DCRBTC Price](https://medium.com/@permabullnino/decred-on-chain-macro-micro-outlook-12a26930623e)
 ![CHART5](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/STRONG_HAND.PNG)
 **Description:**
-- The Strong Hand Market Cap + Ratio is provides a new way of analyzing Decred's fair value, which is calculated by using ticket buying to determine what the "highest bidder" believes the network is worth versus what it's actually trading at on spot markets.
+- The Strong Hand Market Cap + Ratio provides a new way of analyzing Decred's fair value, which is calculated by using ticket buying to determine what the "highest bidder" believes the network is worth versus what it's actually trading at on spot markets.
 **Origin:**
 - Published by Permabull Nino here: [Decred On-Chain: Strongest Hand Market Cap + Ratio](https://medium.com/@permabullnino/decred-on-chain-strongest-hand-market-cap-ratio-146d6854e1d6)
 ![CHART6](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/ST_REL_SELLPOWER.PNG)
@@ -37,13 +37,17 @@
 - Published by Permabull Nino here: [Adjusted Coins Moved](https://medium.com/@permabullnino/decred-on-chain-macro-micro-outlook-12a26930623e)
 ![CHART8](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/THROUGHPUT_THERMOMETER.PNG)
 **Description:**
-- The Throughput Thermometer takes the approach from the adjusted coins moved model (the metric explained above) and applies it across networks, to evaluate on-chain activity between networks more fairly.
+- The Throughput Thermometer takes the approach from the adjusted coins moved model (the metric explained above) and applies it across networks, to evaluate on-chain activity between networks more fairly. When one network is moving more coins on a pound for pound basis, it is generally accompanied with price appreciation versus the other side of the trading pair.
 **Origin:**
 - Published by Permabull Nino here: [Throughput Thermometer](https://medium.com/@permabullnino/decred-on-chain-macro-micro-outlook-12a26930623e)
 ![CHART9](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TICKET%20CHOP.PNG)
 **Description:** 
+- This metric is comparable to the Choppiness Index used in traditional markets, which effectively measures dormant / released energy within a particular asset. As such, this tool shows when tickets are relatively overbought / oversold - letting network stakehodlers know when ticket purchases should expect to slow down or ramp up over the short to medium term.
+**Origin:**
+- Published by Permabull Nino here: [Ticket CHOP](https://medium.com/@permabullnino/decred-on-chain-ticket-funding-rates-4e7233c7b64f)
 ![CHART10](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TICKET_FUNDINGRATE.PNG)
-Description:
+**Description:**
+- 
 ![CHART11](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TICKET_ROI_ZSCORE.PNG)
 Description:
 ![CHART12](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TRANSACTIONAL_CHOP.PNG)
