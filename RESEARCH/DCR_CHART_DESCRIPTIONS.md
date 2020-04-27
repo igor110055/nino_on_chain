@@ -24,3 +24,6 @@ Description:
 Description:
 ![CHART12](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/TRANSACTIONAL_CHOP.PNG)
 Description:
+![CHART13](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/DCR_CHARTS/BLOCK_TIME_EXTREMES.PNG)
+Description:
+![CHART14]
