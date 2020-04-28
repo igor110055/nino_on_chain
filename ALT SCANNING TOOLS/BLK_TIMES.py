@@ -31,7 +31,7 @@ print(blk_time)
 # merge price and blk time into a dataset, then send to excel
 blk_time['Price'] = df_1
 
-blk_time.to_excel('bsv_blk_times.xlsx')
+#blk_time.to_excel('bsv_blk_times.xlsx')
 #plot blk time versus price
 plt.figure()
 plt.subplot(2, 1, 1)
