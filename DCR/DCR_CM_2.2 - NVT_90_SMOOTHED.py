@@ -15,11 +15,11 @@ supported_assets = cm.get_supported_assets()
 print("supported assets:\n", supported_assets)
 
 # List all available metrics for DCR.
-asset = "dcr"
+asset = "dash"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
-nvt90 = cm.get_asset_data_for_time_range(asset, "NVTAdj90", "2016-02-08", "2020-04-20")
+nvt90 = cm.get_asset_data_for_time_range(asset, "NVTAdj90", "2016-02-08", "2020-04-26")
 #print(nvt90)
 
 #print(nvt90.keys())

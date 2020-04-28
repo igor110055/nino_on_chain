@@ -46,5 +46,6 @@ print(df_1)
 
 plt.plot(df_1)
 plt.title("Market Cap versus Monetary Premiums")
+plt.legend((df_1['Cumulative Block Rewards']), ('Block rewards'))
 plt.yscale('log')
 plt.show()
