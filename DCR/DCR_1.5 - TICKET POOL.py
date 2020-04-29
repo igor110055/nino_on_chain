@@ -44,7 +44,7 @@ df_1 = pd.DataFrame(Dcr_circ)
 df_2 = df / df_1
 
 # Calc Stake Pool % of Supply MA & Ratio
-MA_ = df_2.rolling(window=284).mean()
+MA_ = df_2.rolling(window=180).mean()
 ratio = df_2 / MA_
 
 # Merge DCRBTC & DCRUSD Data to compare, & Print to check values

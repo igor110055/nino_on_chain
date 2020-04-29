@@ -15,7 +15,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-08-14"
-date_2 = "2020-04-26"
+date_2 = "2020-04-28"
 oc_flow = cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2)
 flow_clean = cm_data_converter.cm_data_convert(oc_flow)
 #print(flow_clean)

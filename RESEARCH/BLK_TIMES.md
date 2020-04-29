@@ -15,7 +15,7 @@ The author's previous explorations into Decred's on-chain data have had a strong
 - Why Look at Block Times?
 - Mining Musings
 - Decred Mining
-- Mining Pulse Tools
+- Mining Pulse
 - Bitcoin Capitulations
 - Conclusion
 
@@ -80,7 +80,7 @@ There are a few topics addressed in this section:
 - Hashrate shows the *unadjusted* ability to produce blocks
 - Block time shows the *adjusted* ability to produce blocks
 
-Simply speaking - focusing on hashrate would be like measuring profit / loss in raw dollar terms, whereas any well-informed investor knows that % returns are what really matter. For this reason the author will argue and aim to substantiate such argument with evidence (*based on the adjusted ability to produce blocks i.e. block times*) that miners "buy bottoms and sell tops" as often as the reverse. More on this to follow in the charts / analysis section (**Mining Pulse Tools**).
+Simply speaking - focusing on hashrate would be like measuring profit / loss in raw dollar terms, whereas any well-informed investor knows that % returns are what really matter. For this reason the author will argue and aim to substantiate such argument with evidence (*based on the adjusted ability to produce blocks i.e. block times*) that miners "buy bottoms and sell tops" as often as the reverse. More on this to follow in the charts / analysis section.
 
 ### Understanding Mild and Extreme Mining Conditions, Why the Difference Matters
 
@@ -90,6 +90,52 @@ Establishing that block times represent the adjusted ability to produce blocks i
 - Periods where it's *manageable* to produce blocks (resulting in block times near target)
 - Periods where it's relatively *easy* to produce blocks (resulting in fast block times)
 
-Now, these three mining states have differing underlying mechanics, and thus affect miners differently. These differences are shown in the table below:
+Now, these three mining states have differing underlying mechanics, and thus affect miners / the market at large differently. These differences are shown in the table below:
 
 [plug comparative table]
+
+A few items are worth fleshing out a bit more here:
+
+- At the extremes (slow and fast block times), the end result is the same: miners get squeezed, which results in more coins being sold to maintain operations
+- In the crypto space, people tend to obssess a bit over the slower block time squeezes, but *generally* overlook the other side of the coin. The author admittedly hadn't thought much about the idea of miners weighing on price on the upside until Leo Zhang had written about it here(include link)
+- Ideal mining conditions are the sweet spot in between, where mining cost and mining reward are at a healthy equilibrium
+- Ideal mining conditions = Ideal price conditions
+
+The discussion points in this section will be key in analyzing the Mining Pulse chart later on.
+
+---
+
+## Decred Mining
+
+The highlights of Decred mining, and that are relevant to block time analysis are as follows:
+
+- Miners earn 60% of block rewards issued
+- Difficulty adjusts every 144 blocks (~12 hours on average)
+- Block rewards adjust downwards by a factor of 100/101 every 6,144 blocks (~21 days on average)
+- ASICs were introduced mid-2018
+- Target block times are 300 seconds (5 minutes)
+
+For analytical purposes, the importance of these points respectively, are:
+
+- Miners are the largest natural sellers within the network
+- Difficulty adjusts very often, thus making block time data very responsive and reliable for tracking trends
+- Block reward adjustment period impacts miners' bottom line, and this period will be used for analysis
+- Expect temporary impact on block time data around mid-2018
+- Target block time = baseline for analysis
+
+---
+
+## Mining Pulse
+
+The calculation for Mining Pulse is included below:
+
+[plug image that shows calc]
+
+Mining Pulse calculates the *three mining cycle average block time versus the target block time*. Differences show a block time surplus / deficit, which means the following:
+
+- Surplus: Three week average > target block time = slow block times
+- Deficit: Three week average < target block time = fast block times
+
+Furthermore - it's important to note that block time will be herein measured in seconds, not minutes. Thus, any surplus / deficit tells users how many seconds the average is above / below the target block time for the Decred network. Without further delay, here is the first look at the Mining Pulse chart:
+
+[plug chart using lines]
