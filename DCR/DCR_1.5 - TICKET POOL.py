@@ -53,7 +53,7 @@ ratio['Raw Value of % Staked'] = df_2
 print(ratio)
 """ISSUES MERGING THE DATASETS (LINING UP THE START AND END OF DATASET), CLEAN UP"""
 # Pull to Excel worksheet
-ratio.to_excel('ticket_pool.xlsx')
+#ratio.to_excel('ticket_pool.xlsx')
 
 # Plot values to check indicator
 plt.figure()
