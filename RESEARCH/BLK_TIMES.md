@@ -34,11 +34,11 @@ Let's briefly expand on these two points below...
 
 When performing on-chain analysis, it can be *incredibly* helpful to focus on patterns that repeat themselves time and time again. This logic is leveraged in most popularly known on-chain indicators, such as the NVT Ratio, the MVRV Ratio, and on a more mining specific note - the Puell Multiple. Top and bottom patterns in the same range provide high signal, simple ways for analysis and decision-making when combined with the proper historical context:
 
-[Puell Multiple}(https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/PUELL_MULT.PNG)
+![Puell Multiple](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/PUELL_MULT.PNG)
 
 Block times fall right into this camp of repeating patterns, as they're designed to oscillate within a certain range of the *target block time*. A look at the block times chart on Decred's [block explorer](https://alpha.dcrdata.org/) shows this quite clearly:
 
-[Explorer Chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/EXPLORER_GRAPHIC.PNG)
+![Explorer Chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/EXPLORER_GRAPHIC.PNG)
 
 Another item worth point out about fractals (repeating patterns over time) is that when something in large part moves predictably within a range, *moves outside of that range* are likely significant. Another look at the block times chart above will show that there are spikes upwards and downwards outside the predictable range - revealing points of possible volatility within the Decred mining ecosystem.
 
