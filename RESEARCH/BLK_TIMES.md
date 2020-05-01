@@ -62,7 +62,7 @@ Miners are in many cases ideological, but above all else they're profit motivate
 
 Block times are a high signal tool because it gives on-chain onlookers a glance at the current state of the balancing act playing out between profit motivated actors who are inputting work against a standard demanding certain costs to earn a favorable result. Instead of looking at each piece of the puzzle individually, we're honing in on the result to truly understand what the big picture is in whole. The next section will flesh out this thought process more thoroughly.
 
-![Function Chart]https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/BLK_TIME_FUNCTION.PNG
+![Function Chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/BLK_TIME_FUNCTION.PNG)
 
 ---
 
