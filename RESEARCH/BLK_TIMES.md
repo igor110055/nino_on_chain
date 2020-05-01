@@ -62,7 +62,7 @@ Miners are in many cases ideological, but above all else they're profit motivate
 
 Block times are a high signal tool because it gives on-chain onlookers a glance at the current state of the balancing act playing out between profit motivated actors who are inputting work against a standard demanding certain costs to earn a favorable result. Instead of looking at each piece of the puzzle individually, we're honing in on the result to truly understand what the big picture is in whole. The next section will flesh out this thought process more thoroughly.
 
-[plug chart that shows block times being a function of the three other parts]
+![Function Chart]https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/BLK_TIME_FUNCTION.PNG
 
 ---
 
@@ -80,7 +80,7 @@ There are a few topics addressed in this section:
 - Hashrate shows the *unadjusted* ability to produce blocks
 - Block time shows the *adjusted* ability to produce blocks
 
-Simply speaking - focusing on hashrate would be like measuring profit / loss in raw dollar terms, whereas any well-informed investor knows that % returns are what really matter. For this reason the author will argue and aim to substantiate such argument with evidence (*based on the adjusted ability to produce blocks i.e. block times*) that miners "buy bottoms and sell tops" as often as the reverse. More on this to follow in the charts / analysis section.
+Simply speaking - focusing on hashrate would be like measuring profit / loss in raw dollar terms, whereas % returns are what really matter. For this reason the author will argue and aim to substantiate such argument with evidence (*based on the adjusted ability to produce blocks i.e. block times*) that miners "buy bottoms and sell tops" as often as the reverse. More on this to follow in the charts / analysis section.
 
 ### Understanding Mild and Extreme Mining Conditions, Why the Difference Matters
 
@@ -92,12 +92,12 @@ Establishing that block times represent the adjusted ability to produce blocks i
 
 Now, these three mining states have differing underlying mechanics, and thus affect miners / the market at large differently. These differences are shown in the table below:
 
-[plug comparative table]
+![comparative table](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/MINING_CONDITIONS.PNG)
 
 A few items are worth fleshing out a bit more here:
 
 - At the extremes (slow and fast block times), the end result is the same: miners get squeezed, which results in more coins being sold to maintain operations
-- In the crypto space, people tend to obssess a bit over the slower block time squeezes, but *generally* overlook the other side of the coin. The author admittedly hadn't thought much about the idea of miners weighing on price on the upside until Leo Zhang had written about it here(include link)
+- In the crypto space, people tend to obssess a bit over the slower block time squeezes, but *generally* overlook the other side of the coin. The author admittedly hadn't thought much about the idea of miners weighing on price on the upside until Leo Zhang had written about it [here](https://iterative.capital/where_are_we_in_the_mining_cycle/)
 - Ideal mining conditions are the sweet spot in between, where mining cost and mining reward are at a healthy equilibrium
 - Ideal mining conditions = Ideal price conditions
 
@@ -129,7 +129,7 @@ For analytical purposes, the importance of these points respectively, are:
 
 The calculation for Mining Pulse is included below:
 
-[plug image that shows calc]
+![Calculation](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/MINING_PULSE_CALC.PNG)
 
 Mining Pulse calculates the *three block reward cycle (63 day) average block time versus the target block time*. Differences show a block time surplus / deficit, which means the following:
 
@@ -138,7 +138,7 @@ Mining Pulse calculates the *three block reward cycle (63 day) average block tim
 
 Furthermore - it's important to note that block time will be herein measured in seconds, not minutes. Thus, any surplus / deficit tells users how many seconds the average is above / below the target block time (300 seconds) for the Decred network. Without further delay, here is the first look at the Mining Pulse chart:
 
-[plug dcrbtc chart using lines]
+![Line Chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/MINING_PULSE_LINE_DCRBTC.PNG)
 
 Note that DCRBTC price chart was used because it is the author's opinion that it better gauges relative DCR price strength. With this in mind, the chart above shows the following:
 
@@ -149,14 +149,14 @@ Note that DCRBTC price chart was used because it is the author's opinion that it
 
 This final point isn't trivial - reversion to the target block time has historically been a marker for trend change. With this in mind, let's look at the Miner Pulse through a different lens - by turning the line that tracks the surplus / deficit into a bar chart:
 
-[plug dcrbtc chart]
-[plug dcrusd chart]
+![dcrbtc bar chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/MINING_PULSE_BAR_DCRBTC.PNG)
+![dcrusd bar chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/MINING_PULSE_BAR_DCRUSD.PNG)
 
 The initial observation about reversions back to zero Mining Pulse surplus / deficit values are made quite clear in the charts above. As surplus / deficit values have thinned out, and eventually change color - DCRBTC & DCRUSD prices have changed trend historically. This not only makes the Miner Pulse a tool that (1) tracks extremes, but also a tool that (2) tracks trends over time.
 
 The three block reward cycle average has the strongest combination of extremes and trend catching, but the one cycle average Miner Pulse can also be useful for accuracy in catching extremes in mining conditions:
 
-[plug 21 day chart]
+![21 day chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/MINING_PULSE_21.PNG)
 
 ---
 
@@ -164,7 +164,7 @@ The three block reward cycle average has the strongest combination of extremes a
 
 Per the charts in the previous section, Decred miners recently capitulated in a big way - pushing Miner Pulse values to record highs. Decred is a young network, so there's no precedent for understanding miner capitulations and the lingering effects following capitulation. As such, we wil use Bitcoin's block time chart to better understand what comes on the other side of capitulation from a mining perspective, how this likely impacts miners, and how it can reflect itself in price action:
 
-[BTC block times chart]
+![BTC block times chart](https://github.com/permabullnino/nino_on_chain/blob/master/CHART%20IMAGES/BLK_TIMES_IMAGES/BTC_CAPITULATION.PNG)
 
 Bitcoin is a different beast when it comes to mining, as it only adjusts difficulty every 2016 blocks (~2 weeks). This difference in mining design manifests itself in its Mining Pulse chart - with color flips from surplus to deficit (and viceversa) occurring less frequently than with what we see in Decred. Thus, our definition of "capitulation" differs - that being any instance where Mining Pulse prints a positive value. With this in mind - Bitcoin has had three price capitulation bottoms (labeled 1, 2, & 3 in the chart) we can analyze and try to leverage into what may follow after Decred's mining capitulation:
 
