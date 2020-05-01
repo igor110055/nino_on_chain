@@ -15,7 +15,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-04-25"
+date_2 = "2020-04-30"
 block = cm.get_asset_data_for_time_range(asset, "BlkCnt", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 # clean CM data
@@ -34,7 +34,7 @@ avg_blk = blk_time.rolling(window=42).mean()
 blk_time['Price'] = df_1
 blk_time['Avg'] = avg_blk
 print(blk_time)
-#blk_time.to_excel('blk_times.xlsx')
+blk_time.to_excel('btc_blk_times.xlsx')
 #plot blk time versus price
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)

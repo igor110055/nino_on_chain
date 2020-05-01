@@ -36,7 +36,7 @@ When performing on-chain analysis, it can be *incredibly* helpful to focus on pa
 
 [plug chart]
 
-Block times fall right into this camp of repeating patterns, as they're designed to oscillate within a certain range of the *target block time*. A look at the block times chart on Decred's block explorer shows this quite clearly:
+Block times fall right into this camp of repeating patterns, as they're designed to oscillate within a certain range of the *target block time*. A look at the block times chart on Decred's [block explorer](https://alpha.dcrdata.org/) shows this quite clearly:
 
 [plug chart]
 
@@ -136,7 +136,7 @@ Mining Pulse calculates the *three block reward cycle (63 day) average block tim
 - Surplus: Three week average > target block time = slow block times
 - Deficit: Three week average < target block time = fast block times
 
-Furthermore - it's important to note that block time will be herein measured in seconds, not minutes. Thus, any surplus / deficit tells users how many seconds the average is above / below the target block time for the Decred network. Without further delay, here is the first look at the Mining Pulse chart:
+Furthermore - it's important to note that block time will be herein measured in seconds, not minutes. Thus, any surplus / deficit tells users how many seconds the average is above / below the target block time (300 seconds) for the Decred network. Without further delay, here is the first look at the Mining Pulse chart:
 
 [plug dcrbtc chart using lines]
 
@@ -172,6 +172,12 @@ Bitcoin is a different beast when it comes to mining, as it only adjusts difficu
 - Capitulation 2: Block time capitulation, followed by equilibrium mining, then price exits bottoming range
 - Capitulation 3: Block time capitulation, followed by equilibrium mining, then price exits bottoming range
 
-The capitulation trend for Bitcoin is consistent with analysis included earlier on: markets generally don't bottom on miner capitulation, but rather on reaching a state of "equilibrium mining". The conditions that come with equilibrium mining provide minimum price gravity, and on this low gravity price gets the opportunity to recover with the least amount of pushback possible.
+The capitulation trend for Bitcoin is consistent with analysis included earlier on: markets generally don't bottom on miner capitulation, but rather on reaching a state of "equilibrium mining". The conditions that come with equilibrium mining provide minimum price gravity, *and on this low gravity*, price gets the opportunity to recover with the least amount of pushback possible.
 
 ## Conclusion
+
+Block times are a high signal means to track mining extremes and trends over time, and help give users a glance at the current state of mining without having deep subject matter expertise. Each cryptocurrency will have its own unique mining trend / extreme behaviors due to its own mining mechnanics, which needs to be kept in mind for future comparative analysis between Decred and other coins. Furthermore, although (as of this piece) the author finds block times to be the highest signal means for tracking the Decred mining ecosystem, there are nuances specific to hashrate and difficulty that are worhty of further exploration.
+
+Until then - signing out.
+
+[Permabull Nino](https://twitter.com/PermabullNino)

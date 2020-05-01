@@ -15,7 +15,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2013-01-01"
-date_2 = "2020-04-25"
+date_2 = "2020-04-30"
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 # clean CM data
 price_clean = cm_data_converter.cm_data_convert(price)
@@ -28,10 +28,10 @@ Mayer_Mult = df / MA_200
 print(Mayer_Mult)
 ## 0.6 is a good place to buy for Mayer Multiple - calculate 0.6*200MA and add to plot
 hard_buy = 0.6 * MA_200
-
-## Add hard buy to price dataset
+hard_sell = 2 * MA_200
+## Add hard buy / sell to price dataset
 df['Hard Buy'] = hard_buy
-
+df['Hard Sell'] = hard_sell
 #plot price vs mayer
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)

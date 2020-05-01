@@ -18,7 +18,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #Fetch data
 date_1 = "2016-05-17"
-date_2 = "2020-04-24"
+date_2 = "2020-04-30"
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 #clean data
 price_clean = cm_data_converter.cm_data_convert(price)
@@ -48,7 +48,7 @@ MA_ = df_2.rolling(window=180).mean()
 ratio = df_2 / MA_
 
 # Merge DCRBTC & DCRUSD Data to compare, & Print to check values
-ratio['DCRUSD'] = df_precio
+ratio['DCRBTC'] = df_precio
 ratio['Raw Value of % Staked'] = df_2
 print(ratio)
 """ISSUES MERGING THE DATASETS (LINING UP THE START AND END OF DATASET), CLEAN UP"""

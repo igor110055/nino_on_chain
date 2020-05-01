@@ -15,7 +15,7 @@ supported_assets = cm.get_supported_assets()
 print("supported assets:\n", supported_assets)
 
 # List all available metrics for DCR.
-asset = "dash"
+asset = "dcr"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
