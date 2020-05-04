@@ -67,7 +67,7 @@ These will be a series of "mini-pubs" which provide the following:
 - Link to code on Github that fetches data and calculates the metric 
 - A copy of the publication will be present in Github as part of an ongoing library of Decred on-chain tools, which will be helpful for some of Checkmate's work on building an on-chain landing page for Decred
 
-- This type of analysis will provide a better bang-for-buck for the community as it eliminates the extra writing time needed for longer-form pieces
+- This type of analysis will provide a better bang-for-buck for the community as it eliminates the extra time needed for longer-form pieces
 
 **Short-form Analysis:**
 
