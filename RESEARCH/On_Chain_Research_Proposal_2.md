@@ -90,13 +90,13 @@ With this in mind, each tool will come with code that performs the following fun
 
 ## Budget:
 
-Total Requested Budget: $16,000
-Expected Time for Completion: 8-10 months
-Projected Monthly Spend: $1,600 - $2,000
+- Total Requested Budget: $16,000
+- Expected Time for Completion: 8-10 months
+- Projected Monthly Spend: $1,600 - $2,000
 
-**Long-form Analysis:** $1,000 - $2,000 per publication
-**Medium-length Analysis:** $300 - $1,000 per publication
-**Short-form Analysis:** $100 - $300 per publication 
+- **Long-form Analysis:** $1,000 - $2,000 per publication
+- **Medium-length Analysis:** $300 - $1,000 per publication
+- **Short-form Analysis:** $100 - $300 per publication 
 
 **Notes:**
 - No work from coding will be charged towards this budget, but will consume a chunk of my time in the first month or two as I get up to speed
