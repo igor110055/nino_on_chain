@@ -84,7 +84,7 @@ These will be a series of "mini-pubs" which provide the following:
 - Some of my early work on this is [here](https://github.com/permabullnino/nino_on_chain) (note that I'm still a beginner so keep the chuckles to yourselves :))
 
 With this in mind, each tool will come with code that performs the following functions:
-- Calculatates the metric
+- Calculates the metric
 - Prints the values in their programming terminal
 - Prints a basic chart of the tool
 - Sends values to an excel document for those that want to explore the data there
