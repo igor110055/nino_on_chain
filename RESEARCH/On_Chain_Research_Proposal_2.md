@@ -64,6 +64,8 @@ These will be a series of "mini-pubs" which provide the following:
 - Summary of tool / rationale behind the tool
 - Concise analysis of chart(s) within the publication
 - Calculation for tool
+- Link to code on Github that fetches data and calculates the metric 
+- A copy of the publication will be present in Github as part of an ongoing library of Decred on-chain tools, which will be helpful for some of Checkmate's work on building an on-chain landing page for Decred
 
 - This type of analysis will provide a better bang-for-buck for the community as it eliminates the extra writing time needed for longer-form pieces
 
@@ -90,9 +92,9 @@ With this in mind, each tool will come with code that performs the following fun
 
 ## Budget:
 
-- Total Requested Budget: $16,000
-- Expected Time for Completion: 8-10 months
-- Projected Monthly Spend: $1,600 - $2,000
+- **Total Requested Budget:** $16,000
+- **Expected Time for Completion:** 8-10 months
+- **Projected Monthly Spend:** $1,600 - $2,000
 
 - **Long-form Analysis:** $1,000 - $2,000 per publication
 - **Medium-length Analysis:** $300 - $1,000 per publication
