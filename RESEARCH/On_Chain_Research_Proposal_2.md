@@ -50,6 +50,7 @@ The combination of Contracting & Deliverable takeaways have been baked into the 
 - More time analyzing mining data (block rewards, fees, hashrate, difficulty, block times), as phase 1 was very heavy on the ticket data analysis
 
 - As always, tools and analysis will have the end goal of giving the community the best information possible on the current state of the Decred economy
+- As was the case in phase 1, addressable topics will likely expand as the analysis starts fleshing out
 
 **Long-form Analysis:**
 
