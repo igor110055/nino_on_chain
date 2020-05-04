@@ -15,18 +15,18 @@ df = pd.DataFrame(duration_data)
 df_1 = pd.DataFrame(duration_time)
 
 # get average
-df_sum63 = df.rolling(window=63).sum()
-new_sum = df_sum63 - (63*300)
+df_avg63 = df.rolling(window=63).mean()
+new_avg = df_avg63 - (300)
 
 # add time to dataframe and print to check that it worked
-new_sum['Time'] = df_1
-new_sum['Raw'] = df
-print(new_sum)
+new_avg['Time'] = df_1
+new_avg['Raw'] = df
+print(new_avg)
 
 # send to excel 
 #df.to_excel('duration.xlsx', sheet_name='data')
 
 # plot
-plt.plot(new_sum['Time'], new_sum[0])
+plt.plot(new_avg['Time'], new_avg[0])
 plt.title("Duration Between Blocks (Unit = Seconds)")
 plt.show()
