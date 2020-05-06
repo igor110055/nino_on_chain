@@ -9,13 +9,13 @@ import cm_data_converter
 cm = coinmetrics.Community()
 
 # List all available metrics for alts.
-asset = "eth"
+asset = "dgb"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-04-25"
+date_2 = "2020-05-05"
 block = cm.get_asset_data_for_time_range(asset, "BlkCnt", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 # clean CM data
@@ -36,6 +36,7 @@ blk_time['Price'] = df_1
 plt.figure()
 plt.subplot(2, 1, 1)
 plt.plot(blk_time[0])
+plt.yscale('log')
 plt.title("Block Time")
 
 plt.subplot(2, 1, 2)
