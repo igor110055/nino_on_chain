@@ -1,7 +1,5 @@
 import coinmetrics
 import matplotlib.pyplot as plt
-import numpy as np
-from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter
 

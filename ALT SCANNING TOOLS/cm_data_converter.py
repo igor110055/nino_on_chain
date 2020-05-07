@@ -1,7 +1,22 @@
 import coinmetrics
 import matplotlib.pyplot as plt
 import pandas as pd
+from dateutil import parser
+from datetime import datetime
 
+def cm_date_format(cm_dataset):
+
+    data_series = cm_dataset['series']
+    data_list = []
+    data_list_list = []
+    for data in data_series:
+        data_list.append(data['time'])
+
+    for data_data in data_list:
+        data_list_list.append(data_data[0])
+
+    for item in data_list_list:
+        parser.parse(item)
 
 # CM Data comes in in a list-list format. This pops values out, and just puts them into a standard list
 
@@ -80,11 +95,11 @@ def chop_index(coin, date1, date2):
     tx_clean = cm_data_convert(tx)
     price_clean = cm_data_convert(price)
     # convert to pandas
-    df = pd.DataFrame(tx_clean)
-    df_1 = pd.DataFrame(price_clean)
+    df_2 = pd.DataFrame(tx_clean)
+    df_3 = pd.DataFrame(price_clean)
     # CALC AVGS AND RATIO
-    avg28 = df.rolling(window=28).sum()
-    avg56 = df.rolling(window=56).sum()
+    avg28 = df_2.rolling(window=28).sum()
+    avg56 = df_2.rolling(window=56).sum()
     ratio = avg28 / avg56
     # plot
     plt.figure()
@@ -93,7 +108,7 @@ def chop_index(coin, date1, date2):
     plt.title("TX FLOWS RATIO")
 
     plt.subplot(2, 1, 2, sharex=ax1)
-    plt.plot(df_1)
+    plt.plot(df_3)
     plt.title("ALTBTC PRICE")
     plt.yscale('log')
     plt.show()
@@ -102,7 +117,7 @@ def roi_data(coin, date1, date2):
     # Initialize a reference object, in this case `cm` for the Community API
     cm = coinmetrics.Community()
 
-    # List all available metrics for DCR.
+    # List all available metrics.
     asset = coin
 
     available_data_types = cm.get_available_data_types_for_asset(asset)
@@ -116,14 +131,17 @@ def roi_data(coin, date1, date2):
     roi_clean = cm_data_convert(roi)
     mcap_clean = cm_data_convert(mcap)
 
-    print(roi_clean)
+    df_4 = pd.DataFrame(roi_clean)
+    df_5 = pd.DataFrame(mcap_clean)
+
+    print(df_4)
     plt.figure()
     ax1 = plt.subplot(2, 1, 1)
-    plt.plot(roi_clean)
+    plt.plot(df_4)
     plt.title("30 Day ROI")
 
     plt.subplot(2, 1, 2, sharex=ax1)
-    plt.plot(mcap_clean)
+    plt.plot(df_5)
     plt.title("Market Cap")
     plt.yscale('log')
     plt.show()

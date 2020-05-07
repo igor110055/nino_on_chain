@@ -18,7 +18,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #Fetch data
 date_1 = "2016-05-17"
-date_2 = "2020-04-30"
+date_2 = "2020-05-06"
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 #clean data
 price_clean = cm_data_converter.cm_data_convert(price)
@@ -62,7 +62,7 @@ plt.plot(ratio[0])
 plt.title("Ticket Pool Ratio")
 
 plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(ratio['DCRUSD'])
-plt.title("DCRUSD")
+plt.plot(ratio['DCRBTC'])
+plt.title("DCRBTC")
 plt.yscale('log')
 plt.show()

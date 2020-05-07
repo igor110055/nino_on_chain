@@ -8,7 +8,7 @@ import cm_data_converter
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
-# List all available metrics for DCR.
+# List all available metrics.
 asset = "btc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
@@ -44,7 +44,15 @@ df_1['seiscuatro'] = sixfour_prem
 print(df_1)
 # plot the data
 
-plt.plot(df_1)
+plt.plot(df_1[0], label='Market Cap')
+plt.plot(df_1['Cumulative Block Rewards'], label='Block Rewards Sum')
+plt.plot(df_1['Dos'], label='2x')
+plt.plot(df_1['Cuatro'], label='4x')
+plt.plot(df_1['Ocho'], label='8x')
+plt.plot(df_1['Dieciseis'], label='16x')
+plt.plot(df_1['treintados'], label='32x')
+plt.plot(df_1['seiscuatro'], label='64x')
+plt.legend()
 plt.title("Market Cap versus Monetary Premiums")
 plt.yscale('log')
 plt.show()
