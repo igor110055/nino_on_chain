@@ -48,6 +48,8 @@ The combination of Contracting & Deliverable takeaways have been baked into the 
 - Cross-stakeholder analysis, which will helps users understand how different forces within the Decred ecosystem impact each other / move together
 - Possibly building an economic index which shows the health of the Decred economy with a single score (have early ideas on this, need to explore further to check feasibility)
 - More time analyzing mining data (block rewards, fees, hashrate, difficulty, block times), as phase 1 was very heavy on the ticket data analysis
+- Exploration of storage metrics (blockchain size, as an example)
+- Decred's first on-chain capitulation: a historical recap
 
 - As always, tools and analysis will have the end goal of giving the community the best information possible on the current state of the Decred economy
 - As was the case in phase 1, addressable topics will likely expand as the analysis starts fleshing out
