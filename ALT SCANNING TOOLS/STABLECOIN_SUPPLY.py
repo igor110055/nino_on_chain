@@ -80,7 +80,7 @@ stable = pd.concat([df, df1, df2, df3, df4, df5, df6, df7], axis=1, sort=False)
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(df5)
-plt.title("Contractor Multiple")
+plt.title("Stablecoin Market Cap")
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df)

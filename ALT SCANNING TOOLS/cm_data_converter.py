@@ -6,17 +6,21 @@ from datetime import datetime
 
 def cm_date_format(cm_dataset):
 
-    data_series = cm_dataset['series']
-    data_list = []
-    data_list_list = []
-    for data in data_series:
-        data_list.append(data['time'])
+    sup_series = cm_dataset['series']
+    sup_list = []
+    sup_sup_list = []
+    
+    for thing in sup_series:
+        sup_list.append(thing['time'])
 
-    for data_data in data_list:
-        data_list_list.append(data_data[0])
+    for item in sup_list:
+        #new_item = parser.parse(item)
+        new_item = pd.to_datetime(item)
+        sup_sup_list.append(new_item)
 
-    for item in data_list_list:
-        parser.parse(item)
+    df = pd.DataFrame(sup_sup_list)
+
+    return df
 
 # CM Data comes in in a list-list format. This pops values out, and just puts them into a standard list
 
@@ -31,9 +35,11 @@ def cm_data_convert(cm_dataset):
     for data_data in data_list:
         data_list_list.append(data_data[0])
 
-
     float_data = list(map(float, data_list_list))
-    return float_data
+    
+    df_1 = pd.DataFrame(float_data)
+    
+    return df_1
 
 # This calculates Market Cap / Blockchain Size for any coin you decide
 

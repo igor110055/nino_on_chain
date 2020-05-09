@@ -12,7 +12,7 @@ cm = coinmetrics.Community()
 # Get DCR MVRV Data
 asset = "dcr"
 Date_1 = "2016-08-14"
-Date_2 = "2020-04-17"
+Date_2 = "2020-05-06"
 MVRV_Raw_Data = cm.get_asset_data_for_time_range(asset, "CapMVRVCur", Date_1, Date_2)
 #print(MVRV_Raw_Data)
 #print(MVRV_Raw_Data['series'])

@@ -1,4 +1,33 @@
-import cm_data_converter as cmdc 
+import coinmetrics
+import matplotlib.pyplot as plt
+import numpy as np
+from datetime import datetime as dt
+import pandas as pd
+import cm_data_converter as cmdc
 
-cmdc.roi_data("btc", "2011-01-01", "2020-05-06")
+
+# Initialize a reference object, in this case `cm` for the Community API
+cm = coinmetrics.Community()
+
+# List all available metrics for DCR.
+asset = "dcr"
+
+available_data_types = cm.get_available_data_types_for_asset(asset)
+print("available data types:\n", available_data_types)
+#Fetch data
+date_1 = "2016-08-14"
+date_2 = "2020-05-07"
+price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
+
+new_price_value = cmdc.cm_data_convert(price)
+new_price_date = cmdc.cm_date_format(price)
+
+new_price_value['date'] = new_price_date
+
+print(new_price_value)
+
+#new_price_value.to_excel('price data.xlsx')
+
+plt.plot(new_price_value['date'], new_price_value[0])
+plt.show()
 
