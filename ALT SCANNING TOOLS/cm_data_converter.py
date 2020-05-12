@@ -2,7 +2,7 @@ import coinmetrics
 import matplotlib.pyplot as plt
 import pandas as pd
 from dateutil import parser
-from datetime import datetime
+import datetime as dt
 
 def cm_date_format(cm_dataset):
 
@@ -15,7 +15,7 @@ def cm_date_format(cm_dataset):
 
     for item in sup_list:
         #new_item = parser.parse(item)
-        new_item = pd.to_datetime(item)
+        new_item = pd.Timestamp(item, tz=None).to_datetime()
         sup_sup_list.append(new_item)
 
     df = pd.DataFrame(sup_sup_list)

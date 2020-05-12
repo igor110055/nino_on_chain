@@ -16,7 +16,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #Fetch data
 date_1 = "2016-08-14"
-date_2 = "2020-04-22"
+date_2 = "2020-05-09"
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 #clean data
 price_clean = cm_data_converter.cm_data_convert(price)

@@ -14,8 +14,8 @@ asset = "dcr"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
-date_1 = "2016-05-17"
-date_2 = "2020-05-08"
+date_1 = "2016-09-01"
+date_2 = "2020-05-10"
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 mkt = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
 # clean CM data

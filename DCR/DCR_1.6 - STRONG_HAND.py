@@ -11,14 +11,20 @@ ticketPrice = dcrdata.chart("ticket-price")
 tix_vol = ticketPrice['count']
 tix_price = []
 
+# ADJUST TICKET VALUES FROM ATOMS TO DCR
+
 for precio in ticketPrice['price']:
     adj_precio = precio / 100000000
     tix_price.append(adj_precio)
 
+# TURN TO PANDAS & MERGE DATA
+
 tix = pd.DataFrame(tix_vol)
 price = pd.DataFrame(tix_price)
-dcr_tix = tix * price
 tix['ticket prices'] = price
+
+# CALC DCR IN TIX VOLUME
+dcr_tix = tix * price
 #tix.to_excel('ticket_data.xlsx')
 #print(dcr_tix)
 

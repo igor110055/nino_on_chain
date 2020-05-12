@@ -12,7 +12,7 @@ asset2 = "btc"
 
 #fetch desired data
 date_1 = "2016-06-01"
-date_2 = "2020-05-07"
+date_2 = "2020-05-10"
 
 bchain = cm.get_asset_data_for_time_range(asset, "BlkSizeByte", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
@@ -52,7 +52,7 @@ comp_price = df_4 / df_5
 
 print(altbtc_ratio)
 # send to excel
-#ratio.to_excel('value_stored.xlsx')
+#altbtc_ratio.to_excel('valstored.xlsx')
 # plot ratio and market cap
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)

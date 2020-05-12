@@ -7,13 +7,13 @@ import cm_data_converter
 cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
-asset = "waves"
+asset = "dcr"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
-date_1 = "2011-01-01"
-date_2 = "2020-04-25"
+date_1 = "2016-11-01"
+date_2 = "2020-05-09"
 tx = cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 # clean CM data
@@ -29,7 +29,7 @@ ratio = avg28 / avg56
 # plot
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(ratio)
+plt.plot(avg28)
 plt.title("TX FLOWS RATIO")
 
 plt.subplot(2, 1, 2, sharex=ax1)

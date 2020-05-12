@@ -32,11 +32,11 @@ chop_ratio_1 = chop_28 / chop_142
 
 # Plot the data
 plt.figure()
-plt.subplot(2, 1, 1)
+plt.subplot(1, 1, 1)
 plt.plot(chop_ratio)
 plt.title("28/56")
 
-plt.subplot(2, 1, 2)
-plt.plot(chop_ratio_1)
-plt.title("28/142")
+#plt.subplot(2, 1, 2)
+#plt.plot(chop_ratio_1)
+#plt.title("28/142")
 plt.show()

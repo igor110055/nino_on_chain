@@ -14,7 +14,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset2 = "btc"
 date_1 = "2016-08-14"
-date_2 = "2020-05-07"
+date_2 = "2020-05-10"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 coin1_price = cm.get_asset_data_for_time_range(asset2, "PriceUSD", date_1, date_2)
@@ -63,11 +63,11 @@ df = pd.concat([priceclean, priceclean1, rel_real, rel_nvt_price, rel_mvrv_price
 
 # PLOT VALUES
 
-plt.plot(coin_coin1, label='LTCBTC Market Traded Price')
-plt.plot(rel_real, label='LTC Realized Price / BTC Realized Price')
-plt.plot(rel_mvrv_price, label='Relative MVRV Price')
-plt.plot(mid_point, label='Mid-Point')
-plt.ylabel("LTCBTC PRICES")
+plt.plot(coin_coin1, label='DCRBTC Market Traded Price')
+plt.plot(rel_real, label='DCR Realized Price / BTC Realized Price', linestyle=':')
+plt.plot(rel_mvrv_price, label='Relative MVRV Price', linestyle=':')
+plt.plot(mid_point, label='Mid-Point', linestyle=':')
+plt.ylabel("DCRBTC PRICES")
 plt.yscale('log')
 plt.legend()
 plt.title("Relative Value Prices")

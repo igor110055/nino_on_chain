@@ -27,7 +27,7 @@ mcap_clean = cm_data_converter.cm_data_convert(mcap)
 print(roi_clean)
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(roi_clean)
+plt.plot(roi_clean, linestyle=':')
 plt.title("30 Day ROI")
 
 plt.subplot(2, 1, 2, sharex=ax1)
