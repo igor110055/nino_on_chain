@@ -13,7 +13,6 @@ duration_time = duration['t']
 # convert to pandas
 df = pd.DataFrame(duration_data)
 
-
 # convert unix to date format and pandas df 
 df_1 = pd.to_datetime(duration_time, unit='s')
 df_1 = pd.DataFrame(df_1)

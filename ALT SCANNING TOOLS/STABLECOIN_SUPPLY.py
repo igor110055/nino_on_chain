@@ -56,28 +56,32 @@ usdt_clean = cmdc.cm_data_convert(usdt)
 usdteth_clean = cmdc.cm_data_convert(usdt_eth)
 usdttrx_clean = cmdc.cm_data_convert(usdt_trx)
 
-#btc_dates = cmdc.cm_date_format(btc)
-#print(btc_dates)
+# clean dates
 
-# turn into single dataframe
+btc_dates = cmdc.cm_date_format(btc)
+busd_dates = cmdc.cm_date_format(busd)
+husd_dates = cmdc.cm_date_format(husd)
+tusd_dates = cmdc.cm_date_format(tusd)
+usdc_dates = cmdc.cm_date_format(usdc)
+usdt_dates = cmdc.cm_date_format(usdt)
+usdteth_dates = cmdc.cm_date_format(usdt_eth)
+usdttrx_dates = cmdc.cm_date_format(usdt_trx)
 
-df = pd.DataFrame(btc_clean)
-df1 = pd.DataFrame(busd_clean)
-df2 = pd.DataFrame(husd_clean)
-df3 = pd.DataFrame(tusd_clean)
-df4 = pd.DataFrame(usdc_clean)
-df5 = pd.DataFrame(usdt_clean)
-df6 = pd.DataFrame(usdteth_clean)
-df7 = pd.DataFrame(usdttrx_clean)
+# merge market caps and dates
 
-stable = pd.concat([df, df1, df2, df3, df4, df5, df6, df7], axis=1, sort=False)
+btc_dates[''] = btc_clean
+busd_dates[''] = busd_clean
+husd_dates[''] = husd_clean
+tusd_dates[''] = tusd_clean
+usdc_dates[''] = usdc_clean
+usdt_dates[''] = usdt_clean
+usdteth_dates[''] = usdteth_clean
+usdttrx_dates[''] = usdttrx_clean
 
-#print(stable)
-
-#stable.to_excel('stablecoins.xlsx')
-
+btc_dates.columns = ['date', 'marketcap']
+print(btc_dates)
 #plot
-plt.figure()
+""" plt.figure()
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(df5)
 plt.title("Stablecoin Market Cap")
@@ -86,4 +90,4 @@ plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df)
 plt.title("DCRUSD")
 plt.yscale('log')
-plt.show()
+plt.show() """

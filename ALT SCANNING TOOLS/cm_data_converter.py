@@ -15,7 +15,7 @@ def cm_date_format(cm_dataset):
 
     for item in sup_list:
         #new_item = parser.parse(item)
-        new_item = pd.Timestamp(item, tz=None).to_datetime()
+        new_item = pd.to_datetime(item)
         sup_sup_list.append(new_item)
 
     df = pd.DataFrame(sup_sup_list)

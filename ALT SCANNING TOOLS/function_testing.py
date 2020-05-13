@@ -19,16 +19,13 @@ date_1 = "2016-01-01"
 date_2 = "2020-05-09"
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 
-df = pd.DataFrame(price)
-print(df)
-
-""" new_price_value = cmdc.cm_data_convert(price)
+new_price_value = cmdc.cm_data_convert(price)
 new_price_date = cmdc.cm_date_format(price)
 
 new_price_value['date'] = new_price_date
 
 print(new_price_value['date'])
- """
+
 #new_price_value.to_excel('price data.xlsx')
 
 #plt.plot(new_price_value['date'], new_price_value[0])

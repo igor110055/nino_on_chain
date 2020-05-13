@@ -1,3 +1,5 @@
+import pandas as pd
+
 def cm_date_format(cm_dataset):
 
     sup_series = cm_dataset['series']
@@ -27,7 +29,9 @@ def cm_data_convert(cm_dataset):
     for data_data in data_list:
         data_list_list.append(data_data[0])
 
-
     float_data = list(map(float, data_list_list))
-    return float_data
+    
+    df_1 = pd.DataFrame(float_data)
+    
+    return df_1
 
