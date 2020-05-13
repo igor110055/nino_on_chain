@@ -1,5 +1,3 @@
-# THIS CODE WILL HELP KICK OFF WORK ON A NEW MODULE, JUST COPY + PASTE
-
 # Import the API
 import coinmetrics
 import matplotlib.pyplot as plt
@@ -12,14 +10,14 @@ import cm_data_converter as cmdc
 cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
-asset = "usdt"
-available_data_types = cm.get_available_data_types_for_asset(asset)
-print("available data types:\n", available_data_types)
+""" asset = "usdt" """
+""" available_data_types = cm.get_available_data_types_for_asset(asset)
+print("available data types:\n", available_data_types) """
 
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-05-05"
+date_2 = "2020-05-12"
 
 asset = "btc"
 asset1 = "busd"
@@ -78,16 +76,35 @@ usdt_dates[''] = usdt_clean
 usdteth_dates[''] = usdteth_clean
 usdttrx_dates[''] = usdttrx_clean
 
-btc_dates.columns = ['date', 'marketcap']
-print(btc_dates)
+btc_dates.columns = ['date', 'btcmarketcap']
+busd_dates.columns = ['date', 'busdmarketcap']
+husd_dates.columns = ['date', 'husdmarketcap']
+tusd_dates.columns = ['date', 'tusdmarketcap']
+usdc_dates.columns = ['date', 'usdcmarketcap']
+usdt_dates.columns = ['date', 'usdtmarketcap']
+usdteth_dates.columns = ['date', 'usdtethmarketcap']
+usdttrx_dates.columns = ['date', 'usdttrxmarketcap']
+
+df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left')
+
+df['Reserve Cap'] = df.sum(axis=1)
+df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Cap']
+df['30 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=90).mean()
+
+""" df = pd.join(btc_dates, usdt_dates, on='date', how='left') """ 
+print(df)
+
 #plot
-""" plt.figure()
+plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(df5)
-plt.title("Stablecoin Market Cap")
+plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
+plt.plot(df['date'], df['30 Day Avg Ratio'], label='90 Day RAR Avg')
+plt.yscale('log')
+plt.legend()
+plt.title("Reserve Asset Ratio")
 
 plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df)
-plt.title("DCRUSD")
+plt.plot(df['date'], df['btcmarketcap'])
+plt.title("BTC Market Cap")
 plt.yscale('log')
-plt.show() """
+plt.show() 
