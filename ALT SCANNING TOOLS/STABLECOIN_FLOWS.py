@@ -31,17 +31,19 @@ asset7 = "usdt_trx"
 #fetch desired data
 
 btc = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
-busd = cm.get_asset_data_for_time_range(asset1, "CapMrktCurUSD", date_1, date_2)
-husd = cm.get_asset_data_for_time_range(asset2, "CapMrktCurUSD", date_1, date_2)
-tusd = cm.get_asset_data_for_time_range(asset3, "CapMrktCurUSD", date_1, date_2)
-usdc = cm.get_asset_data_for_time_range(asset4, "CapMrktCurUSD", date_1, date_2)
-usdt = cm.get_asset_data_for_time_range(asset5, "CapMrktCurUSD", date_1, date_2)
-usdt_eth = cm.get_asset_data_for_time_range(asset6, "CapMrktCurUSD", date_1, date_2)
-usdt_trx = cm.get_asset_data_for_time_range(asset7, "CapMrktCurUSD", date_1, date_2)
+btcflow = cm.get_asset_data_for_time_range(asset, "TxTfrValAdjUSD", date_1, date_2)
+busd = cm.get_asset_data_for_time_range(asset1, "TxTfrValAdjUSD", date_1, date_2)
+husd = cm.get_asset_data_for_time_range(asset2, "TxTfrValAdjUSD", date_1, date_2)
+tusd = cm.get_asset_data_for_time_range(asset3, "TxTfrValAdjUSD", date_1, date_2)
+usdc = cm.get_asset_data_for_time_range(asset4, "TxTfrValAdjUSD", date_1, date_2)
+usdt = cm.get_asset_data_for_time_range(asset5, "TxTfrValAdjUSD", date_1, date_2)
+usdt_eth = cm.get_asset_data_for_time_range(asset6, "TxTfrValAdjUSD", date_1, date_2)
+usdt_trx = cm.get_asset_data_for_time_range(asset7, "TxTfrValAdjUSD", date_1, date_2)
 
 # clean CM data for each stablecoin
 
 btc_clean = cmdc.cm_data_convert(btc)
+btcflow_clean = cmdc.cm_data_convert(btcflow)
 busd_clean = cmdc.cm_data_convert(busd)
 husd_clean = cmdc.cm_data_convert(husd)
 tusd_clean = cmdc.cm_data_convert(tusd)
@@ -64,6 +66,7 @@ usdttrx_dates = cmdc.cm_date_format(usdt_trx)
 # merge market caps and dates
 
 btc_dates[''] = btc_clean
+btc_dates['1'] = btcflow_clean
 busd_dates[''] = busd_clean
 husd_dates[''] = husd_clean
 tusd_dates[''] = tusd_clean
@@ -72,34 +75,39 @@ usdt_dates[''] = usdt_clean
 usdteth_dates[''] = usdteth_clean
 usdttrx_dates[''] = usdttrx_clean
 
-btc_dates.columns = ['date', 'btcmarketcap']
-busd_dates.columns = ['date', 'busdmarketcap']
-husd_dates.columns = ['date', 'husdmarketcap']
-tusd_dates.columns = ['date', 'tusdmarketcap']
-usdc_dates.columns = ['date', 'usdcmarketcap']
-usdt_dates.columns = ['date', 'usdtmarketcap']
-usdteth_dates.columns = ['date', 'usdtethmarketcap']
-usdttrx_dates.columns = ['date', 'usdttrxmarketcap']
+btc_dates.columns = ['date', 'btcmarketcap', 'btcflow']
+busd_dates.columns = ['date', 'busdflow']
+husd_dates.columns = ['date', 'husdflow']
+tusd_dates.columns = ['date', 'tusdflow']
+usdc_dates.columns = ['date', 'usdcflow']
+usdt_dates.columns = ['date', 'usdtflow']
+usdteth_dates.columns = ['date', 'usdtethflow']
+usdttrx_dates.columns = ['date', 'usdttrxflow']
 
 df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left')
 
-df['Reserve Cap'] = df.sum(axis=1)
-df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Cap']
-df['30 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=90).mean()
+df['Reserve Flow'] = df.iloc[:, 2:].sum(axis=1)
+df['Reserve Signal'] = df['btcmarketcap'] / df['Reserve Flow'].rolling(window=90).mean()
+df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Flow']
+df['14 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=14).mean()
 
 print(df)
 
 #plot
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
-plt.plot(df['date'], df['30 Day Avg Ratio'], label='90 Day RAR Avg')
+""" plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
+plt.plot(df['date'], df['14 Day Avg Ratio'], label='14 Day RAR Avg') """
+plt.plot(df['date'], df['Reserve Signal'], label='Reserve Signal', color='r')
+plt.axhspan(37, 70, color='g', alpha=0.5)
 plt.yscale('log')
+plt.grid()
 plt.legend()
-plt.title("Reserve Asset Ratio")
+plt.title("Bitcoin Market Cap / Reserve Asset Flows")
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df['date'], df['btcmarketcap'])
 plt.title("BTC Market Cap")
 plt.yscale('log')
+plt.grid()
 plt.show() 
