@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-05-12"
+date_2 = "2020-05-13"
 
 asset = "btc"
 asset1 = "busd"
@@ -99,7 +99,7 @@ ax1 = plt.subplot(2, 1, 1)
 """ plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
 plt.plot(df['date'], df['14 Day Avg Ratio'], label='14 Day RAR Avg') """
 plt.plot(df['date'], df['Reserve Signal'], label='Reserve Signal', color='r')
-plt.axhspan(37, 70, color='g', alpha=0.5)
+plt.axhspan(37, 70, color='g', alpha=0.25)
 plt.yscale('log')
 plt.grid()
 plt.legend()
