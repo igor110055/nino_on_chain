@@ -7,11 +7,11 @@ import cm_data_converter
 cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
-asset = "dcr"
+asset = "zec"
 asset2 = "btc"
 
 #fetch desired data
-date_1 = "2016-06-01"
+date_1 = "2017-01-01"
 date_2 = "2020-05-10"
 
 bchain = cm.get_asset_data_for_time_range(asset, "BlkSizeByte", date_1, date_2)
@@ -58,6 +58,7 @@ plt.figure()
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(altbtc_ratio)
 plt.yscale('log')
+plt.axhline(1)
 plt.title("VALUE STORED / BYTE RATIO")
 
 plt.subplot(2, 1, 2, sharex=ax1)

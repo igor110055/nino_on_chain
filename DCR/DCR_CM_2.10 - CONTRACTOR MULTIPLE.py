@@ -16,7 +16,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #Fetch data
 date_1 = "2016-08-14"
-date_2 = "2020-05-09"
+date_2 = "2020-05-13"
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 #clean data
 price_clean = cm_data_converter.cm_data_convert(price)
@@ -41,10 +41,13 @@ df['Hard Buy'] = hard_buy
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(ratio)
+plt.axhspan(0.7, 1.35, color='g', alpha=0.25)
+plt.grid()
 plt.title("Contractor Multiple")
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df)
 plt.title("DCRUSD")
 plt.yscale('log')
+plt.grid()
 plt.show()

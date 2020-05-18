@@ -33,7 +33,7 @@ print(new_avg)
 
 # plot
 plt.plot(new_avg['Time'], new_avg[0])
-plt.axhspan(2, -2, color='g', alpha=0.5)
+plt.axhspan(2, -2, color='g', alpha=0.25)
 plt.axhline(0, linestyle=':', color='r')
 #plt.plot(new_avg1)
 plt.title("Duration Between Blocks (Unit = Seconds)")

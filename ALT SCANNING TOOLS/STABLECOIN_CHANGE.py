@@ -83,23 +83,34 @@ usdttrx_dates.columns = ['date', 'usdttrxmarketcap']
 
 df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left')
 
-df['Reserve Cap'] = df.sum(axis=1)
-df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Cap']
-df['30 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=90).mean()
+df['Stable Cap'] = df.iloc[:, 2:9].sum(axis=1)
+df['Stable Change'] = df['Stable Cap'].pct_change(periods=30)
+df['BTC Change'] = df['btcmarketcap'].pct_change(periods=30)
+df['Change Ratio'] = df['BTC Change'] / df['Stable Change']
+df['Change Diff'] = df['Stable Change'] - df['BTC Change']
+df['Adj Cap'] = (df['btcmarketcap'].rolling(window=30).mean()) * (1 + df['Stable Change'])
 
 print(df)
 
 #plot
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
-plt.plot(df['date'], df['30 Day Avg Ratio'], label='90 Day RAR Avg')
-plt.yscale('log')
+plt.plot(df['date'], df['Change Diff'], label='Change Diff')
+plt.plot(df['date'], df['Stable Change'], label='Stable Change')
+""" plt.plot(df['date'], df['BTC Change'], label='BTC Change', color='r') """
+
+plt.fill_between(df['date'], df['Change Diff'])
+plt.ylim(-1, 3)
 plt.legend()
-plt.title("Reserve Asset Ratio")
+plt.grid()
+plt.axhspan(-0.5, 0.5, color='g', alpha=0.25)
+plt.title("Stable Change")
 
 plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df['date'], df['btcmarketcap'])
+plt.plot(df['date'], df['btcmarketcap'], label='BTC Market Cap')
+plt.plot(df['date'], df['Adj Cap'], label='Adjusted Cap')
 plt.title("BTC Market Cap")
+plt.legend()
 plt.yscale('log')
+plt.grid()
 plt.show() 

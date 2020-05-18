@@ -15,7 +15,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2016-09-01"
-date_2 = "2020-05-10"
+date_2 = "2020-05-15"
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 mkt = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
 # clean CM data
@@ -59,6 +59,7 @@ plt.title("Difficulty Ribbons")
 
 plt.subplot(3, 1, 2, sharex=ax1)
 plt.plot(ratio)
+plt.axhline(1)
 plt.title("Ribbon 9 / Ribbon 90 Ratio")
 plt.yscale('log')
 
