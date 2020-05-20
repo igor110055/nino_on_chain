@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-05-14"
+date_2 = "2020-05-17"
 
 asset = "btc"
 asset1 = "busd"
@@ -27,6 +27,7 @@ asset4 = "usdc"
 asset5 = "usdt"
 asset6 = "usdt_eth"
 asset7 = "usdt_trx"
+asset8 = "pax"
 
 #fetch desired data
 
@@ -38,6 +39,7 @@ usdc = cm.get_asset_data_for_time_range(asset4, "CapMrktCurUSD", date_1, date_2)
 usdt = cm.get_asset_data_for_time_range(asset5, "CapMrktCurUSD", date_1, date_2)
 usdt_eth = cm.get_asset_data_for_time_range(asset6, "CapMrktCurUSD", date_1, date_2)
 usdt_trx = cm.get_asset_data_for_time_range(asset7, "CapMrktCurUSD", date_1, date_2)
+pax = cm.get_asset_data_for_time_range(asset8, "CapMrktCurUSD", date_1, date_2)
 
 # clean CM data for each stablecoin
 
@@ -49,6 +51,7 @@ usdc_clean = cmdc.cm_data_convert(usdc)
 usdt_clean = cmdc.cm_data_convert(usdt)
 usdteth_clean = cmdc.cm_data_convert(usdt_eth)
 usdttrx_clean = cmdc.cm_data_convert(usdt_trx)
+pax_clean = cmdc.cm_data_convert(pax)
 
 # clean dates
 
@@ -60,6 +63,7 @@ usdc_dates = cmdc.cm_date_format(usdc)
 usdt_dates = cmdc.cm_date_format(usdt)
 usdteth_dates = cmdc.cm_date_format(usdt_eth)
 usdttrx_dates = cmdc.cm_date_format(usdt_trx)
+pax_dates = cmdc.cm_date_format(pax)
 
 # merge market caps and dates
 
@@ -71,6 +75,7 @@ usdc_dates[''] = usdc_clean
 usdt_dates[''] = usdt_clean
 usdteth_dates[''] = usdteth_clean
 usdttrx_dates[''] = usdttrx_clean
+pax_dates[''] = pax_clean
 
 btc_dates.columns = ['date', 'btcmarketcap']
 busd_dates.columns = ['date', 'busdmarketcap']
@@ -80,8 +85,9 @@ usdc_dates.columns = ['date', 'usdcmarketcap']
 usdt_dates.columns = ['date', 'usdtmarketcap']
 usdteth_dates.columns = ['date', 'usdtethmarketcap']
 usdttrx_dates.columns = ['date', 'usdttrxmarketcap']
+pax_dates.columns = ['date', 'paxmarketcap']
 
-df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left')
+df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left').merge(pax_dates, on='date', how='left')
 
 df['Stable Cap'] = df.iloc[:, 2:9].sum(axis=1)
 df['Stable Change'] = df['Stable Cap'].pct_change(periods=30)
@@ -89,6 +95,7 @@ df['BTC Change'] = df['btcmarketcap'].pct_change(periods=30)
 df['Change Ratio'] = df['BTC Change'] / df['Stable Change']
 df['Change Diff'] = df['Stable Change'] - df['BTC Change']
 df['Adj Cap'] = (df['btcmarketcap'].rolling(window=30).mean()) * (1 + df['Stable Change'])
+df['date'] = pd.to_datetime(df['date'], utc=True).dt.strftime('%Y-%m-%d')
 
 print(df)
 

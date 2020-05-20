@@ -57,27 +57,22 @@ comb_df = df.merge(cm_df1, on='date', how='left')
 # Add columns needed for Strong Hand Calc
 
 comb_df['tixvolusd'] = comb_df['dcrtixvol'] * comb_df['DCRUSD']
-comb_df['rollingusdsum'] = comb_df['tixvolusd'].rolling(window=2).sum()
-comb_df['max28days'] = comb_df['rollingusdsum'].rolling(window=56).max()
-comb_df['max142days'] = comb_df['rollingusdsum'].rolling(window=284).max()
-comb_df['28strongcap'] = comb_df['max28days'] * 28
-comb_df['142strongcap'] = comb_df['max142days'] * 28
-comb_df['28ratio'] = comb_df['Market Cap USD'] / comb_df['28strongcap']
-comb_df['142ratio'] = comb_df['Market Cap USD'] / comb_df['142strongcap'] 
-comb_df.to_excel('stronghand.xlsx')
+comb_df['142 SUM'] = comb_df['tixvolusd'].rolling(284, min_periods=1).sum()
+comb_df['142 BOTTOM'] = comb_df['142 SUM'] *0.25
+comb_df['Lifetime USD in Tickets'] = comb_df['tixvolusd'].cumsum()
 
 print(comb_df)
 
-#plot
-plt.figure()
-ax1 = plt.subplot(2, 1, 1)
-plt.plot(comb_df['142ratio'], color='r')
-plt.axhspan(1.45, 0.6, color='g', alpha=0.25)
-plt.title("28 ratio")
+comb_df.to_excel('142 tix vol.xlsx')
 
-plt.subplot(2, 1, 2, sharex=ax1)
+# PLOT
+
 plt.plot(comb_df['Market Cap USD'])
-plt.title("Market Cap USD")
+plt.plot(comb_df['142 SUM'], label='142 SUM')
+plt.plot(comb_df['142 BOTTOM'], label='142 BOTTOM')
+plt.plot(comb_df['Lifetime USD in Tickets'], label='LIFETIME USD IN TIX')
+plt.legend()
+plt.grid()
 plt.yscale('log')
-
+plt.title("Market Cap versus 142 Day Tix Vol Sum")
 plt.show()

@@ -16,8 +16,8 @@ print("available data types:\n", available_data_types) """
 
 # List assets & dates
 
-date_1 = "2011-01-01"
-date_2 = "2020-05-14"
+date_1 = "2017-01-01"
+date_2 = "2020-05-18"
 
 asset = "btc"
 asset1 = "busd"
@@ -86,6 +86,7 @@ df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='da
 df['Reserve Cap'] = df.sum(axis=1)
 df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Cap']
 df['30 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=90).mean()
+df['BTC Reserve Value'] = df['btcmarketcap'] / df['Reserve Ratio']
 
 print(df)
 
@@ -96,10 +97,13 @@ plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
 plt.plot(df['date'], df['30 Day Avg Ratio'], label='90 Day RAR Avg')
 plt.yscale('log')
 plt.legend()
+plt.grid()
 plt.title("Reserve Asset Ratio")
 
 plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df['date'], df['btcmarketcap'])
+plt.plot(df['date'], df['btcmarketcap'], label='Bitcoin Market Cap')
 plt.title("BTC Market Cap")
 plt.yscale('log')
+plt.legend()
+plt.grid()
 plt.show() 

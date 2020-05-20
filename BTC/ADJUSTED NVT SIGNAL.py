@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-05-13"
+date_2 = "2020-05-17"
 
 asset = "btc"
 asset1 = "busd"
@@ -27,6 +27,7 @@ asset4 = "usdc"
 asset5 = "usdt"
 asset6 = "usdt_eth"
 asset7 = "usdt_trx"
+asset8 = "pax"
 
 #fetch desired data
 
@@ -39,6 +40,7 @@ usdc = cm.get_asset_data_for_time_range(asset4, "TxTfrValAdjUSD", date_1, date_2
 usdt = cm.get_asset_data_for_time_range(asset5, "TxTfrValAdjUSD", date_1, date_2)
 usdt_eth = cm.get_asset_data_for_time_range(asset6, "TxTfrValAdjUSD", date_1, date_2)
 usdt_trx = cm.get_asset_data_for_time_range(asset7, "TxTfrValAdjUSD", date_1, date_2)
+pax = cm.get_asset_data_for_time_range(asset8, "TxTfrValAdjUSD", date_1, date_2)
 
 # clean CM data for each stablecoin
 
@@ -51,6 +53,7 @@ usdc_clean = cmdc.cm_data_convert(usdc)
 usdt_clean = cmdc.cm_data_convert(usdt)
 usdteth_clean = cmdc.cm_data_convert(usdt_eth)
 usdttrx_clean = cmdc.cm_data_convert(usdt_trx)
+pax_clean = cmdc.cm_data_convert(pax)
 
 # clean dates
 
@@ -62,6 +65,7 @@ usdc_dates = cmdc.cm_date_format(usdc)
 usdt_dates = cmdc.cm_date_format(usdt)
 usdteth_dates = cmdc.cm_date_format(usdt_eth)
 usdttrx_dates = cmdc.cm_date_format(usdt_trx)
+pax_dates = cmdc.cm_date_format(pax)
 
 # merge market caps and dates
 
@@ -74,6 +78,7 @@ usdc_dates[''] = usdc_clean
 usdt_dates[''] = usdt_clean
 usdteth_dates[''] = usdteth_clean
 usdttrx_dates[''] = usdttrx_clean
+pax_dates[''] = pax_clean
 
 btc_dates.columns = ['date', 'btcmarketcap', 'btcflow']
 busd_dates.columns = ['date', 'busdflow']
@@ -83,10 +88,11 @@ usdc_dates.columns = ['date', 'usdcflow']
 usdt_dates.columns = ['date', 'usdtflow']
 usdteth_dates.columns = ['date', 'usdtethflow']
 usdttrx_dates.columns = ['date', 'usdttrxflow']
+pax_dates.columns = ['date', 'paxmarketcap']
 
-df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left')
+df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left').merge(pax_dates, on='date', how='left')
 
-df['Reserve Flow'] = df.iloc[:, 2:].sum(axis=1)
+df['Reserve Flow'] = df.iloc[:, 2:10].sum(axis=1)
 df['Reserve Signal'] = df['btcmarketcap'] / df['Reserve Flow'].rolling(window=90).mean()
 df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Flow']
 df['14 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=14).mean()

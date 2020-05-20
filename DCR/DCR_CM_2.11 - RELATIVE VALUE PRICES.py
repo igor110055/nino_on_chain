@@ -61,6 +61,8 @@ df = pd.concat([priceclean, priceclean1, rel_real, rel_nvt_price, rel_mvrv_price
 # SEND TO EXCEL
 #df.to_excel('Relative Value Prices.xlsx')
 
+print(df)
+
 # PLOT VALUES
 
 plt.plot(coin_coin1, label='DCRBTC Market Traded Price')
