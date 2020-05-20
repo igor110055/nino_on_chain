@@ -16,11 +16,11 @@ print("supported assets:\n", supported_assets)
 # List all available metrics for DCR.
 asset = "dcr"
 date1 = "2016-02-08"
-date2 = "2020-05-18"
+date2 = "2020-05-19"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
-# retrieve the historical data for realized cap
+# retrieve the historical data for realized cap / market cap & merge cata
 
 real_cap = cm.get_real_cap(asset, date1, date2)
 mcap = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date1, date2)

@@ -14,7 +14,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset2 = "btc"
 date_1 = "2016-08-14"
-date_2 = "2020-05-13"
+date_2 = "2020-05-19"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 coin1_price = cm.get_asset_data_for_time_range(asset2, "PriceUSD", date_1, date_2)
@@ -30,33 +30,37 @@ btc_mvrv = cm.get_asset_data_for_time_range(asset2, "CapMVRVCur", date_1, date_2
 
 # CLEAN DATA USING DATA CONVERTER & CONVERT TO PANDAS
 
-priceclean = pd.DataFrame(cmdc.cm_data_convert(coin_price))
-priceclean1 = pd.DataFrame(cmdc.cm_data_convert(coin1_price))
+priceclean = cmdc.combo_convert(coin_price) #dcrprice
+priceclean1 = cmdc.combo_convert(coin1_price)   #btcprice
 
-dcrrealclean = pd.DataFrame(cmdc.cm_data_convert(dcr_real))  
-btcrealclean = pd.DataFrame(cmdc.cm_data_convert(btc_real)) 
+dcrrealclean = cmdc.combo_convert(dcr_real) #dcrrealizedcap
+btcrealclean = cmdc.combo_convert(btc_real)  #btcrealized cap
 
-dcrnvtclean = pd.DataFrame(cmdc.cm_data_convert(dcr_nvt)) 
-btcnvtclean = pd.DataFrame(cmdc.cm_data_convert(btc_nvt))  
+dcrnvtclean = cmdc.combo_convert(dcr_nvt) #dcrnvt
+btcnvtclean = cmdc.combo_convert(btc_nvt)  #btcnvt
 
-dcrmvrvclean = pd.DataFrame(cmdc.cm_data_convert(dcr_mvrv))  
-btcmvrvclean = pd.DataFrame(cmdc.cm_data_convert(btc_mvrv))  
+dcrmvrvclean = cmdc.combo_convert(dcr_mvrv)  #dcrmvrv
+btcmvrvclean = cmdc.combo_convert(btc_mvrv)  #btcmvrv
+
+# MERGE DATASETS
+df = priceclean.merge(priceclean1, on='date', how='left').merge(dcrrealclean, on='date', how='left').merge(btcrealclean, on='date', how='left').merge(dcrnvtclean, on='date', how='left').merge(btcnvtclean, on='date', how='left').merge(dcrmvrvclean, on='date', how='left').merge(btcmvrvclean, on='date', how='left')
+
+df.columns = ['date', 'DCRUSD', 'BTCUSD', 'DCRREAL', 'BTCREAL', 'DCRNVT', 'BTCNVT', 'DCRMVRV', 'BTCMVRV']
 
 # CALC REALTIVE VALUE RATIOS
 
-rel_real = dcrrealclean / btcrealclean
-rel_nvt = dcrnvtclean / btcnvtclean
-rel_mvrv = dcrmvrvclean / btcmvrvclean
-coin_coin1 = priceclean / priceclean1
+df['rel_real'] = df['DCRREAL'] / df['BTCREAL']
+df['rel_nvt'] = df['DCRNVT'] / df['BTCNVT']
+df['rel_mvrv'] = df['DCRMVRV'] / df['BTCMVRV']
+df['coin_coin1'] = df['DCRUSD'] / df['BTCUSD']
 
 # CALC RELATIVE VALUE PRICES
 
-rel_nvt_price = coin_coin1 / rel_nvt
-rel_mvrv_price = coin_coin1 / rel_mvrv
-mid_point = 0.5 * (rel_real + rel_mvrv_price)
+df['rel_nvt_price'] = df['coin_coin1'] / df['rel_nvt']
+df['rel_mvrv_price'] = df['coin_coin1'] / df['rel_mvrv']
+df['mid_point'] = 0.5 * (df['rel_real'] + df['rel_mvrv_price'])
 
-# MERGE DATASETS
-df = pd.concat([priceclean, priceclean1, rel_real, rel_nvt_price, rel_mvrv_price], axis=1, sort=False)
+
 
 # SEND TO EXCEL
 #df.to_excel('Relative Value Prices.xlsx')
@@ -65,10 +69,10 @@ print(df)
 
 # PLOT VALUES
 
-plt.plot(coin_coin1, label='DCRBTC Market Traded Price')
-plt.plot(rel_real, label='DCR Realized Price / BTC Realized Price', linestyle=':')
-plt.plot(rel_mvrv_price, label='Relative MVRV Price', linestyle=':')
-plt.plot(mid_point, label='Mid-Point', linestyle=':')
+plt.plot(df['date'], df['coin_coin1'], label='DCRBTC Market Traded Price')
+plt.plot(df['date'], df['rel_real'], label='DCR Realized Price / BTC Realized Price', linestyle=':')
+plt.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', linestyle=':')
+plt.plot(df['date'], df['mid_point'], label='Mid-Point', linestyle=':')
 plt.ylabel("DCRBTC PRICES")
 plt.yscale('log')
 plt.grid()
