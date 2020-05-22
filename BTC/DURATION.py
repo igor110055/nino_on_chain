@@ -15,7 +15,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2016-01-01"
-date_2 = "2020-05-19"
+date_2 = "2020-05-20"
 block = cm.get_asset_data_for_time_range(asset, "BlkCnt", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 # clean CM data
@@ -54,8 +54,8 @@ print(blk_time)
 #plot blk time versus price
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(blk_time['date'], blk_time['Spread'])
-plt.plot(blk_time['date'], blk_time['Spread1'])
+plt.plot(blk_time['date'], blk_time['Spread'], label='14 Day Avg Block Time - Target Block Time')
+plt.plot(blk_time['date'], blk_time['Spread1'], label='70 Day Avg Block Time - Target Block Time')
 plt.title("Block Time")
 plt.axhline(0, color='r', linestyle=':')
 plt.axhline(50, color='r', linestyle=':')
@@ -64,9 +64,12 @@ plt.axhline(-50, color='r', linestyle=':')
 plt.axhspan(0, 50, color='g', alpha=0.25) """
 plt.fill_between(blk_time['date'], blk_time['Spread1'], blk_time['Spread'], where=blk_time['Spread'] > blk_time['Spread1'], facecolor='blue', alpha=0.25)
 plt.fill_between(blk_time['date'], blk_time['Spread1'], blk_time['Spread'], where=blk_time['Spread'] < blk_time['Spread1'], facecolor='red', alpha=0.25)
+plt.legend()
+plt.grid()
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(blk_time['date'], df_1)
 plt.title("Price")
 plt.yscale('log')
+plt.grid()
 plt.show()

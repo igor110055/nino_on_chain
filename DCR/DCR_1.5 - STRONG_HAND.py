@@ -32,7 +32,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-05-18"
+date_2 = "2020-05-21"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 mcap = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
@@ -77,6 +77,7 @@ ax1 = plt.subplot(2, 1, 1)
 plt.plot(comb_df['28ratio'], color='r')
 plt.axhspan(1.7, 0.9, color='g', alpha=0.25)
 plt.title("28 ratio")
+plt.grid()
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(comb_df['Market Cap USD'])
@@ -84,6 +85,7 @@ plt.plot(comb_df['142 top band'], label='142 Top Band')
 plt.plot(comb_df['142 bottom band'], label='142 Bottom Band')
 plt.title("Market Cap USD")
 plt.legend()
+plt.grid()
 plt.yscale('log')
 
 plt.show()
