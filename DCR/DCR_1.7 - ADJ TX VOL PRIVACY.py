@@ -101,10 +101,8 @@ findf.to_excel('hodlconvert.xlsx')
 #plot
 plt.figure()
 ax1 = plt.subplot(1, 1, 1)
-plt.plot(findf['142hodlreal'], label='142 HODLer Conversion Rate')
+plt.plot(findf['poolval'], label='142 HODLer Conversion Rate')
 plt.title("DCR FLOWS")
-""" plt.fill_between(stk_df['date'], inflow_28, where=inflow_28 > 0, facecolor='blue', alpha=0.25)
-plt.fill_between(stk_df['date'], inflow_28, where=inflow_28 < 0, facecolor='red', alpha=0.25) """
 plt.grid()
 plt.legend()
 

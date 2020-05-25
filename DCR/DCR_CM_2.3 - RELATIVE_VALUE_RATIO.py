@@ -13,7 +13,7 @@ cm = coinmetrics.Community()
 
 asset = "dcr"
 date_1 = "2016-08-14"
-date_2 = "2020-05-06"
+date_2 = "2020-05-24"
 
 nvt90 = cm.get_asset_data_for_time_range(asset, "NVTAdj90", date_1, date_2)
 #print(nvt90)

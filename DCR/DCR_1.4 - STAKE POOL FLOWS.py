@@ -18,7 +18,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-05-21"
+date_2 = "2020-05-24"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -58,6 +58,8 @@ stk_df = df_2.merge(cm_df, on='date', how='left')
 
 # Calc Stake Pool % of Supply & INFLOW / OUTFLOW METRICS
 percent_supply = df / df_1
+
+inflow_14 = df_2['Participation'].diff(periods=14)
 inflow_28 = df_2['Participation'].diff(periods=28)
 inflow_142 = df_2['Participation'].diff(periods=142)
 
@@ -65,6 +67,7 @@ pct_28 = df_2['Participation'].pct_change(periods=28)
 pct_142 = df_2['Participation'].pct_change(periods=142)
 
 # Merge inflow data
+stk_df['14 Inflow'] = inflow_14
 stk_df['28 Inflow'] = inflow_28
 stk_df['142 Inflow'] = inflow_142
 
@@ -79,11 +82,11 @@ print(stk_df)
 
 plt.figure()
 ax1 = plt.subplot(2,1,1)
-plt.plot(stk_df['date'], inflow_28, label='28 Day Inflow / Outflow')
-plt.plot(stk_df['date'], inflow_142, label='142 Day Inflow / Outflow')
-plt.fill_between(stk_df['date'], inflow_28, where=inflow_28 > 0, facecolor='blue', alpha=0.25)
-plt.fill_between(stk_df['date'], inflow_28, where=inflow_28 < 0, facecolor='red', alpha=0.25)
-plt.title("Net Inflows & Outflow From Ticket Pool Over 28 & 142 Days")
+plt.plot(stk_df['date'], stk_df['14 Inflow'], label='14 Day Inflow / Outflow')
+plt.plot(stk_df['date'], stk_df['142 Inflow'], label='142 Day Inflow / Outflow')
+plt.fill_between(stk_df['date'], stk_df['14 Inflow'], where=stk_df['14 Inflow'] > 0, facecolor='blue', alpha=0.25)
+plt.fill_between(stk_df['date'], stk_df['14 Inflow'], where=stk_df['14 Inflow'] < 0, facecolor='red', alpha=0.25)
+plt.title("Net Inflows & Outflow From Ticket Pool Over 14 & 142 Days")
 plt.ylabel("DCR Net Inflow / Outflow")
 plt.grid()
 plt.legend()
