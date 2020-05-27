@@ -17,7 +17,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-05-24"
+date_2 = "2020-05-26"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -67,7 +67,9 @@ comb_df.columns = ['Mining Pulse', 'date', 'Block Times', 'DCRBTC', 'Mini Mining
 print(comb_df)
 
 # plot
-plt.figure()
+fig = plt.figure()
+fig.patch.set_facecolor('#E0E0E0')
+fig.patch.set_alpha(0.7)
 
 ax1 = plt.subplot(3,1,1)
 plt.plot(comb_df['date'], comb_df['Mining Pulse'])

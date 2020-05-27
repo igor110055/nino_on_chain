@@ -18,7 +18,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-05-24"
+date_2 = "2020-05-26"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -71,6 +71,9 @@ stk_df['14 Inflow'] = inflow_14
 stk_df['28 Inflow'] = inflow_28
 stk_df['142 Inflow'] = inflow_142
 
+stk_df['14infsupp'] = stk_df['14 Inflow'] / stk_df['Circulation']
+stk_df['142infsupp'] = stk_df['142 Inflow'] / stk_df['Circulation']
+
 stk_df['28 Change'] = pct_28
 stk_df['142 Change'] = pct_142
 
@@ -80,7 +83,10 @@ print(stk_df)
 # Send merged data to excel
 """ stk_df.to_excel('stakeflows1.xlsx') """
 
-plt.figure()
+fig = plt.figure()
+fig.patch.set_facecolor('#E0E0E0')
+fig.patch.set_alpha(0.7)
+
 ax1 = plt.subplot(2,1,1)
 plt.plot(stk_df['date'], stk_df['14 Inflow'], label='14 Day Inflow / Outflow')
 plt.plot(stk_df['date'], stk_df['142 Inflow'], label='142 Day Inflow / Outflow')

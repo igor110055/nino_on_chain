@@ -20,7 +20,7 @@ print("supported assets:\n", supported_assets)
 # List all available metrics for DCR.
 asset = "dcr"
 date1 = "2016-02-08"
-date2 = "2020-05-21"
+date2 = "2020-05-24"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
