@@ -9,7 +9,7 @@ import cm_data_converter as cmdc
 cm = coinmetrics.Community()
 
 # List all available metrics.
-asset = "dcr"
+asset = "btc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
@@ -46,7 +46,6 @@ df['ratio3'] = df['ribbon_9'] / df['ribbon_90']
 df['ratio4'] = df['ribbon_9'] / df['ribbon_60']
 df['ratio5'] = df['ribbon_9'] / df['ribbon_25']
 df['ratio6'] = df['ribbon_9'] / df['ribbon_14']
-df['ratio7'] = df['ribbon_90'] / df['ribbon_200']
 
 df['ribbonprice'] = df['PriceUSD'].rolling(200).mean() * (1 / df['ratio'])
 df['ribbonprice2'] = df['PriceUSD'].rolling(128).mean() * (1 / df['ratio2'])
@@ -54,13 +53,11 @@ df['ribbonprice3'] = df['PriceUSD'].rolling(90).mean() * (1 / df['ratio3'])
 df['ribbonprice4'] = df['PriceUSD'] * (1 / df['ratio4'])
 df['ribbonprice5'] = df['PriceUSD'] * (1 / df['ratio5'])
 df['ribbonprice6'] = df['PriceUSD'] * (1 / df['ratio6'])
-df['ribbonprice7'] = df['PriceUSD'].rolling(90).mean() * (1 / df['ratio7'])
-df['ribbonprice8'] = df['ribbonprice7'] * 1.25
-df['ribbonprice9'] = df['ribbonprice7'] * .75
+df['ribbonprice7'] = df['ribbonprice3'] * 2
 
-df['profitprice'] = df['PriceUSD'] - df['ribbonprice7']
+df['profitprice'] = df['PriceUSD'] - df['ribbonprice3']
 
-df['profitmargin'] = df['profitprice'] / df['ribbonprice7']
+df['profitmargin'] = df['profitprice'] / df['ribbonprice3']
 
 print(df)
 
@@ -70,25 +67,22 @@ fig.patch.set_facecolor('#E0E0E0')
 fig.patch.set_alpha(0.7)
  
 ax1.plot(df['date'], df['PriceUSD'], label='USD Price')
-ax1.plot(df['date'], df['ribbonprice7'], label='Ribbon Price', linestyle=':', color='g')
-ax1.plot(df['date'], df['ribbonprice8'], label='Ribbon Price', linestyle=':', color='g')
-ax1.plot(df['date'], df['ribbonprice9'], label='Ribbon Price', linestyle=':', color='g')
-#ax1.plot(df['date'], df['ribbonprice2'], label='Ribbon Price2', linestyle=':', color='g')
-#ax1.plot(df['date'], df['ribbonprice3'], label='Ribbon Price3', linestyle=':', color='g')
-ax1.fill_between(df['date'], df['ribbonprice7'], df['ribbonprice8'], where=df['ribbonprice7'] < df['ribbonprice8'], facecolor='green', alpha=0.15)
-ax1.fill_between(df['date'], df['ribbonprice7'], df['ribbonprice9'], where=df['ribbonprice7'] > df['ribbonprice9'], facecolor='red', alpha=0.15)
+ax1.plot(df['date'], df['ribbonprice'], label='Ribbon Price', linestyle=':', color='g')
+ax1.plot(df['date'], df['ribbonprice2'], label='Ribbon Price2', linestyle=':', color='g')
+ax1.plot(df['date'], df['ribbonprice3'], label='Ribbon Price3', linestyle=':', color='g')
+ax1.plot(df['date'], df['ribbonprice7'], label='Ribbon Price7', linestyle=':', color='r')
 ax1.set_ylabel('USD Prices')
 ax1.set_yscale('log')
 ax1.grid()
 
 ax2 = ax1.twinx()
-line3 = ax2.plot(df['date'], df['profitmargin'], color='r', alpha=.5)
+line3 = ax2.plot(df['date'], df['profitmargin'], color='r')
 ax2.set_ylabel('Miner P/L per Coin (%)')
-ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] > 0, facecolor='blue', alpha=0.05)
-ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=0.05)
-ax2.set_ylim(1.5*df['profitmargin'].min(), 3*df['profitmargin'].max())
+ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] > 0, facecolor='blue', alpha=0.15)
+ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=0.15)
+ax2.set_ylim(1.5*df['profitmargin'].min(), 2*df['profitmargin'].max())
 
-plt.title("DCRUSD vs Mining Price")
+plt.title("BTCUSD vs Mining Price")
 fig.tight_layout()
 plt.show()
 

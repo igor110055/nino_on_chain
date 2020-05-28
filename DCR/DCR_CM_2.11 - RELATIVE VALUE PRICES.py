@@ -14,7 +14,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset2 = "btc"
 date_1 = "2016-08-14"
-date_2 = "2020-05-24"
+date_2 = "2020-05-27"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 coin1_price = cm.get_asset_data_for_time_range(asset2, "PriceUSD", date_1, date_2)
@@ -69,10 +69,11 @@ print(df)
 
 # PLOT VALUES
 
-plt.plot(df['date'], df['coin_coin1'], label='DCRBTC Market Traded Price')
-plt.plot(df['date'], df['rel_real'], label='DCR Realized Price / BTC Realized Price', linestyle=':')
-plt.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', linestyle=':')
-plt.plot(df['date'], df['mid_point'], label='Mid-Point', linestyle=':')
+#plt.plot(df['date'], df['coin_coin1'], label='DCRBTC Market Traded Price')
+#plt.plot(df['date'], df['rel_real'], label='DCR Realized Price / BTC Realized Price', linestyle=':')
+#plt.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', linestyle=':')
+#plt.plot(df['date'], df['mid_point'], label='Mid-Point', linestyle=':')
+plt.plot(df['date'], df['rel_mvrv'])
 plt.ylabel("DCRBTC PRICES")
 plt.yscale('log')
 plt.grid()

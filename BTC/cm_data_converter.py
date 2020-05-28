@@ -32,3 +32,12 @@ def cm_date_format(cm_dataset):
     df = pd.DataFrame(sup_sup_list)
 
     return df
+
+def combo_convert(cm_dataset):
+    data = cm_data_convert(cm_dataset)
+    date = cm_date_format(cm_dataset)
+    date[1] = data
+    date[0] = pd.to_datetime(date[0], utc=True)
+    date.columns = ['date', 'data']
+
+    return date

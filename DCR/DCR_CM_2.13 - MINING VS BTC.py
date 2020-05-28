@@ -16,7 +16,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
-date_1 = "2014-01-01"
+date_1 = "2016-02-08"
 date_2 = "2020-05-26"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
@@ -38,10 +38,10 @@ df = diff.merge(price, on='date', how='left').merge(altdiff, on='date', how='lef
 df.columns = ['date', 'difficulty', 'PriceUSD', 'altdifficulty', 'AltUSD']
 
 # calc ribbons for both coins and mining prices
-df['ribbon_200'] = df['difficulty'].rolling(window=200).mean()
+df['ribbon_200'] = df['difficulty'].rolling(window=90).mean()
 df['ribbon_9'] = df['difficulty'].rolling(window=9).mean()
 
-df['altribbon_200'] = df['altdifficulty'].rolling(window=200).mean()
+df['altribbon_200'] = df['altdifficulty'].rolling(window=90).mean()
 df['altribbon_9'] = df['altdifficulty'].rolling(window=9).mean()
 
 df['ratio'] = df['ribbon_9'] / df['ribbon_200']
