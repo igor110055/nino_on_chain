@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2017-01-01"
-date_2 = "2020-05-27"
+date_2 = "2020-06-01"
 
 asset = "btc"
 asset1 = "busd"
@@ -102,7 +102,7 @@ plt.title("Reserve Asset Ratio")
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df['date'], df['btcmarketcap'], label='Bitcoin Market Cap')
-plt.title("BTC Market Cap")
+plt.title("BTC Market Cap vs Reserve Value")
 plt.yscale('log')
 plt.legend()
 plt.grid()

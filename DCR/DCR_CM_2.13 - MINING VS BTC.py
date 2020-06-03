@@ -67,7 +67,7 @@ fig.patch.set_alpha(0.7)
 
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(df['date'], df['altbtcprice'], label='Actual')
-plt.plot(df['date'], df['mixedprice'], label='Mixed')
+plt.plot(df['date'], df['altbtcribbon'], label='Mixed')
 plt.yscale('log')
 plt.legend()
 plt.grid()

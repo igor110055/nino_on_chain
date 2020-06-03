@@ -14,32 +14,45 @@ asset = "btc"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
-date_1 = "2013-01-01"
-date_2 = "2020-04-30"
+date_1 = "2011-01-01"
+date_2 = "2020-06-01"
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 # clean CM data
-price_clean = cm_data_converter.cm_data_convert(price)
-# convert to pandas
-df = pd.DataFrame(price_clean)
-#compute 200 MA
-MA_200 = df.rolling(window=200).mean()
-#Calc mayer multiple
-Mayer_Mult = df / MA_200
-print(Mayer_Mult)
-## 0.6 is a good place to buy for Mayer Multiple - calculate 0.6*200MA and add to plot
-hard_buy = 0.6 * MA_200
-hard_sell = 2 * MA_200
-## Add hard buy / sell to price dataset
-df['Hard Buy'] = hard_buy
-df['Hard Sell'] = hard_sell
+df = cm_data_converter.combo_convert(price)
+
+df.columns = ['date', 'price']
+
+# Calc Metrics
+
+df['MA_200'] = df['price'].rolling(window=200).mean()
+df['Mayer_Mult'] = df['price'] / df['MA_200']
+df['hard_buy'] = 0.6 * df['MA_200']
+df['hard_sell'] = 2.3 * df['MA_200']
+df['Mayer_Avg'] = df['Mayer_Mult'].rolling(200).mean()
+df['Dynamic_Mayer'] = df['Mayer_Avg'] * df['MA_200']
+df['Dynamic_Mult'] = df['Mayer_Mult'] / df['Mayer_Avg']
+
+print(df)
+
 #plot price vs mayer
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(Mayer_Mult)
+""" plt.plot(df['date'], df['Mayer_Mult'])
+plt.plot(df['date'], df['Mayer_Avg'], linestyle=':') """
+plt.plot(df['date'], df['Dynamic_Mult'])
+plt.axhline(1, linestyle=':', color='r')
 plt.title("Mayer Multiple")
+plt.legend()
+plt.grid()
 
 plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df)
+plt.plot(df['date'], df['price'])
+plt.plot(df['date'], df['hard_buy'])
+plt.plot(df['date'], df['hard_sell'])
+plt.plot(df['date'], df['Dynamic_Mayer'], linestyle=':')
+plt.plot(df['date'], df['MA_200'], linestyle=':')
 plt.title("USD Price")
 plt.yscale('log')
+plt.grid()
+plt.legend()
 plt.show()

@@ -1,4 +1,5 @@
 import pandas as pd
+import coinmetrics as cm
 
 def cm_data_convert(cm_dataset):
 

@@ -32,10 +32,12 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-05-27"
+date_2 = "2020-06-01"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 mcap = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
+realcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date_1, date_2))
+realcap['date'] = pd.to_datetime(realcap['date'], utc=True).dt.strftime('%Y-%m-%d')
 
 # Clean CM data
 
@@ -52,7 +54,8 @@ cm_df1.columns = ['date', 'DCRUSD', 'Market Cap USD']
 
 # Merge tixdata and CM data
 
-comb_df = df.merge(cm_df1, on='date', how='left')
+comb_df = df.merge(cm_df1, on='date', how='left').merge(realcap, on='date', how='left')
+comb_df.columns = ['count', 'price', 'date', 'window', 'dcrtixvol', 'DCRUSD', 'Market Cap USD', 'realcap']
 
 # Add columns needed for Strong Hand Calc
 
@@ -66,6 +69,8 @@ comb_df['28ratio'] = comb_df['Market Cap USD'] / comb_df['28strongcap']
 comb_df['142ratio'] = comb_df['Market Cap USD'] / comb_df['142strongcap'] 
 comb_df['142 top band'] = comb_df['142strongcap'] * 1.45
 comb_df['142 bottom band'] = comb_df['142strongcap'] * 0.6
+comb_df['realizedtop'] = comb_df['realcap'] * 2
+comb_df['realizedbottom'] = comb_df['realcap'] * 0.5
 
 comb_df.to_excel('stronghand.xlsx')
 
@@ -80,14 +85,19 @@ plt.plot(comb_df['date'], comb_df['28ratio'], color='r')
 plt.axhspan(1.7, 0.9, color='g', alpha=0.25)
 plt.title("28 ratio")
 plt.grid()
+plt.tight_layout()
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(comb_df['date'], comb_df['Market Cap USD'])
 plt.plot(comb_df['date'], comb_df['142 top band'], label='142 Top Band')
 plt.plot(comb_df['date'], comb_df['142 bottom band'], label='142 Bottom Band')
-plt.title("Market Cap USD")
+plt.plot(comb_df['date'], comb_df['realcap'], label='Realized Cap')
+plt.plot(comb_df['date'], comb_df['realizedtop'], label='Realized Top', linestyle=':')
+plt.plot(comb_df['date'], comb_df['realizedbottom'], label='Realized Bottom', linestyle=':')
+plt.title("Market Cap USD vs 142 Bands vs Realized Cap")
 plt.legend()
 plt.grid()
+plt.tight_layout()
 plt.yscale('log')
 
 plt.show()

@@ -16,7 +16,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-05-27"
+date_2 = "2020-06-01"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -47,6 +47,7 @@ df['ratio4'] = df['ribbon_9'] / df['ribbon_60']
 df['ratio5'] = df['ribbon_9'] / df['ribbon_25']
 df['ratio6'] = df['ribbon_9'] / df['ribbon_14']
 df['ratio7'] = df['ribbon_90'] / df['ribbon_200']
+df['ratio8'] = df['difficulty'] / df['ribbon_200']
 
 df['ribbonprice'] = df['PriceUSD'].rolling(200).mean() * (1 / df['ratio'])
 df['ribbonprice2'] = df['PriceUSD'].rolling(128).mean() * (1 / df['ratio2'])
@@ -54,7 +55,7 @@ df['ribbonprice3'] = df['PriceUSD'].rolling(90).mean() * (1 / df['ratio3'])
 df['ribbonprice4'] = df['PriceUSD'] * (1 / df['ratio4'])
 df['ribbonprice5'] = df['PriceUSD'] * (1 / df['ratio5'])
 df['ribbonprice6'] = df['PriceUSD'] * (1 / df['ratio6'])
-df['ribbonprice7'] = df['PriceUSD'].rolling(90).mean() * (1 / df['ratio7'])
+df['ribbonprice7'] = df['PriceUSD'].rolling(90).mean() * (1 / df['ratio8'])
 df['ribbonprice8'] = df['ribbonprice7'] * 1.25
 df['ribbonprice9'] = df['ribbonprice7'] * .75
 

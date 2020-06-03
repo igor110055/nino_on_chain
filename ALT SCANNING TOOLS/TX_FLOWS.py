@@ -7,13 +7,13 @@ import cm_data_converter
 cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
-asset = "dcr"
+asset = "usdt"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2016-11-01"
-date_2 = "2020-05-09"
+date_2 = "2020-05-31"
 tx = cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 # clean CM data

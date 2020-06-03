@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-05-27"
+date_2 = "2020-06-01"
 
 asset = "btc"
 asset1 = "busd"
@@ -98,6 +98,7 @@ df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Flow']
 df['14 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=14).mean()
 df['Reserve Top'] = df['Reserve Flow'].rolling(90).mean() * 75
 df['Reserve Bottom'] = df['Reserve Flow'].rolling(90).mean() * 35
+df['Reserve Middle'] = (df['Reserve Top'] + df['Reserve Bottom']) / 2
 
 print(df)
 
@@ -117,8 +118,9 @@ plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df['date'], df['btcmarketcap'], label='BTC Market Cap')
 plt.plot(df['date'], df['Reserve Top'], label='Reserve Top')
 plt.plot(df['date'], df['Reserve Bottom'], label='Reserve Bottom')
+plt.plot(df['date'], df['Reserve Middle'], label='Reserve Middle', linestyle=':')
 plt.title("BTC Market Cap + Reserve Channels")
 plt.yscale('log')
 plt.legend()
 plt.grid()
-plt.show() 
+plt.show()

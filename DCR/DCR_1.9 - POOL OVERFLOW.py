@@ -20,7 +20,7 @@ cm = coinmetrics.Community()
 
 asset = "dcr"
 date_1 = "2016-02-08"
-date_2 = "2020-05-25"
+date_2 = "2020-05-30"
 
 pricebtc = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -75,9 +75,9 @@ print(df3)
 
 plt.figure()
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(df3['date'], df3['btcoverflow'], label='TICKET POOL OVERFLOW')
-plt.fill_between(df3['date'], df3['btcoverflow'], where=df3['btcoverflow'] > 0, facecolor='blue', alpha=0.25)
-plt.fill_between(df3['date'], df3['btcoverflow'], where=df3['btcoverflow'] < 0, facecolor='red', alpha=0.25)
+plt.plot(df3['date'], df3['Overflow'], label='TICKET POOL OVERFLOW')
+plt.fill_between(df3['date'], df3['Overflow'], where=df3['Overflow'] > 0, facecolor='blue', alpha=0.25)
+plt.fill_between(df3['date'], df3['Overflow'], where=df3['Overflow'] < 0, facecolor='red', alpha=0.25)
 plt.title("TICKET POOL OVERFLOW")
 plt.grid()
 plt.legend()

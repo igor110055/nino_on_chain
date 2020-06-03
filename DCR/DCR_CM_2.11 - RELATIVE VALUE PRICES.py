@@ -14,7 +14,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset2 = "btc"
 date_1 = "2016-08-14"
-date_2 = "2020-05-27"
+date_2 = "2020-06-01"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 coin1_price = cm.get_asset_data_for_time_range(asset2, "PriceUSD", date_1, date_2)
@@ -60,8 +60,6 @@ df['rel_nvt_price'] = df['coin_coin1'] / df['rel_nvt']
 df['rel_mvrv_price'] = df['coin_coin1'] / df['rel_mvrv']
 df['mid_point'] = 0.5 * (df['rel_real'] + df['rel_mvrv_price'])
 
-
-
 # SEND TO EXCEL
 #df.to_excel('Relative Value Prices.xlsx')
 
@@ -69,14 +67,23 @@ print(df)
 
 # PLOT VALUES
 
-#plt.plot(df['date'], df['coin_coin1'], label='DCRBTC Market Traded Price')
-#plt.plot(df['date'], df['rel_real'], label='DCR Realized Price / BTC Realized Price', linestyle=':')
-#plt.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', linestyle=':')
-#plt.plot(df['date'], df['mid_point'], label='Mid-Point', linestyle=':')
-plt.plot(df['date'], df['rel_mvrv'])
-plt.ylabel("DCRBTC PRICES")
+fig = plt.figure()
+fig.patch.set_facecolor('#E0E0E0')
+fig.patch.set_alpha(0.7)
+
+ax1 = plt.subplot(2,1,1)
+plt.plot(df['date'], df['coin_coin1'], label='DCRBTC Market Traded Price')
+plt.plot(df['date'], df['rel_real'], label='DCR Realized Price / BTC Realized Price', linestyle=':')
+plt.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', linestyle=':')
+plt.plot(df['date'], df['mid_point'], label='Mid-Point', linestyle=':')
+plt.title("Relative Value Prices")
 plt.yscale('log')
 plt.grid()
 plt.legend()
-plt.title("Relative Value Prices")
+
+plt.subplot(2, 1, 2, sharex=ax1)
+plt.plot(df['date'], df['rel_mvrv'])
+plt.yscale('log')
+plt.title("Relative MVRV Ratio")
+plt.grid()
 plt.show()

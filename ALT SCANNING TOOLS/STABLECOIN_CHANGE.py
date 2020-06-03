@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-05-17"
+date_2 = "2020-05-31"
 
 asset = "btc"
 asset1 = "busd"
@@ -95,7 +95,7 @@ df['BTC Change'] = df['btcmarketcap'].pct_change(periods=30)
 df['Change Ratio'] = df['BTC Change'] / df['Stable Change']
 df['Change Diff'] = df['Stable Change'] - df['BTC Change']
 df['Adj Cap'] = (df['btcmarketcap'].rolling(window=30).mean()) * (1 + df['Stable Change'])
-df['date'] = pd.to_datetime(df['date'], utc=True).dt.strftime('%Y-%m-%d')
+df['date'] = pd.to_datetime(df['date'], utc=True)
 
 print(df)
 
