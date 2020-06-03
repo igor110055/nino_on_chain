@@ -20,7 +20,7 @@ print("supported assets:\n", supported_assets)
 # List all available metrics for DCR.
 asset = "dcr"
 date1 = "2016-02-08"
-date2 = "2020-05-30"
+date2 = "2020-06-02"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -80,7 +80,7 @@ ax1 = plt.subplot(2,1,1)
 plt.plot(df['date'], df['unrealmarketcap'])
 plt.fill_between(df['date'], df['unrealmarketcap'], where=df['unrealmarketcap'] > 0, facecolor='blue', alpha=0.25)
 plt.fill_between(df['date'], df['unrealmarketcap'], where=df['unrealmarketcap'] < 0, facecolor='red', alpha=0.25)
-plt.title("Unrealized P/L")
+plt.title("Unrealized P/L / Market Cap")
 plt.grid()
 plt.legend()
 

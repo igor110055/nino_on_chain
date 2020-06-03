@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-02-08"
-date_2 = "2020-05-26"
+date_2 = "2020-06-02"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -38,17 +38,17 @@ df = diff.merge(price, on='date', how='left').merge(altdiff, on='date', how='lef
 df.columns = ['date', 'difficulty', 'PriceUSD', 'altdifficulty', 'AltUSD']
 
 # calc ribbons for both coins and mining prices
-df['ribbon_200'] = df['difficulty'].rolling(window=90).mean()
+df['ribbon_200'] = df['difficulty'].rolling(window=200).mean()
 df['ribbon_9'] = df['difficulty'].rolling(window=9).mean()
 
-df['altribbon_200'] = df['altdifficulty'].rolling(window=90).mean()
+df['altribbon_200'] = df['altdifficulty'].rolling(window=200).mean()
 df['altribbon_9'] = df['altdifficulty'].rolling(window=9).mean()
 
 df['ratio'] = df['ribbon_9'] / df['ribbon_200']
 df['altratio'] = df['altribbon_9'] / df['altribbon_200']
 
-df['ribbonprice'] = df['PriceUSD'] * (1 / df['ratio'])
-df['altribbonprice'] = df['AltUSD'] * (1 / df['altratio'])
+df['ribbonprice'] = df['PriceUSD'].rolling(90).mean() * (1 / df['ratio'])
+df['altribbonprice'] = df['AltUSD'].rolling(90).mean() * (1 / df['altratio'])
 
 df['altbtcprice'] = df['AltUSD'] / df['PriceUSD']
 df['altbtcribbon'] = df['altribbonprice'] / df['ribbonprice']
@@ -67,7 +67,7 @@ fig.patch.set_alpha(0.7)
 
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(df['date'], df['altbtcprice'], label='Actual')
-plt.plot(df['date'], df['altbtcribbon'], label='Mixed')
+plt.plot(df['date'], df['mixedprice'], label='Mixed')
 plt.yscale('log')
 plt.legend()
 plt.grid()

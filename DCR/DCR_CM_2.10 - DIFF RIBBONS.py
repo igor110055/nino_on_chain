@@ -9,14 +9,14 @@ import cm_data_converter as cmdc
 cm = coinmetrics.Community()
 
 # List all available metrics.
-asset = "dcr"
+asset = "btc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-06-01"
+date_2 = "2020-06-02"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)

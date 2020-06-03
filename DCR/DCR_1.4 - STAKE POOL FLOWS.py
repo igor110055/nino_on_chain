@@ -18,7 +18,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-01"
+date_2 = "2020-06-02"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -88,11 +88,11 @@ fig.patch.set_facecolor('#E0E0E0')
 fig.patch.set_alpha(0.7)
 
 ax1 = plt.subplot(2,1,1)
-plt.plot(stk_df['date'], stk_df['14 Inflow'], label='14 Day Inflow / Outflow')
+plt.plot(stk_df['date'], stk_df['28 Inflow'], label='28 Day Inflow / Outflow')
 plt.plot(stk_df['date'], stk_df['142 Inflow'], label='142 Day Inflow / Outflow')
-plt.fill_between(stk_df['date'], stk_df['14 Inflow'], where=stk_df['14 Inflow'] > 0, facecolor='blue', alpha=0.25)
-plt.fill_between(stk_df['date'], stk_df['14 Inflow'], where=stk_df['14 Inflow'] < 0, facecolor='red', alpha=0.25)
-plt.title("Net Inflows & Outflow From Ticket Pool Over 14 & 142 Days")
+plt.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] > 0, facecolor='blue', alpha=0.25)
+plt.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] < 0, facecolor='red', alpha=0.25)
+plt.title("Net Inflows & Outflow From Ticket Pool Over 28 & 142 Days")
 plt.ylabel("DCR Net Inflow / Outflow")
 plt.grid()
 plt.legend()

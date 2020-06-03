@@ -36,7 +36,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-01"
+date_2 = "2020-06-02"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -67,6 +67,6 @@ plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df['date'], df['rolling_7'], color='r')
 plt.title("288 Block Rolling Sum of DCR Ticket Volume")
 plt.grid()
-""" plt.ylim(500, 950)
-plt.axhspan(550, 600, color='g', alpha=0.10) """
+plt.ylim(500, 950)
+plt.axhspan(550, 600, color='g', alpha=0.10)
 plt.show()
