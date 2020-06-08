@@ -20,6 +20,13 @@ df['t'] = pd.to_datetime(df['t'], unit='s', utc=True).dt.strftime('%Y-%m-%d')
 df.rename(columns={'t': 'date'}, inplace=True)
 """ print(df) """
 
+# FORMAT EARLY PRICE DATA
+
+filename = 'DCR/DCR_data.xlsx'
+df_early = pd.read_excel(filename)
+early = df_early[['date', 'PriceUSD', 'CapMrktCurUSD']].copy()
+early['date'] = pd.to_datetime(early['date'], utc=True)
+
 # Pull CM Price Data
 
 # Initialize a reference object, in this case `cm` for the Community API
@@ -32,27 +39,35 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-05-19"
+date_2 = "2020-06-04"
 
-price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
-mcap = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
+supply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date_1, date_2))
+price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
+mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 
 # Clean CM data
 
-cm_df = cmdc.cm_data_convert(price)
-cm_df1 = cmdc.cm_date_format(price)
-cm_df2 = cmdc.cm_data_convert(mcap)
+cm_df1 = supply.merge(price, on='date', how='left').merge(mcap, on='date', how='left')
+cm_df1.columns = ['date', 'Supply', 'DCRUSD', 'Market Cap USD']
 
-cm_df1['DCRUSD'] = cm_df
-cm_df1['Market Cap USD'] = cm_df2
-cm_df1[0] = pd.to_datetime(cm_df1[0], utc=True).dt.strftime('%Y-%m-%d')
-cm_df1.columns = ['date', 'DCRUSD', 'Market Cap USD']
+# ADD EARLY PRICE DATA
 
-""" print(cm_df1) """
+cm_df1 = cm_df1.merge(early, on='date', how='left')
+cm_df1 = cm_df1.fillna(0)
+
+cm_df1['DCRUSD'].mask(cm_df1['DCRUSD'] == 0, cm_df1['PriceUSD'], inplace=True)
+cm_df1['Market Cap USD'].mask(cm_df1['Market Cap USD'] == 0, cm_df1['CapMrktCurUSD'], inplace=True)
+
+print(cm_df1)
+
+# FORMAT DATES TO MERGE WITH DCRDATA
+
+cm_df1['date'] = pd.to_datetime(cm_df1['date'], utc=True).dt.strftime('%Y-%m-%d')
 
 # Merge tixdata and CM data
 
 comb_df = df.merge(cm_df1, on='date', how='left')
+comb_df['date'] = pd.to_datetime(comb_df['date'], utc=True)
 
 # Add columns needed for Strong Hand Calc
 
@@ -63,14 +78,14 @@ comb_df['Lifetime USD in Tickets'] = comb_df['tixvolusd'].cumsum()
 
 print(comb_df)
 
-comb_df.to_excel('142 tix vol.xlsx')
+""" comb_df.to_excel('142 tix vol.xlsx') """
 
 # PLOT
 
-plt.plot(comb_df['Market Cap USD'])
-plt.plot(comb_df['142 SUM'], label='142 SUM')
-plt.plot(comb_df['142 BOTTOM'], label='142 BOTTOM')
-plt.plot(comb_df['Lifetime USD in Tickets'], label='LIFETIME USD IN TIX')
+plt.plot(comb_df['date'], comb_df['Market Cap USD'])
+plt.plot(comb_df['date'], comb_df['142 SUM'], label='142 SUM')
+plt.plot(comb_df['date'], comb_df['142 BOTTOM'], label='142 BOTTOM')
+plt.plot(comb_df['date'], comb_df['Lifetime USD in Tickets'], label='LIFETIME USD IN TIX')
 plt.legend()
 plt.grid()
 plt.yscale('log')

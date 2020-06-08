@@ -1,5 +1,6 @@
 import coinmetrics
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 from datetime import datetime as dt
 import pandas as pd
@@ -15,7 +16,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-05-27"
+date_2 = "2020-06-04"
 isstot = cm.get_asset_data_for_time_range(asset, "IssTotUSD", date_1, date_2)
 mkt = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
 # clean CM data
@@ -44,6 +45,10 @@ df_1['seiscuatro'] = sixfour_prem
 print(df_1)
 # plot the data
 
+fig, ax1 = plt.subplots()
+fig.patch.set_facecolor('#E0E0E0')
+fig.patch.set_alpha(0.7)
+
 plt.plot(df_1[0], label='Market Cap')
 plt.plot(df_1['Cumulative Block Rewards'], label='Block Rewards Sum')
 plt.plot(df_1['Dos'], label='2x')
@@ -52,6 +57,7 @@ plt.plot(df_1['Ocho'], label='8x')
 plt.plot(df_1['Dieciseis'], label='16x')
 plt.plot(df_1['treintados'], label='32x')
 plt.plot(df_1['seiscuatro'], label='64x')
+ax1.yaxis.set_major_formatter(ticker.StrMethodFormatter('{x:,.0f}'))
 plt.legend()
 plt.title("Market Cap versus Monetary Premiums")
 plt.yscale('log')

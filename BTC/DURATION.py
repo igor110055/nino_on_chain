@@ -14,8 +14,8 @@ asset = "btc"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
-date_1 = "2016-01-01"
-date_2 = "2020-06-01"
+date_1 = "2011-01-01"
+date_2 = "2020-06-05"
 block = cm.get_asset_data_for_time_range(asset, "BlkCnt", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 # clean CM data
@@ -37,7 +37,7 @@ blk_time = dia_seconds / df
 avg_blk = blk_time.rolling(window=14).mean()
 spread_blk = avg_blk - 600
 
-avg_blk1 = blk_time.rolling(window=70).mean()
+avg_blk1 = blk_time.rolling(window=42).mean()
 spread_blk1 = avg_blk1 - 600
 # merge price and blk time into a dataset, then send to excel
 blk_time['Price'] = df_1

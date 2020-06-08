@@ -5,6 +5,14 @@ from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter as cmdc
 
+# Add early price data
+
+filename = 'DCR/DCR_data.xlsx'
+df_early = pd.read_excel(filename)
+early = df_early[['date', 'PriceUSD']].copy()
+early['date'] = pd.to_datetime(early['date'], utc=True)
+early.columns = ['date', 'earlyusd']
+
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
@@ -17,7 +25,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-02-08"
-date_2 = "2020-06-02"
+date_2 = "2020-06-07"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -37,6 +45,13 @@ df = diff.merge(price, on='date', how='left').merge(altdiff, on='date', how='lef
 
 df.columns = ['date', 'difficulty', 'PriceUSD', 'altdifficulty', 'AltUSD']
 
+# Merge early price data
+
+df = df.merge(early, on='date', how='left')
+df = df.fillna(0)
+
+df['AltUSD'].mask(df['AltUSD'] == 0, df['earlyusd'], inplace=True)
+
 # calc ribbons for both coins and mining prices
 df['ribbon_200'] = df['difficulty'].rolling(window=200).mean()
 df['ribbon_9'] = df['difficulty'].rolling(window=9).mean()
@@ -45,10 +60,10 @@ df['altribbon_200'] = df['altdifficulty'].rolling(window=200).mean()
 df['altribbon_9'] = df['altdifficulty'].rolling(window=9).mean()
 
 df['ratio'] = df['ribbon_9'] / df['ribbon_200']
-df['altratio'] = df['altribbon_9'] / df['altribbon_200']
+df['altratio'] = df['altdifficulty'] / df['altribbon_200']
 
 df['ribbonprice'] = df['PriceUSD'].rolling(90).mean() * (1 / df['ratio'])
-df['altribbonprice'] = df['AltUSD'].rolling(90).mean() * (1 / df['altratio'])
+df['altribbonprice'] = df['AltUSD'] * (1 / df['altratio'])
 
 df['altbtcprice'] = df['AltUSD'] / df['PriceUSD']
 df['altbtcribbon'] = df['altribbonprice'] / df['ribbonprice']
