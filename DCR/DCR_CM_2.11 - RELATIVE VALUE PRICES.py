@@ -14,7 +14,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset2 = "btc"
 date_1 = "2016-08-14"
-date_2 = "2020-06-03"
+date_2 = "2020-06-07"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 coin1_price = cm.get_asset_data_for_time_range(asset2, "PriceUSD", date_1, date_2)

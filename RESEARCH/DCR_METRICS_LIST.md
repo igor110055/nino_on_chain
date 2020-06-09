@@ -68,6 +68,7 @@
 - Decred's target block times are 5 minutes, and Bitcoin's are 10 minutes
 - Decred's miners only receive 60% of block subsidy, whereas Bitcoin's receive 100% of block subsidy
 - Decred's initial supply was 1.68 million DCR, Bitcoin's supply started at zero BTC
+- Decred's realized cap is dynamic and moves closely with market cap, whereas Bitcoin's lags the market cap
 
 ## Trading / Price-Focused
 - Very fast / slow block times: miners sweating from either (1) difficulty in earning subisidies due to mining competitiveness or (2) price is too low to justify the mining cost, which *likely* results in more selling pressure
