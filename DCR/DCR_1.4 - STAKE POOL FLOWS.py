@@ -88,6 +88,7 @@ fig.patch.set_facecolor('#E0E0E0')
 fig.patch.set_alpha(0.7)
 
 ax1 = plt.subplot(2,1,1)
+plt.style.use('ggplot')
 plt.plot(stk_df['date'], stk_df['28 Inflow'], label='28 Day Inflow / Outflow')
 plt.plot(stk_df['date'], stk_df['142 Inflow'], label='142 Day Inflow / Outflow')
 plt.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] > 0, facecolor='blue', alpha=0.25)

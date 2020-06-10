@@ -25,7 +25,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-02-08"
-date_2 = "2020-06-07"
+date_2 = "2020-06-08"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -77,21 +77,21 @@ print(df)
 # plot
 
 fig = plt.figure()
-fig.patch.set_facecolor('#E0E0E0')
+fig.patch.set_facecolor('black')
 fig.patch.set_alpha(0.7)
 
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(df['date'], df['altbtcprice'], label='Actual')
 plt.plot(df['date'], df['mixedprice'], label='Mixed')
+plt.rcParams['axes.facecolor'] = 'black'
 plt.yscale('log')
-plt.legend()
 plt.grid()
 plt.title("Actual ALTBTC vs Mining ALTBTC")
 
 plt.subplot(2,1,2, sharex=ax1) 
-plt.plot(df['date'], df['mixedratio'])
+plt.plot(df['date'], df['mixedratio'], color='b')
 plt.title("Mixed Ratio")
 plt.yscale('log')
-plt.grid()
+plt.grid(color='lime', linestyle='-')
 
 plt.show()

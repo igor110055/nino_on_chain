@@ -13,7 +13,7 @@ cm = coinmetrics.Community()
 
 asset = "dcr"
 asset2 = "btc"
-date_1 = "2016-08-14"
+date_1 = "2016-07-01"
 date_2 = "2020-06-07"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -60,6 +60,15 @@ df['rel_nvt_price'] = df['coin_coin1'] / df['rel_nvt']
 df['rel_mvrv_price'] = df['coin_coin1'] / df['rel_mvrv']
 df['mid_point'] = 0.5 * (df['rel_real'] + df['rel_mvrv_price'])
 
+# CALC GRADIENTS
+
+period = 56
+
+df['MrktGradient'] = ((df['coin_coin1'] - df['coin_coin1'].shift(periods=period, axis=0)) / period)
+df['RealGradient'] = ((df['rel_real'] - df['rel_real'].shift(periods=period, axis=0)) / period)
+
+df['DeltaGradient'] = df['MrktGradient'] - df['RealGradient']
+
 # SEND TO EXCEL
 #df.to_excel('Relative Value Prices.xlsx')
 
@@ -83,7 +92,6 @@ plt.legend()
 
 plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(df['date'], df['rel_mvrv'])
-plt.yscale('log')
 plt.title("Relative MVRV Ratio")
 plt.grid()
 plt.show()
