@@ -7,12 +7,12 @@ import cm_data_converter
 cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
-asset = "zec"
+asset = "dcr"
 asset2 = "btc"
 
 #fetch desired data
 date_1 = "2017-01-01"
-date_2 = "2020-05-10"
+date_2 = "2020-06-10"
 
 bchain = cm.get_asset_data_for_time_range(asset, "BlkSizeByte", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)

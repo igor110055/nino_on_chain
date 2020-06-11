@@ -33,23 +33,23 @@ df['relnvtprice2'] = 2 * df['relnvtprice']
 df['relnvtprice4'] = 4 * df['relnvtprice']
 
 # PLOT
-
+name = "@permabullnino"
 fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['dcrbtc'], label='DCRBTC Market Traded Price', color='w')
-ax1.plot(df['date'], df['relnvtprice'], label='DCRBTC NVT Price', linestyle='dashed', color='aqua')
-ax1.plot(df['date'], df['relnvtprice2'], label='2x DCRBTC NVT Price', linestyle='dashed', color='y')
-ax1.plot(df['date'], df['relnvtprice4'], label='4x DCRBTC NVT Price', linestyle='dashed', color='r')
+line1 = ax1.plot(df['date'], df['dcrbtc'], label='DCRBTC Market Traded Price', color='w')
+line2 = ax1.plot(df['date'], df['relnvtprice'], label='DCRBTC NVT Price', linestyle='dashed', color='aqua')
+line3 = ax1.plot(df['date'], df['relnvtprice2'], label='2x DCRBTC NVT Price', linestyle='dashed', color='y')
+line4 = ax1.plot(df['date'], df['relnvtprice4'], label='4x DCRBTC NVT Price', linestyle='dashed', color='r')
 ax1.set_ylabel("DCRBTC", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("DCRBTC vs Relative NVT Price", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
-ax1.legend()
+ax1.legend(edgecolor='w', textcolor='w')
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['relnvt'], color='aqua')

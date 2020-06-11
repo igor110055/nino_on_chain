@@ -36,7 +36,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-09"
+date_2 = "2020-06-10"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -52,21 +52,33 @@ df['date'] = pd.to_datetime(df['date'])
 
 df.rename(columns={'data': 'DCRBTC'}, inplace=True)
 
+print(df)
+
 # Plot the data
-fig = plt.figure()
-fig.patch.set_facecolor('#E0E0E0')
-fig.patch.set_alpha(0.7)
+fig, ax1 = plt.subplots()
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-plt.plot(df['date'], df['DCRBTC'])
-plt.title("DCRBTC Price")
-plt.yscale('log')
-plt.grid()
+ax1.plot(df['date'], df['DCRBTC'], color='w')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_facecolor('black')
+ax1.set_title("DCRBTC Price", fontsize=20, fontweight='bold', color='w')
+ax1.set_yscale('log')
+ax1.axhspan(.0105, .0095, color='lime', alpha=0.75)
+ax1.axhspan(.0016, .0014, color='m', alpha=0.75)
+ax1.axhspan(.004, .0039, color='y', alpha=0.75)
+ax1.grid()
 
-plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df['date'], df['rolling_7'], color='r')
-plt.title("288 Block Rolling Sum of DCR Ticket Volume")
-plt.grid()
-plt.ylim(500, 950)
-plt.axhspan(550, 600, color='g', alpha=0.10)
+ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+ax2.plot(df['date'], df['rolling_7'], color='aqua')
+ax2.set_facecolor('black')
+ax2.set_ylabel('Ticket Volume', fontsize=20, fontweight='bold', color='w')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_title("7-Day Rolling Average DCR Ticket Volume", fontsize=20, fontweight='bold', color='w')
+ax2.axhline(720, color='y', linestyle='dashed')
+ax2.grid()
+ax2.set_ylim(500, 950)
+ax2.axhspan(550, 600, color='w', alpha=0.5)
+
 plt.show()

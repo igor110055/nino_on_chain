@@ -19,7 +19,7 @@ cm = coinmetrics.Community()
 
 asset = "dcr"
 date_1 = "2016-02-08"
-date_2 = "2020-05-20"
+date_2 = "2020-06-10"
 
 rawtxflow = cm.get_asset_data_for_time_range(asset, "TxTfrValNtv", date_1, date_2)
 txflow = cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2)
@@ -99,12 +99,12 @@ findf.to_excel('hodlconvert.xlsx')
 # PLOT DCR FLOWS
 
 #plot
-plt.figure()
+
 ax1 = plt.subplot(1, 1, 1)
-plt.plot(findf['poolval'], label='142 HODLer Conversion Rate')
-plt.title("DCR FLOWS")
-plt.grid()
-plt.legend()
+ax1.plot(findf['date'], findf['142hodlreal'], kind='bar', label='142 HODLer Conversion Rate')
+ax1.set_title("DCR FLOWS")
+ax1.grid()
+ax1.legend()
 
 """ plt.subplot(2, 1, 2, sharex=ax1)
 plt.plot(comb_df['Market Cap USD'])
