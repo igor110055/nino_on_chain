@@ -1,6 +1,7 @@
 # COINMETRICS
 import coinmetrics
 import cm_data_converter as cmdc
+import matplotlib as mpl
 
 # DCRDATA
 from tinydecred.pydecred.dcrdata import DcrdataClient
@@ -18,7 +19,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-07"
+date_2 = "2020-06-09"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -83,24 +84,39 @@ print(stk_df)
 # Send merged data to excel
 """ stk_df.to_excel('stakeflows1.xlsx') """
 
-fig = plt.figure()
-fig.patch.set_facecolor('#E0E0E0')
-fig.patch.set_alpha(0.7)
+# PLOT
+
+fig, ax1 = plt.subplots()
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-plt.style.use('ggplot')
-plt.plot(stk_df['date'], stk_df['28 Inflow'], label='28 Day Inflow / Outflow')
-plt.plot(stk_df['date'], stk_df['142 Inflow'], label='142 Day Inflow / Outflow')
-plt.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] > 0, facecolor='blue', alpha=0.25)
-plt.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] < 0, facecolor='red', alpha=0.25)
-plt.title("Net Inflows & Outflow From Ticket Pool Over 28 & 142 Days")
-plt.ylabel("DCR Net Inflow / Outflow")
-plt.grid()
-plt.legend()
 
-plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(stk_df['date'], stk_df['DCRBTC'])
-plt.yscale('log')
-plt.title("DCRBTC")
-plt.grid()
+ax1.plot(stk_df['date'], stk_df['28 Inflow'], label='28 Day Inflow / Outflow', color='aqua')
+ax1.plot(stk_df['date'], stk_df['142 Inflow'], label='142 Day Inflow / Outflow', color='w')
+ax1.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] > 0, facecolor='aqua', alpha=0.4)
+ax1.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] < 0, facecolor='red', alpha=0.7)
+ax1.set_facecolor('black')
+ax1.set_title("Net Inflows & Outflow From Ticket Pool Over 28 & 142 Days", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel("DCR Net Inflow / Outflow", fontsize=20, fontweight='bold', color='w')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+ax1.grid()
+ax1.legend()
+
+ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+
+ax2.plot(stk_df['date'], stk_df['DCRBTC'], color='w')
+ax2.set_facecolor('black')
+ax2.set_yscale('log')
+ax2.set_title("DCRBTC Price", fontsize=20, fontweight='bold', color='w')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+ax2.axhspan(.0105, .0095, color='lime', alpha=0.75)
+ax2.axhspan(.0016, .0014, color='m', alpha=0.75)
+ax2.axhspan(.004, .0039, color='y', alpha=0.75)
+ax2.grid()
+
 plt.show() 

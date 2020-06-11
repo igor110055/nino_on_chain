@@ -13,7 +13,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-08"
+date_2 = "2020-06-09"
 
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 realcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date_1, date_2))
@@ -47,8 +47,8 @@ ax1.fill_between(df['date'], df['DeltaGradient'], where=df['DeltaGradient'] > 0,
 ax1.fill_between(df['date'], df['DeltaGradient'], where=df['DeltaGradient'] < 0, color='lime', alpha=0.4)
 ax1.set_ylabel('Gradient', fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
-ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
+ax1.tick_params(color='w', labelcolor='w')
 ax1.legend(loc='upper right')
 ax1.set_ylim(df['DeltaGradient'].min(), df['DeltaGradient'].max()*1.5)
 ax1.get_yaxis().set_major_formatter(
@@ -65,7 +65,7 @@ ax2.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax3 = plt.subplot(2,1,2)
-ax3.plot(df['date'], df['mvrv'], color=(1,.08,0.58))
+ax3.plot(df['date'], df['mvrv'], color='aqua')
 ax3.set_title("MVRV Ratio", fontsize=20, fontweight='bold', color='w')
 ax3.set_facecolor('black')
 ax3.set_ylabel('Ratio Value', fontsize=20, fontweight='bold', color='w')

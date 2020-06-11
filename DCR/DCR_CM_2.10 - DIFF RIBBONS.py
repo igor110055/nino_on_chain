@@ -16,7 +16,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2010-01-01"
-date_2 = "2020-06-08"
+date_2 = "2020-06-09"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -67,30 +67,47 @@ print(df)
 
 #plot
 fig, ax1 = plt.subplots()
-fig.patch.set_facecolor('#E0E0E0')
-fig.patch.set_alpha(0.7)
- 
-ax1.plot(df['date'], df['PriceUSD'], label='USD Price')
-ax1.plot(df['date'], df['ribbonprice7'], label='Ribbon Price', linestyle=':', color='g')
-ax1.plot(df['date'], df['ribbonprice8'], label='Ribbon Price', linestyle=':', color='g')
-ax1.plot(df['date'], df['ribbonprice9'], label='Ribbon Price', linestyle=':', color='g')
-#ax1.plot(df['date'], df['ribbonprice2'], label='Ribbon Price2', linestyle=':', color='g')
-#ax1.plot(df['date'], df['ribbonprice3'], label='Ribbon Price3', linestyle=':', color='g')
-ax1.fill_between(df['date'], df['ribbonprice7'], df['ribbonprice8'], where=df['ribbonprice7'] < df['ribbonprice8'], facecolor='green', alpha=0.15)
-ax1.fill_between(df['date'], df['ribbonprice7'], df['ribbonprice9'], where=df['ribbonprice7'] > df['ribbonprice9'], facecolor='red', alpha=0.15)
-ax1.set_ylabel('USD Prices')
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
+
+ax1 = plt.subplot(2,1,1)
+ax1.plot(df['date'], df['PriceUSD'], label='USD Price', color='w')
+ax1.plot(df['date'], df['ribbonprice7'], label='Ribbon Price', color='aqua')
+ax1.set_facecolor('black')
+ax1.set_ylabel('USD Prices', fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_title("DCRUSD vs Mining Price", fontsize=20, fontweight='bold', color='w')
 ax1.grid()
+ax1.legend(loc='upper right')
 
 ax2 = ax1.twinx()
-line3 = ax2.plot(df['date'], df['profitmargin'], color='r', alpha=.5)
-ax2.set_ylabel('Miner P/L per Coin (%)')
-ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] > 0, facecolor='blue', alpha=0.05)
-ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=0.05)
+ax2.plot(df['date'], df['profitmargin'], color='aqua', linestyle=':')
+ax2.set_ylabel('Miner P/L per Coin (%)', fontsize=20, fontweight='bold', color='w')
+ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] > 0, facecolor='aqua', alpha=0.4)
+ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=1)
 ax2.set_ylim(1.5*df['profitmargin'].min(), 3*df['profitmargin'].max())
+ax2.tick_params(color='w', labelcolor='w')
+ax2.legend(loc='upper left')
 
-plt.title("DCRUSD vs Mining Price")
-fig.tight_layout()
+ax3 = plt.subplot(2,1,2)
+ax3.plot(df['date'], df['difficulty'], label='Difficulty', color='aqua')
+ax3.plot(df['date'], df['ribbon_200'], label='200', color='lime')
+ax3.plot(df['date'], df['ribbon_128'], label='128', color='aqua', alpha=0.5)
+ax3.plot(df['date'], df['ribbon_90'], label='90', color='aqua', alpha=0.5)
+ax3.plot(df['date'], df['ribbon_60'], label='60', color='aqua', alpha=0.5)
+ax3.plot(df['date'], df['ribbon_40'], label='40', color='aqua', alpha=0.5)
+ax3.plot(df['date'], df['ribbon_25'], label='25', color='aqua', alpha=0.5)
+ax3.plot(df['date'], df['ribbon_14'], label='14', color='aqua', alpha=0.5)
+ax3.plot(df['date'], df['ribbon_9'], label='9', color='aqua', alpha=0.5)
+ax3.set_facecolor('black')
+ax3.set_yscale('log')
+ax3.tick_params(color='w', labelcolor='w')
+ax3.set_title("Decred Difficulty Ribbon", fontsize=20, fontweight='bold', color='w')
+ax3.set_ylabel('Difficulty Target', fontsize=20, fontweight='bold', color='w')
+ax3.grid()
+ax3.legend(loc='best')
+
 plt.show()
 
 # EXTRA CODE TO PLOT OTHER THINGS

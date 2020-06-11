@@ -1,6 +1,7 @@
 # COINMETRICS
 import coinmetrics
 import cm_data_converter as cmdc
+import matplotlib as mpl
 
 # GENERAL
 
@@ -32,7 +33,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-06"
+date_2 = "2020-06-09"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 mcap = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
@@ -79,25 +80,32 @@ comb_df['date'] = pd.to_datetime(comb_df['date'])
 print(comb_df)
 
 #plot
-plt.figure()
-ax1 = plt.subplot(2, 1, 1)
-plt.plot(comb_df['date'], comb_df['28ratio'], color='r')
-plt.axhspan(1.7, 0.9, color='g', alpha=0.25)
-plt.title("28 ratio")
-plt.grid()
-plt.tight_layout()
+fig, ax1 = plt.subplots()
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
 
-plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(comb_df['date'], comb_df['Market Cap USD'])
-plt.plot(comb_df['date'], comb_df['142 top band'], label='142 Top Band')
-plt.plot(comb_df['date'], comb_df['142 bottom band'], label='142 Bottom Band')
-plt.plot(comb_df['date'], comb_df['realcap'], label='Realized Cap')
-plt.plot(comb_df['date'], comb_df['realizedtop'], label='Realized Top', linestyle=':')
-plt.plot(comb_df['date'], comb_df['realizedbottom'], label='Realized Bottom', linestyle=':')
-plt.title("Market Cap USD vs 142 Bands vs Realized Cap")
-plt.legend()
-plt.grid()
-plt.tight_layout()
-plt.yscale('log')
+ax1 = plt.subplot(2, 1, 1)
+ax1.plot(comb_df['date'], comb_df['28ratio'], color='aqua')
+ax1.axhspan(1.75, 0.95, color='w', alpha=0.3)
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_facecolor('black')
+ax1.set_title("28-Day Strong Hand Ratio", fontsize=20, fontweight='bold', color='w')
+ax1.grid()
+ax1.set_ylabel('Ratio Value', fontsize=20, fontweight='bold', color='w')
+
+ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+ax2.plot(comb_df['date'], comb_df['Market Cap USD'], color='w')
+ax2.plot(comb_df['date'], comb_df['142 top band'], label='142 Top Band', color='r')
+ax2.plot(comb_df['date'], comb_df['142 bottom band'], label='142 Bottom Band', color='lime')
+ax2.plot(comb_df['date'], comb_df['realcap'], label='Realized Cap', color='aqua')
+ax2.set_title("Market Cap USD vs 142 Bands vs Realized Cap", fontsize=20, fontweight='bold', color='w')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_facecolor('black')
+ax2.legend()
+ax2.grid()
+ax2.set_yscale('log')
+ax2.set_ylabel('Network Value', fontsize=20, fontweight='bold', color='w')
+ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 plt.show()

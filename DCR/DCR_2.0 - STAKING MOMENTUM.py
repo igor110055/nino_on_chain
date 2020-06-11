@@ -1,5 +1,6 @@
 import coinmetrics
 import cm_data_converter as cmdc
+import matplotlib as mpl
 
 # DCRDATA
 from tinydecred.pydecred.dcrdata import DcrdataClient
@@ -24,7 +25,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-05"
+date_2 = "2020-06-09"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
 price.columns = ['date', 'dcrbtc']
@@ -52,32 +53,46 @@ df = price.merge(Stk_part, on='date', how='left')
 
 # Calc Metrics
 
+period = 142
+
 df['adjpart'] = df['poolval'] / df['circulation']
-df['adjpart142'] = df['adjpart'].pct_change(142)
+df['adjpart142'] = df['adjpart'].rolling(period).mean()
+df['ratio'] = df['adjpart'] / df['adjpart142']
+df['poolval142'] = df['poolval'].rolling(period).mean()
+
+df['stkgradient'] = ((df['adjpart'] - df['adjpart'].shift(periods=period, axis=0)) / period)
 
 print(df)
 
 # Plot
 
-fig = plt.figure()
-fig.patch.set_facecolor('#E0E0E0')
-fig.patch.set_alpha(0.7)
+fig, ax1 = plt.subplots()
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-""" plt.plot(df['date'], df['adjpart']) """
-plt.plot(df['date'], df['adjpart28'])
-""" plt.plot(df['date'], df['adjpart28'])
-plt.plot(df['date'], df['adjpart142']) """
-""" plt.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] > 0, facecolor='blue', alpha=0.25)
-plt.fill_between(stk_df['date'], stk_df['28 Inflow'], where=stk_df['28 Inflow'] < 0, facecolor='red', alpha=0.25) """
-plt.title("Staking Momentum (%)")
-plt.ylabel("Percentage of Supply in Ticket Pool")
-plt.grid()
-plt.legend()
 
-plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df['date'], df['dcrbtc'])
-plt.yscale('log')
-plt.title("DCRBTC")
-plt.grid()
+ax1.plot(df['date'], df['adjpart'], color='w')
+ax1.plot(df['date'], df['adjpart142'], color='aqua')
+
+ax1.set_title("Staking Momentum (%)", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel("% of Supply in Ticket Pool", fontsize=20, fontweight='bold', color='w')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_facecolor('black')
+ax1.grid()
+ax1.legend()
+
+ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+ax2.plot(df['date'], df['dcrbtc'], color='w')
+ax2.set_yscale('log')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_facecolor('black')
+ax2.set_title("DCRBTC", fontsize=20, fontweight='bold', color='w')
+ax2.axhspan(.0105, .0095, color='lime', alpha=0.75)
+ax2.axhspan(.0016, .0014, color='m', alpha=0.75)
+ax2.axhspan(.004, .0039, color='y', alpha=0.75)
+ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), '')))
+ax2.grid()
+
 plt.show()

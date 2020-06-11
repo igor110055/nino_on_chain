@@ -83,7 +83,6 @@ fig.patch.set_alpha(0.7)
 ax1 = plt.subplot(2, 1, 1)
 plt.plot(df['date'], df['altbtcprice'], label='Actual')
 plt.plot(df['date'], df['mixedprice'], label='Mixed')
-plt.rcParams['axes.facecolor'] = 'black'
 plt.yscale('log')
 plt.grid()
 plt.title("Actual ALTBTC vs Mining ALTBTC")
