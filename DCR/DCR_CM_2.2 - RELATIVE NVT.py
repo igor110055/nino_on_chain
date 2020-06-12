@@ -49,7 +49,7 @@ ax1.set_title("DCRBTC vs Relative NVT Price", fontsize=20, fontweight='bold', co
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
-ax1.legend(edgecolor='w', textcolor='w')
+ax1.legend(edgecolor='w')
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['relnvt'], color='aqua')

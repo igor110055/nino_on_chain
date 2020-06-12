@@ -92,27 +92,14 @@ findf['142dcrvolsum'] = findf['rawminusprivacy'].rolling(142).sum()
 findf['raw142hodl'] = findf['142tixvolsum'] / findf['142dcrvolsum']
 findf['142hodlreal'] = findf['raw142hodl'] - findf['stakepart']
 
+findf['date'] = pd.to_datetime(findf['date'])
+
 print(findf)
 
 findf.to_excel('hodlconvert.xlsx')
 
-# PLOT DCR FLOWS
-
-#plot
-
-ax1 = plt.subplot(1, 1, 1)
-ax1.plot(findf['date'], findf['142hodlreal'], kind='bar', label='142 HODLer Conversion Rate')
-ax1.set_title("DCR FLOWS")
-ax1.grid()
-ax1.legend()
-
-""" plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(comb_df['Market Cap USD'])
-plt.plot(comb_df['142 top band'], label='142 Top Band')
-plt.plot(comb_df['142 bottom band'], label='142 Bottom Band')
-plt.title("Market Cap USD")
+plt.plot(findf['date'], findf['Raw Flows'])
+plt.plot(findf['date'], findf['anonymitySet'])
+plt.plot(findf['date'], findf['dcrtixvol'])
 plt.legend()
-plt.grid()
-plt.yscale('log') """
-
 plt.show()

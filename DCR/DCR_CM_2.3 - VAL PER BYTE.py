@@ -29,9 +29,11 @@ btcblk = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "BlkSizeByt
 btcusd = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "PriceUSD", date1, date2))
 dcrmcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date1, date2))
 btcmcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "CapMrktCurUSD", date1, date2))
+dcrreal = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date1, date2))
+btcreal = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "CapRealUSD", date1, date2))
 
-df = btcusd.merge(dcrblk, on='date', how='left').merge(btcblk, on='date', how='left').merge(dcrusd, on='date', how='left').merge(dcrmcap, on='date', how='left').merge(btcmcap, on='date', how='left')
-df.columns = ['date', 'btcusd', 'dcrblk', 'btcblk', 'dcrusd', 'dcrmcap', 'btcmcap']
+df = btcusd.merge(dcrblk, on='date', how='left').merge(btcblk, on='date', how='left').merge(dcrusd, on='date', how='left').merge(dcrmcap, on='date', how='left').merge(btcmcap, on='date', how='left').merge(dcrreal, on='date', how='left').merge(btcreal, on='date', how='left')
+df.columns = ['date', 'btcusd', 'dcrblk', 'btcblk', 'dcrusd', 'dcrmcap', 'btcmcap', 'dcrreal', 'btcreal']
 
 df['dcrbtc'] = df['dcrusd'] / df['btcusd']
 
@@ -49,6 +51,10 @@ df['btcchain'] = df['btcblk'].cumsum()
 df['dcrvalbyte'] = df['dcrmcap'] / df['dcrchain']
 df['btcvalbyte'] = df['btcmcap'] / df['btcchain']
 df['dcrbtcvalbyte'] = df['dcrvalbyte'] / df['btcvalbyte']
+df['dcrrealbyte'] = df['dcrreal'] / df['dcrchain']
+df['btcrealbyte'] = df['btcreal'] / df['btcchain']
+df['dcrbtcrealbyte'] = df['dcrrealbyte'] / df['btcrealbyte']
+df['mixedratio'] = df['dcrvalbyte'] / df['btcrealbyte']
 
 print(df)
 
@@ -61,7 +67,9 @@ fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
 line1 = ax1.plot(df['date'], df['dcrvalbyte'], label='DCR $/Byte', color='w')
-line2 = ax1.plot(df['date'], df['btcvalbyte'], label='BTC $/Byte', linestyle='dashed', color='aqua')
+line2 = ax1.plot(df['date'], df['btcvalbyte'], label='BTC $/Byte', color='aqua')
+line3 = ax1.plot(df['date'], df['dcrrealbyte'], label='DCR Real $/Byte', linestyle='dashed', color='r')
+line4 = ax1.plot(df['date'], df['btcrealbyte'], label='BTC Real $/Byte', linestyle='dashed', color='m')
 ax1.set_ylabel("$ / Byte", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("$ Stored per Byte Comparison", fontsize=20, fontweight='bold', color='w')
@@ -71,12 +79,13 @@ ax1.grid()
 ax1.legend(edgecolor='w')
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
-ax2.plot(df['date'], df['dcrbtcvalbyte'], color='aqua')
+ax2.plot(df['date'], df['mixedratio'], color='w')
 ax2.set_ylabel("Comparative Value Stored", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
 ax2.set_title("DCRBTC Value Stored per Byte", fontsize=20, fontweight='bold', color='w')
 ax2.set_facecolor('black')
 ax2.grid()
+ax2.legend('@permabullnino', loc='upper center')
 
 plt.show()
