@@ -14,7 +14,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset2 = "btc"
 date_1 = "2016-07-01"
-date_2 = "2020-06-07"
+date_2 = "2020-06-11"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 coin1_price = cm.get_asset_data_for_time_range(asset2, "PriceUSD", date_1, date_2)
@@ -60,6 +60,10 @@ df['rel_nvt_price'] = df['coin_coin1'] / df['rel_nvt']
 df['rel_mvrv_price'] = df['coin_coin1'] / df['rel_mvrv']
 df['mid_point'] = 0.5 * (df['rel_real'] + df['rel_mvrv_price'])
 
+df['ocratio'] = df['coin_coin1'] / df['rel_real']
+df['ocratio142'] = df['ocratio'].rolling(142).mean()
+df['rel_mvrv142'] = df['rel_mvrv'].rolling(142).mean()
+
 # CALC GRADIENTS
 
 period = 56
@@ -94,12 +98,14 @@ ax1.grid()
 ax1.legend()
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
-ax2.plot(df['date'], df['rel_mvrv'], color='aqua')
+ax2.plot(df['date'], df['rel_mvrv'], color='w')
+ax2.plot(df['date'], df['rel_mvrv142'], linestyle=':', color='aqua')
 ax2.set_facecolor('black')
 ax2.set_title("Relative MVRV Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.set_ylabel("Ratio Value", fontsize=20, fontweight='bold', color='w')
 ax2.axhspan(1.05, 0.95, color='lime', alpha=0.4)
-ax2.axhspan(.5, 0.45, color='w', alpha=0.4)
+ax2.axhspan(.45, 0.4, color='w', alpha=0.4)
+ax2.legend()
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
 ax2.grid()

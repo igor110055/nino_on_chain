@@ -25,6 +25,12 @@
 - **HODLer Conversion Rates**: Shows how DCR flows dominated by HODLers, marginal buyers, and marginal sellers reflects itself in short / long term price action
 - **Strongest Hand Market Cap / Ratio**: Shows how the strong the largest instances of Decred ticket purchases establish the maximum willingness to hold for network participants, and this threshold can provide users with an on-chain implied valuation for the network
 - **Mining Pulse**: Shows how trends in block times provide a quality lens for evaluating mild and extreme mining conditions
+- **Realized Gradient**: Shows the relationship / momentum between Market Cap and Realized Cap movements
+- **On-Chain DCRBTC Price** - Decred Realized Cap / Bitcoin Realized Cap, which provides a true on-chain denominated price pair (coming in future piece)
+- **Difficulty Ribbon Price** - Uses difficulty ribbons to provide users with an assumption minimized estimate of the cost of mining (coming in future piece)
+- **Throughput Thermometer** - Compares Decred & Bitcoin throughput adjusted for supply, making it an apples to apples comparison. Effectively shows which network is settling more value on a pound for pound basis (denominated in native units)
+- **Value per Byte** - Cryptocurrencies need to be "value dense" in order to survive over the long haul. This metric tracks that, and can be applied versus Bitcoin
+- **NVT Ratio
 
 ---
 
@@ -72,6 +78,7 @@
 
 ## Trading / Price-Focused
 - Very fast / slow block times: miners sweating from either (1) difficulty in earning subisidies due to mining competitiveness or (2) price is too low to justify the mining cost, which *likely* results in more selling pressure
+- You're much better off using Mini Mining Pulse (21 day) with the original Mining Pulse (63 day), you want confluence between the two for higher conviction
 - Large outflows from the ticket pool are indicative of extremes in price action, and likely showing latent DCR selling power coming onto the market
 - The realized price for Decred is very dynamic due to the fact that HODLers coins are constantly in motion via tickets. This dynamic nature makes the realized price a quality measure for identifying the stakeholder-wide on-chain cost-basis, and serves as the ultimate price support during bull markets (viceversa for bear markets)
 - PoW lifetime subsidies issued line has historically been very strong bear-market-bottoming support
@@ -79,10 +86,15 @@
 - Large ticket buying is in fact significant, but factors such as timing, USD/BTC prices, ticket prices are all relevant in determing the threshold for considering something large / small ticket buying
 - Periods where on-chain flows are dominated by ticket-based transacting have been historically bearish, as it indicates an absence of marginal buyers / sellers within the Decred ecosystem
 - Capitulation for Decred requires not only (1) mining capitulation, but also (2) staking capitulation, and there's evidence pointing towards there being some overlap between the two groups
+- Bitcoin has historically defended its MVRV Ratio versus Decred
+- Decred's Relative NVT Ratio has historically printed bottoms at 1 (equal to Bitcoin's NVT)
+- Decred's Relative NVT Ratio shows that Decred needs less on-chain flow to stay afloat
+- The 142 Day Avg of Decred's Relative MVRV Ratio is a strong tool for gauging DCRBTC's price versus on-chain momentum
 
 ## Foundational
 - Decred can reasonably be considered one of the top three most secure and censorship-resistant public ledgers in the cryptocurrency market
 - Decred has *to date* followed a similar S2F path as Bitcoin
+- Decred's value stored per byte is currently (mid 2020) equivalent to Bitcoin's in early 2013
 - Decred's ticket pool supply has followed closely to the sum of DCR issued to PoW miners to date
 - More DCR are being HODL'd / staked since the release of ASICs
 
@@ -91,5 +103,25 @@
 
 ## Additional Notes
 - Stake Difficulty Adjustment Algorithm altered at **Block 149,248** in order to fix erratic ticket buying that was taking place on the network
-- Coinshuffle ++ went live October 2019, which can impact transactional flow analysis
+- Coinshuffle ++ went live October 2019, which can impact transactional flow analysis, fees, and block size
 - Decred ASIC mining began early 2018, which pushed up hashrate / difficulty very quickly
+
+## Resources
+**Tools for Getting Started**
+- [Decred Block Explorer](https://alpha.dcrdata.org/)
+- [Coinmetrics API Documentation](https://docs.coinmetrics.io/api/v2/)
+- [An unofficial Python module for interacting with the Coin Metrics (coinmetrics.io) API by h4110w33n](https://github.com/h4110w33n/coinmetrics)
+- [Buck's Github](https://github.com/decred/tinydecred)
+
+**Published Research**
+- [Block Commons (Richard Red)](https://blockcommons.red/)
+- [Checkmate Medium Page](https://medium.com/@_Checkmatey_)
+- [Permabull Nino Medium Page](https://medium.com/@permabullnino)
+
+**Code Referencing Sources**
+- [Checkmate's Github](https://github.com/checkmatey/checkonchain)
+- [Richard Red's Github](https://github.com/RichardRed0x)
+- [Permabull Nino Github](https://github.com/permabullnino/nino_on_chain)
+
+**Coding Educational Sources**
+- [Master Markdown](https://guides.github.com/features/mastering-markdown/)

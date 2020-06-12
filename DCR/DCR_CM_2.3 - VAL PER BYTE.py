@@ -19,7 +19,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset1 = "btc"
 date1 = "2010-01-01"
-date2 = "2020-06-10"
+date2 = "2020-06-11"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -86,6 +86,6 @@ ax2.set_yscale('log')
 ax2.set_title("DCRBTC Value Stored per Byte", fontsize=20, fontweight='bold', color='w')
 ax2.set_facecolor('black')
 ax2.grid()
-ax2.legend('@permabullnino', loc='upper center')
+ax2.legend()
 
 plt.show()
