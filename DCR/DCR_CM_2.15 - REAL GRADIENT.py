@@ -13,7 +13,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-11"
+date_2 = "2020-06-13"
 
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 realcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date_1, date_2))
@@ -30,6 +30,7 @@ df['MrktGradient'] = ((df['mcap'] - df['mcap'].shift(periods=period, axis=0)) / 
 df['RealGradient'] = ((df['realcap'] - df['realcap'].shift(periods=period, axis=0)) / period)
 
 df['DeltaGradient'] = df['MrktGradient'] - df['RealGradient']
+df['mvrv142'] = df['mvrv'].rolling(142).mean()
 
 print(df)
 
@@ -65,7 +66,8 @@ ax2.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax3 = plt.subplot(2,1,2)
-ax3.plot(df['date'], df['mvrv'], color='aqua')
+ax3.plot(df['date'], df['mvrv'], color='w')
+ax3.plot(df['date'], df['mvrv142'], color='aqua')
 ax3.set_title("MVRV Ratio", fontsize=20, fontweight='bold', color='w')
 ax3.set_facecolor('black')
 ax3.set_ylabel('Ratio Value', fontsize=20, fontweight='bold', color='w')

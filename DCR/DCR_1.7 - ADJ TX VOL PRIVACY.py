@@ -98,8 +98,8 @@ print(findf)
 
 findf.to_excel('hodlconvert.xlsx')
 
-plt.plot(findf['date'], findf['Raw Flows'])
-plt.plot(findf['date'], findf['anonymitySet'])
-plt.plot(findf['date'], findf['dcrtixvol'])
+plt.bar(findf['date'], findf['Raw Flows'])
+plt.bar(findf['date'], findf['dcrtixvol'])
+plt.bar(findf['date'], findf['anonymitySet'])
 plt.legend()
 plt.show()

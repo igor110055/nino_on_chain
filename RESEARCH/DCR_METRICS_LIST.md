@@ -1,4 +1,4 @@
-# On-Chain Definitions
+# Decred On-Chain Definitions
 
 ## Basic Definitions
 - **Ticket Purchasers**: Long term holders
@@ -30,7 +30,8 @@
 - **Difficulty Ribbon Price** - Uses difficulty ribbons to provide users with an assumption minimized estimate of the cost of mining (coming in future piece)
 - **Throughput Thermometer** - Compares Decred & Bitcoin throughput adjusted for supply, making it an apples to apples comparison. Effectively shows which network is settling more value on a pound for pound basis (denominated in native units)
 - **Value per Byte** - Cryptocurrencies need to be "value dense" in order to survive over the long haul. This metric tracks that, and can be applied versus Bitcoin
-- **NVT Ratio
+- **NVT Ratio** - Measures Market Cap vs on-chain flows, providing an off-chain valuation vs on-chain marginal buying / selling comparison
+- **RVT Ratio** - Measures Realized Cap vs on-chain flows, providing an on-chain valuation vs on-chain marginal buying / selling comparison
 
 ---
 
@@ -125,3 +126,4 @@
 
 **Coding Educational Sources**
 - [Master Markdown](https://guides.github.com/features/mastering-markdown/)
+- [Python Crash Course, 2nd Edition: A Hands-On, Project-Based Introduction to Programming](https://www.amazon.com/Python-Crash-Course-2nd-Edition/dp/1593279280/ref=sr_1_3?crid=14EHIDISYG3US&dchild=1&keywords=python+programming&qid=1592065985&sprefix=python%2Caps%2C172&sr=8-3)
