@@ -6,6 +6,13 @@ import pandas as pd
 import cm_data_converter as cmdc
 import matplotlib as mpl
 
+# Add early price data
+
+filename = 'DCR/DCR_data.xlsx'
+df_early = pd.read_excel(filename)
+early = df_early[['date', 'PriceUSD', 'PriceBTC']].copy()
+early['date'] = pd.to_datetime(early['date'], utc=True)
+
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
@@ -14,13 +21,6 @@ asset = "dcr"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
-
-# Add early price data
-
-filename = 'DCR/DCR_data.xlsx'
-df_early = pd.read_excel(filename)
-early = df_early[['date', 'PriceUSD', 'PriceBTC']].copy()
-early['date'] = pd.to_datetime(early['date'], utc=True)
 
 #fetch and format desired data
 date_1 = "2011-01-01"
@@ -41,5 +41,6 @@ df['dcrbtc'].mask(df['dcrbtc'] == 0, df['PriceBTC'], inplace=True)
 
 df = df.drop(columns=['PriceUSD', 'PriceBTC'])
 
-# get ticket data and merge
+plt.plot(df['date'], df['dcrusd'])
+plt.show()
 

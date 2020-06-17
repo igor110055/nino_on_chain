@@ -1,10 +1,10 @@
 import coinmetrics
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
+import matplotlib as mpl
 import numpy as np
 from datetime import datetime as dt
 import pandas as pd
-import cm_data_converter
+import cm_data_converter as cmdc
 
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
@@ -15,50 +15,50 @@ asset = "btc"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
-date_1 = "2011-01-01"
-date_2 = "2020-06-04"
-isstot = cm.get_asset_data_for_time_range(asset, "IssTotUSD", date_1, date_2)
-mkt = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
-# clean CM data
-isstot_clean = cm_data_converter.cm_data_convert(isstot)
-mkt_clean = cm_data_converter.cm_data_convert(mkt)
-# convert to pandas
-df = pd.DataFrame(isstot_clean)
-df_1 = pd.DataFrame(mkt_clean)
-# calc cumulative sum of block rewards
-cum_blk_rew = df.cumsum()
-# calc monetary premium lines
-two_prem = cum_blk_rew*2
-four_prem = cum_blk_rew*4
-eight_prem = cum_blk_rew*8
-sixteen_prem = cum_blk_rew*16
-threetwo_prem = cum_blk_rew*32
-sixfour_prem = cum_blk_rew*64
-#add monetary premium lines to main block rewards dataframe
-df_1['Cumulative Block Rewards'] = cum_blk_rew
-df_1['Dos'] = two_prem
-df_1['Cuatro'] = four_prem
-df_1['Ocho'] = eight_prem
-df_1['Dieciseis'] = sixteen_prem
-df_1['treintados'] = threetwo_prem
-df_1['seiscuatro'] = sixfour_prem
-print(df_1)
+date_1 = "2010-01-01"
+date_2 = "2020-06-16"
+
+isstot = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "IssTotUSD", date_1, date_2))
+mkt = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
+
+df = isstot.merge(mkt, on='date', how='left')
+
+df.columns = ['date', 'isstot', 'mkt']
+#calc metrics 
+
+df['rewardsum'] = df['isstot'].cumsum()
+
+df['2'] = df['rewardsum'] * 2
+df['4'] = df['rewardsum'] * 4
+df['8'] = df['rewardsum'] * 8
+df['16'] = df['rewardsum'] * 16
+df['32'] = df['rewardsum'] * 32
+df['64'] = df['rewardsum'] * 64
+
 # plot the data
 
+name = "@permabullnino"
 fig, ax1 = plt.subplots()
-fig.patch.set_facecolor('#E0E0E0')
-fig.patch.set_alpha(0.7)
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
 
-plt.plot(df_1[0], label='Market Cap')
-plt.plot(df_1['Cumulative Block Rewards'], label='Block Rewards Sum')
-plt.plot(df_1['Dos'], label='2x')
-plt.plot(df_1['Cuatro'], label='4x')
-plt.plot(df_1['Ocho'], label='8x')
-plt.plot(df_1['Dieciseis'], label='16x')
-plt.plot(df_1['treintados'], label='32x')
-plt.plot(df_1['seiscuatro'], label='64x')
-ax1.yaxis.set_major_formatter(ticker.StrMethodFormatter('{x:,.0f}'))
-plt.legend()
-plt.title("Market Cap versus Monetary Premiums")
-plt.yscale('log')
+ax1 = plt.subplot(1,1,1)
+ax1.plot(df['date'], df['mkt'], color='w')
+ax1.plot(df['date'], df['rewardsum'], color='aqua', linewidth=2)
+ax1.plot(df['date'], df['2'], linestyle=':')
+ax1.plot(df['date'], df['4'], linestyle=':')
+ax1.plot(df['date'], df['8'], color='lime', linewidth=2)
+ax1.plot(df['date'], df['16'], linestyle=':')
+ax1.plot(df['date'], df['32'], linestyle=':')
+ax1.plot(df['date'], df['64'],  color='m', linewidth=2)
+ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
+ax1.set_facecolor('black')
+ax1.set_title("Market Cap vs Monetary Premium Lines", fontsize=20, fontweight='bold', color='w')
+ax1.set_yscale('log')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.grid()
+ax1.legend(edgecolor='w')
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
 plt.show()

@@ -21,7 +21,7 @@ asset = "dcr"
 asset1 = "btc"
 asset2 = "ltc"
 date1 = "2010-01-01"
-date2 = "2020-06-15"
+date2 = "2020-06-16"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 

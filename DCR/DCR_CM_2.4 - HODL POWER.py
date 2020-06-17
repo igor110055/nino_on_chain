@@ -48,9 +48,10 @@ df = df.merge(Stk_part, on='date', how='left')
 # Calc Metrics
 
 df['adjpart'] = df['poolval'] / df['circulation']
-df['dcradjsupply'] = df['btcsupply'] / df['dcrsupply']
-df['downcap'] = (1 - df['adjpart']) * df['dcrreal']
+
+df['floatrealcap'] = (1 - df['adjpart']) * df['dcrreal']
 df['upcap'] = (1 / df['adjpart']) * df['dcrreal']
+df['poolrealcap'] = df['adjpart'] * df['dcrreal']
 
 df['mvrvup'] = 1 / df['adjpart']
 df['mvrvdown'] = 1 - df['adjpart']
@@ -65,10 +66,10 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-line1 = ax1.plot(df['date'], df['dcrmcap'], color='w')
-line2 = ax1.plot(df['date'], df['dcrreal'], color='aqua')
-line3 = ax1.plot(df['date'], df['upcap'], color='lime')
-line4 = ax1.plot(df['date'], df['downcap'], color='lime')
+ax1.plot(df['date'], df['dcrmcap'], color='w')
+ax1.plot(df['date'], df['dcrreal'], color='aqua')
+ax1.plot(df['date'], df['upcap'], color='lime')
+ax1.plot(df['date'], df['floatrealcap'], color='lime')
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("HODL POWER", fontsize=20, fontweight='bold', color='w')
