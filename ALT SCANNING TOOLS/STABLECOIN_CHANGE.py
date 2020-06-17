@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-05-31"
+date_2 = "2020-06-15"
 
 asset = "btc"
 asset1 = "busd"

@@ -15,8 +15,8 @@ cm = coinmetrics.Community()
 # PULL DATA
 asset = "dcr"
 asset1 = "btc"
-date1 = "2010-01-01"
-date2 = "2020-06-14"
+date1 = "2016-06-01"
+date2 = "2020-06-15"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -25,9 +25,11 @@ dcrmcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCur
 dcrreal= cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date1, date2))
 dcrsupply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date1, date2))
 btcsupply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "SplyCur", date1, date2))
+dcrmvrv = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMVRVCur", date1, date2))
 
-df = dcrreal.merge(dcrusd, on='date', how='left').merge(dcrmcap, on='date', how='left').merge(dcrsupply, on='date', how='left').merge(btcsupply, on='date', how='left')
-df.columns = ['date', 'dcrreal', 'dcrusd', 'dcrmcap', 'dcrsupply', 'btcsupply']
+df = dcrreal.merge(dcrusd, on='date', how='left').merge(dcrmcap, on='date', how='left').merge(dcrsupply, on='date', how='left').merge(btcsupply, on='date', how='left').merge(
+    dcrmvrv, on='date', how='left')
+df.columns = ['date', 'dcrreal', 'dcrusd', 'dcrmcap', 'dcrsupply', 'btcsupply', 'dcrmvrv']
 
 # Pull DCRDATA
 atoms = 100000000
@@ -49,6 +51,9 @@ df['adjpart'] = df['poolval'] / df['circulation']
 df['dcradjsupply'] = df['btcsupply'] / df['dcrsupply']
 df['downcap'] = (1 - df['adjpart']) * df['dcrreal']
 df['upcap'] = (1 / df['adjpart']) * df['dcrreal']
+
+df['mvrvup'] = 1 / df['adjpart']
+df['mvrvdown'] = 1 - df['adjpart']
 
 print(df)
 
@@ -73,12 +78,23 @@ ax1.grid()
 ax1.legend(edgecolor='w')
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
-ax2.plot(df['date'], df['adjpart'], color='w')
-ax2.set_ylabel("Stake Participation", fontsize=20, fontweight='bold', color='w')
+ax2.plot(df['date'], df['dcrmvrv'], color='w')
+ax2.plot(df['date'], df['mvrvup'], color='lime')
+ax2.plot(df['date'], df['mvrvdown'], color='lime')
+ax2.set_ylabel("MVRV Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
-ax2.set_title("% of DCR Supply in Tickets", fontsize=20, fontweight='bold', color='w')
+ax2.legend(loc='center right')
+ax2.axhline(1, color='aqua', linestyle='dashed')
 ax2.set_facecolor('black')
+ax2.set_title("% of DCR Supply in Tickets vs Dynamic MVRV", fontsize=20, fontweight='bold', color='w')
 ax2.grid()
-ax2.legend()
+
+ax3 = ax2.twinx()
+ax3.plot(df['date'], df['adjpart'], color='w', alpha=0.5, linestyle=':')
+ax3.set_ylabel("Stake Participation", fontsize=20, fontweight='bold', color='w')
+ax3.tick_params(color='w', labelcolor='w')
+ax3.legend(loc='upper left')
+
+
 
 plt.show()

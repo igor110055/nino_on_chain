@@ -32,6 +32,8 @@
 - **Value per Byte** - Cryptocurrencies need to be "value dense" in order to survive over the long haul. This metric tracks that, and can be applied versus Bitcoin
 - **NVT Ratio** - Measures Market Cap vs on-chain flows, providing an off-chain valuation vs on-chain marginal buying / selling comparison
 - **RVT Ratio** - Measures Realized Cap vs on-chain flows, providing an on-chain valuation vs on-chain marginal buying / selling comparison
+- **HODL Power** - Provides an adjusted measure on Realized Cap by using the % of supply in the ticket pool
+- **Stake Pool Flows** - Shows how many DCR have left or entered the ticket pool (on a net basis) over 28 or 142 days
 
 ---
 
@@ -91,6 +93,7 @@
 - Decred's Relative NVT Ratio has historically printed bottoms at 1 (equal to Bitcoin's NVT)
 - Decred's Relative NVT Ratio shows that Decred needs less on-chain flow to stay afloat
 - The 142 Day Avg of Decred's Relative MVRV Ratio is a strong tool for gauging DCRBTC's price versus on-chain momentum
+- When there's not many DCR in the ticket pool, the Realized Cap behaves more like Bitcoin's. As more DCR enter the ticket pool, it starts to behave more uniquely and becomes omega support / resistance for price. Also, as a larger % of supply enters the ticket pool the realized cap more accurately reflects the fair market price because it actively shows the opportunity cost and explicit decision to HODL DCR
 
 ## Foundational
 - Decred can reasonably be considered one of the top three most secure and censorship-resistant public ledgers in the cryptocurrency market
@@ -112,7 +115,7 @@
 - [Decred Block Explorer](https://alpha.dcrdata.org/)
 - [Coinmetrics API Documentation](https://docs.coinmetrics.io/api/v2/)
 - [An unofficial Python module for interacting with the Coin Metrics (coinmetrics.io) API by h4110w33n](https://github.com/h4110w33n/coinmetrics)
-- [Buck's Github](https://github.com/decred/tinydecred)
+- [Tiny Decred - Python Tool](https://github.com/decred/tinydecred)
 
 **Published Research**
 - [Block Commons (Richard Red)](https://blockcommons.red/)

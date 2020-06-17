@@ -13,7 +13,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-13"
+date_2 = "2020-06-15"
 
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 realcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date_1, date_2))
@@ -24,7 +24,7 @@ df.columns = ['date', 'mcap', 'realcap', 'mvrv']
 
 # calc metrics
 
-period = 28
+period = 142
 
 df['MrktGradient'] = ((df['mcap'] - df['mcap'].shift(periods=period, axis=0)) / period)
 df['RealGradient'] = ((df['realcap'] - df['realcap'].shift(periods=period, axis=0)) / period)

@@ -16,7 +16,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2010-01-01"
-date_2 = "2020-06-14"
+date_2 = "2020-06-15"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
