@@ -17,7 +17,7 @@ For those unfamiliar with the Realized Cap, please read the linked piece above a
 - Whenever Bitcoin's Market Cap < Bitcoin's Realized Cap, it's historically a great buying opportunity
 - Decred's Realized Cap is dynamic and moves closely with Market Cap 
 - Decred's Realized Cap provides ultimate bull support / bear resistance depending on market conditions
-- The difference in Realized Cap behaviors is a result of the fact that HODLers in Bitcoin rarely move their coins, whereas Decred HODLers' coins are constatnly on the move via tickets (i.e. staking)
+- The difference in Realized Cap behaviors is a result of the fact that HODLers in Bitcoin rarely move their coins, whereas Decred HODLers' coins are constantly on the move via tickets (i.e. staking)
 
 With the above in mind, the tools presented within aim to establish the following:
 
