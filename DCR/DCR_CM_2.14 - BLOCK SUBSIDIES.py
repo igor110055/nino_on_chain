@@ -25,7 +25,7 @@ early['date'] = pd.to_datetime(early['date'], utc=True)
 
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-06-11"
+date_2 = "2020-06-16"
 
 supply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date_1, date_2))
 dcrusd = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
@@ -87,7 +87,7 @@ ax1.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax2 = ax1.twinx()
-ax2.plot(df['date'], df['networkprofit'], color='aqua', alpha=.5)
+ax2.plot(df['date'], df['networkprofit'], color='aqua', alpha=1)
 
 ax2.fill_between(df['date'], df['networkprofit'], where=df['networkprofit'] > 0, facecolor='aqua', alpha=0.4)
 ax2.fill_between(df['date'], df['networkprofit'], where=df['networkprofit'] < 0, facecolor='red', alpha=0.4)

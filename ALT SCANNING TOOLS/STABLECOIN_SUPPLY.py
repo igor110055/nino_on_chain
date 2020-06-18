@@ -1,5 +1,6 @@
 # Import the API
 import coinmetrics
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime as dt
@@ -84,6 +85,7 @@ usdttrx_dates.columns = ['date', 'usdttrxmarketcap']
 df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left')
 
 df['Reserve Cap'] = df.sum(axis=1)
+df['Cash Cap'] = df['Reserve Cap'] - df['btcmarketcap']
 df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Cap']
 df['30 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=90).mean()
 df['BTC Reserve Value'] = df['btcmarketcap'] / df['Reserve Ratio']
@@ -92,18 +94,23 @@ print(df)
 
 #plot
 plt.figure()
-ax1 = plt.subplot(2, 1, 1)
-plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
-plt.plot(df['date'], df['30 Day Avg Ratio'], label='90 Day RAR Avg')
-plt.yscale('log')
-plt.legend()
-plt.grid()
-plt.title("Reserve Asset Ratio")
 
-plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df['date'], df['btcmarketcap'], label='Bitcoin Market Cap')
-plt.title("BTC Market Cap vs Reserve Value")
-plt.yscale('log')
-plt.legend()
-plt.grid()
+ax1 = plt.subplot(2, 1, 1)
+ax1.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
+ax1.plot(df['date'], df['30 Day Avg Ratio'], label='90 Day RAR Avg')
+""" ax1.set_yscale('log') """
+ax1.legend()
+ax1.grid()
+ax1.set_title("Reserve Asset Ratio")
+
+ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+""" plt.plot(df['date'], df['btcmarketcap'], label='Bitcoin Market Cap') """
+ax2.plot(df['date'], df['Cash Cap'], label='Cash Cap')
+ax2.set_title("BTC Market Cap vs Reserve Value")
+ax2.set_yscale('log')
+ax2.legend()
+ax2.grid()
+ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
 plt.show() 

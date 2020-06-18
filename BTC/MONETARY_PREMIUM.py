@@ -35,6 +35,8 @@ df['16'] = df['rewardsum'] * 16
 df['32'] = df['rewardsum'] * 32
 df['64'] = df['rewardsum'] * 64
 
+print(df)
+
 # plot the data
 
 name = "@permabullnino"
@@ -51,9 +53,10 @@ ax1.plot(df['date'], df['8'], color='lime', linewidth=2)
 ax1.plot(df['date'], df['16'], linestyle=':')
 ax1.plot(df['date'], df['32'], linestyle=':')
 ax1.plot(df['date'], df['64'],  color='m', linewidth=2)
+ax1.fill_between(df['date'], df['32'], df['64'], where=df['64'] > df['32'], facecolor='m', alpha=0.5)
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
-ax1.set_title("Market Cap vs Monetary Premium Lines", fontsize=20, fontweight='bold', color='w')
+ax1.set_title("Bitcoin Market Cap vs Monetary Premium Lines", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
