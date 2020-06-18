@@ -72,7 +72,7 @@ Relevant tools for analysis with their respective calculations are included belo
 
 Bitcoin and Decred have high signal, yet different behaving Realized Caps as a function of their respective blockchain mechanics. The goal of this piece was to help highlight some of these differences, and how it plays out on the price charts. 
 
-In particular, Decred's Realized Cap is one of a kind - the amount of valuable data it provides surrounding stakeholders is second to none. I likely have one more piece on this in the pipeline, and look forward to checking back on my findings
+In particular, Decred's Realized Cap is one of a kind - the amount of valuable data it provides surrounding stakeholders is second to none. I likely have one more piece on this in the pipeline, and look forward to checking back on my findings.
 
 Until then - signing out.
 

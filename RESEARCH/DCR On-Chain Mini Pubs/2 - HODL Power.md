@@ -29,7 +29,7 @@ Within this piece we will build on these principles in the following ways:
 
 - HODLers and standard transactors can be separted within the Realized Cap
 - We can use % of DCR supply in tickets to gauge where the MVRV Ratio should top and bottom
-- Realized Cap = Current fair value based on current adoption
+- Realized Cap = Current fair value based on *current* adoption levels
 
 ---
 
@@ -41,7 +41,7 @@ Relevant tools for analysis with their respective calculations are included belo
 
 [place image here]
 
-**Full HODL Factor**: Adjustment multiple to calculate for *full* adoption
+**Full HODL Factor**: Adjustment multiple to calculate for *full* adoption (i.e. 100% of DCR supply in the ticket pool)
 
 [place image here]
 
@@ -49,7 +49,9 @@ Relevant tools for analysis with their respective calculations are included belo
 
 [place image here]
 
-**Realized Float Factor**: Adjustment multiple to calculate for non-adoption
+**Realized Float Factor**: Adjustment multiple to calculate for supply held by non-adopters
+
+[place image here]
 
 **Realized Float Cap**: Adjusts Realized Cap for the % of DCR supply that is NOT in tickets - showing the fair value of the network from the non-adopters point of view, and where they become heavily interested in accumulating DCR
 
@@ -67,11 +69,23 @@ Relevant tools for analysis with their respective calculations are included belo
 - As adoption ramps up, the gap between the Realized Cap and the Realized Float Cap line widens - also showing a decreasing R/R as adoption accelerates
 - These charts illustrate the true dynamic nature of Decred's Realized Cap and MVRV Ratio
 
-- When there's lower amounts of DCR supply in the ticket pool, the Realized Cap behaves more like Bitcoin's Realized Cap - rare visits below it, and Realized Cap provides little resistance on the attempted moves above it
+- When there's lower amounts of DCR supply in the ticket pool, the Realized Cap behaves more like Bitcoin's Realized Cap - rare visits below it, and Realized Cap provides little resistance on the attempted moves above it (see early 2017)
 - When larger amounts of supply sit in tickets, the Realized Cap more accurately reflects current fair value, and as such transforms into a support / resistance line in bull / bear markets
 - This change in behavior shows that Decred's Realized Cap is incredibly adaptable and dynamic
 
 ## Final Point
+
+After this piece, we now have the following for Decred's Realized Cap:
+
+- Momentum indicator in the Realized Gradient
+- A toolset for DCRBTC in the Relative MVRV Ratio 
+- An adjusted Realized Cap in the HODL Power toolset
+
+With time I expect our understanding of the Realized Cap to further expand, and with that new tools released into the on-chain wild. 
+
+Until then - signing out.
+
+[PBN](https://twitter.com/PermabullNino)
 
 ## Code
 
