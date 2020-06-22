@@ -33,36 +33,36 @@ Relevant tools for analysis with their respective calculations are included belo
 
 **On-Chain DCRBTC Price**: Compares the cost basis of each chain, and provides a network vs network "opportunity cost"
 
-![]()
+![On-Chain DCRBTC](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/On-Chain%20DCRBTC.PNG)
 
 **Relative MVRV Ratio**: Compares the premium / discount of Market Price vs Realized Price across coins
 
-![]()
+![Relative MVRV Ratio](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Relative%20MVRV%20Ratio.PNG)
 
 **Relative MVRV Price**: The DCRBTC price at which the MVRV Ratios between Bitcoin and Decred are *equal* (DCR MVRV / BTC MVRV = 1)
 
-![]()
+![Relative MVRV Price](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Relative%20MVRV%20Price.PNG)
 
 **Relative Mid-Point**: The mid-point between (1) On-Chain DCRBTC Price and (2) Relative MVRV Price
 
-![]()
+![Relative Mid-Point](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Relative%20Mid-Point.PNG)
 
 **Relative MVRV Average**: The 142 day (numer of days it takes for an unvoted DCR ticket to expire) average of the Relative MVRV Ratio
 
-![]()
+![Relative MVRV Average](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Relative%20MVRV%20Average.PNG)
 
 ---
 
 ## Charts + Analysis
 
-![]()
+![Decred Price Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Price%20Chart.PNG)
 
 - Decred has an elegant Relative Value Channel (the space between the On-Chain DCRBTC Price and the Relative MVRV Price)
 - DCRBTC price action contained on the upside by the Relative MVRV Price, showing Bitcoin defending its relative on-chain premium vs Decred
-- On-Chain DCRBTC price has provided historical support on many occasions
+- On-Chain DCRBTC price has provided historical support on many occasions, as in theory it should reflect the minimum fair DCRBTC price
 - DCRBTC price moving below the Relative Value Channel can be used as a signal for temporary price dislocation, with price trading below fundamental (on-chain) implied value
 - Relative Mid-Point has provided DCRBTC support in bull trends and resistance in downtrends, as it represents an on-chain psychological line in the sand
-- Relative MVRV Average has historically provided a response bull / bear line, depending which direction DCRBTC price crosses it
+- Relative MVRV Average has historically provided a response bull / bear line, giving users potential early breakout / breakdown signals
 
 ![]()
 
