@@ -39,39 +39,43 @@ Relevant tools for analysis with their respective calculations are included belo
 
 **% of Supply in Ticket Pool**: Shows the current conversion rate (i.e. ability to turn standard transactors into HODLers) of outstanding DCR supply
 
-[place image here]
+![Supply in Ticket Pool](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Supply%20in%20Ticket%20Pool.PNG)
 
 **Full HODL Factor**: Adjustment multiple to calculate for *full* adoption (i.e. 100% of DCR supply in the ticket pool)
 
-[place image here]
+![Full HODL Factor](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Full%20HODL%20Factor.PNG)
 
 **Full HODL Power**: Illustrates the fair value of the network *if* Decred was at full adoption - with 100% of outstanding supply within the ticket pool
 
-[place image here]
+![Full HODL Power](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Full%20HODL%20Power.PNG)
 
 **Realized Float Factor**: Adjustment multiple to calculate for supply held by non-adopters
 
-[place image here]
+![Realized Float Factor](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Realized%20Float%20Factor.PNG)
 
 **Realized Float Cap**: Adjusts Realized Cap for the % of DCR supply that is NOT in tickets - showing the fair value of the network from the non-adopters point of view, and where they become heavily interested in accumulating DCR
 
-[place image here]
+![Realized Float Cap](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Realized%20Float%20Cap.PNG)
 
 ---
 
 ## Charts + Analysis
 
-[Decred Image]
+![Price Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Price%20Chart.PNG)
+
+- Bull trend support is the Realized Cap, with resistance at Full HODL Power
+- Bear trend resistance is the Realized Cap, with support at the Realized Float Cap
 
 - MVRV Ratio consistently tops at the Full HODL Factor line
 - MVRV Ratio consistently bottoms at the Realized Float Factor line - even catching the early 2017 shallow MVRV Ratio bottom
 - As adoption ramps up, the gap between the Realized Cap and the Full HODL Power line narrows - showing a decreasing R/R as adoption accelerates
 - As adoption ramps up, the gap between the Realized Cap and the Realized Float Cap line widens - also showing a decreasing R/R as adoption accelerates
-- These charts illustrate the true dynamic nature of Decred's Realized Cap and MVRV Ratio
+- Over time, the Realized Cap and the Full HODL Power lines should converge if more and more DCR supply ends up in tickets
 
 - When there's lower amounts of DCR supply in the ticket pool, the Realized Cap behaves more like Bitcoin's Realized Cap - rare visits below it, and Realized Cap provides little resistance on the attempted moves above it (see early 2017)
 - When larger amounts of supply sit in tickets, the Realized Cap more accurately reflects current fair value, and as such transforms into a support / resistance line in bull / bear markets
 - This change in behavior shows that Decred's Realized Cap is incredibly adaptable and dynamic
+- At full adoption (100% of DCR supply in tickets), DCR are constantly on the move, which is very deliberate HODLing. As such, this should very accurately reflect fair value of the network because the deliberate nature of DCR HODLing implies users understand the opportunity costs of keeping DCR versus moving funds elsewhere
 
 ## Final Point
 
