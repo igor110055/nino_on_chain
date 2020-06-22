@@ -33,40 +33,42 @@ Relevant tools for analysis with their respective calculations are included belo
 
 **On-Chain DCRBTC Price**: Compares the cost basis of each chain, and provides a network vs network "opportunity cost"
 
-[place image here]
+![]()
 
 **Relative MVRV Ratio**: Compares the premium / discount of Market Price vs Realized Price across coins
 
-[place image here]
+![]()
 
 **Relative MVRV Price**: The DCRBTC price at which the MVRV Ratios between Bitcoin and Decred are *equal* (DCR MVRV / BTC MVRV = 1)
 
-[place image here]
+![]()
 
 **Relative Mid-Point**: The mid-point between (1) On-Chain DCRBTC Price and (2) Relative MVRV Price
 
-[place image here]
+![]()
 
 **Relative MVRV Average**: The 142 day (numer of days it takes for an unvoted DCR ticket to expire) average of the Relative MVRV Ratio
 
-[place image here]
+![]()
 
 ---
 
 ## Charts + Analysis
 
-[Decred Image]
+![]()
 
 - Decred has an elegant Relative Value Channel (the space between the On-Chain DCRBTC Price and the Relative MVRV Price)
 - DCRBTC price action contained on the upside by the Relative MVRV Price, showing Bitcoin defending its relative on-chain premium vs Decred
 - On-Chain DCRBTC price has provided historical support on many occasions
+- DCRBTC price moving below the Relative Value Channel can be used as a signal for temporary price dislocation, with price trading below fundamental (on-chain) implied value
 - Relative Mid-Point has provided DCRBTC support in bull trends and resistance in downtrends, as it represents an on-chain psychological line in the sand
 - Relative MVRV Average has historically provided a response bull / bear line, depending which direction DCRBTC price crosses it
 
-[Litecoin Image]
+![]()
 
 - LTCBTC doesn't respect its relative value channel the same way Decred does
 - Every macro LTCBTC top has been nailed by collisions between the LTCBTC market price and the LTCBTC Relative MVRV Price, showing Bitcoin defending its on-chain premium once again
+- **The inclusion of the Litecoin chart shows (1) Bitcoin historically defending its MVRV ratio versus other coins and (2) Decred stands in unique ground with the tidiness of its Relative Value Channel prints**
 
 ## Final Point
 
