@@ -13,7 +13,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset1 = "btc"
 date1 = "2016-02-08"
-date2 = "2020-06-13"
+date2 = "2020-06-19"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 

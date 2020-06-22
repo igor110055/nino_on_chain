@@ -13,7 +13,7 @@ cm = coinmetrics.Community()
 
 asset = "dcr"
 date_1 = "2016-08-14"
-date_2 = "2020-05-25"
+date_2 = "2020-06-21"
 
 dcr_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 dcr_diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)

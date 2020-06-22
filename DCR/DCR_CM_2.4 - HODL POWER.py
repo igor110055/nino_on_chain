@@ -16,7 +16,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset1 = "btc"
 date1 = "2016-06-01"
-date2 = "2020-06-15"
+date2 = "2020-06-21"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -66,10 +66,10 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['dcrmcap'], color='w')
-ax1.plot(df['date'], df['dcrreal'], color='aqua')
-ax1.plot(df['date'], df['upcap'], color='lime')
-ax1.plot(df['date'], df['floatrealcap'], color='lime')
+ax1.plot(df['date'], df['dcrmcap'], color='w', label='Market Cap')
+ax1.plot(df['date'], df['dcrreal'], color='aqua', label='Realized Cap')
+ax1.plot(df['date'], df['upcap'], color='red', label='Full HODL Power')
+ax1.plot(df['date'], df['floatrealcap'], color='lime', label='Realized Float Cap')
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("HODL POWER", fontsize=20, fontweight='bold', color='w')
@@ -77,17 +77,19 @@ ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
 ax1.legend(edgecolor='w')
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
-ax2.plot(df['date'], df['dcrmvrv'], color='w')
-ax2.plot(df['date'], df['mvrvup'], color='lime')
-ax2.plot(df['date'], df['mvrvdown'], color='lime')
+ax2.plot(df['date'], df['dcrmvrv'], color='w', label='MVRV Ratio')
+ax2.plot(df['date'], df['mvrvup'], color='red', label='Full HODL Factor')
+ax2.plot(df['date'], df['mvrvdown'], color='lime', label='Realized Float Factor')
 ax2.set_ylabel("MVRV Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.legend(loc='center right')
 ax2.axhline(1, color='aqua', linestyle='dashed')
 ax2.set_facecolor('black')
-ax2.set_title("% of DCR Supply in Tickets vs Dynamic MVRV", fontsize=20, fontweight='bold', color='w')
+ax2.set_title("% of DCR Supply in Tickets vs MVRV Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.grid()
 
 ax3 = ax2.twinx()
