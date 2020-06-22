@@ -64,7 +64,7 @@ Relevant tools for analysis with their respective calculations are included belo
 - Relative Mid-Point has provided DCRBTC support in bull trends and resistance in downtrends, as it represents an on-chain psychological line in the sand
 - Relative MVRV Average has historically provided a response bull / bear line, giving users potential early breakout / breakdown signals
 
-![]()
+![Litecoin Price Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/LTC%20Price%20Chart.PNG)
 
 - LTCBTC doesn't respect its relative value channel the same way Decred does
 - Every macro LTCBTC top has been nailed by collisions between the LTCBTC market price and the LTCBTC Relative MVRV Price, showing Bitcoin defending its on-chain premium once again
