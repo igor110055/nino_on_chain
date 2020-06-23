@@ -65,7 +65,7 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-""" ax1 = plt.subplot(1,1,1)
+ax1 = plt.subplot(2,1,1)
 ax1.plot(df['date'], df['dcrmcap'], color='w', label='Market Cap')
 ax1.plot(df['date'], df['dcrreal'], color='aqua', label='Realized Cap')
 ax1.plot(df['date'], df['upcap'], color='red', label='Full HODL Power')
@@ -78,9 +78,9 @@ ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
 ax1.legend(edgecolor='w')
 ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
-ax2 = plt.subplot(1,1,1, sharex=ax1)
+ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['dcrmvrv'], color='w', label='MVRV Ratio')
 ax2.plot(df['date'], df['mvrvup'], color='red', label='Full HODL Factor')
 ax2.plot(df['date'], df['mvrvdown'], color='lime', label='Realized Float Factor')
@@ -97,7 +97,5 @@ ax3.plot(df['date'], df['adjpart'], color='w', alpha=0.5, linestyle=':')
 ax3.set_ylabel("Stake Participation", fontsize=20, fontweight='bold', color='w')
 ax3.tick_params(color='w', labelcolor='w')
 ax3.legend(loc='upper left')
-
-
 
 plt.show()

@@ -11,7 +11,7 @@ cm = coinmetrics.Community()
 
 # PULL DCR & BTC NTV, MVRV, & REALIZED PRICE DATA "2016-08-14"
 
-asset = "ltc"
+asset = "dcr"
 asset2 = "btc"
 date_1 = "2014-01-01"
 date_2 = "2020-06-21"
@@ -85,11 +85,11 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['coin_coin1'], label='LTCBTC Market Traded Price', color='w')
-ax1.plot(df['date'], df['rel_real'], label='LTC Realized Price / BTC Realized Price', linestyle=':', color='lime')
-ax1.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', linestyle=':', color='r')
-ax1.plot(df['date'], df['mid_point'], label='Mid-Point', linestyle=':', color='aqua')
-ax1.set_ylabel("LTCBTC", fontsize=20, fontweight='bold', color='w')
+ax1.plot(df['date'], df['coin_coin1'], label='DCRBTC Market Traded Price', color='w')
+ax1.plot(df['date'], df['rel_real'], label='DCR Realized Price / BTC Realized Price', color='lime')
+ax1.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', color='r')
+ax1.plot(df['date'], df['mid_point'], label='Mid-Point', color='aqua')
+ax1.set_ylabel("DCRBTC", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("Relative Value Prices", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
@@ -98,13 +98,13 @@ ax1.grid()
 ax1.legend()
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
-ax2.plot(df['date'], df['rel_mvrv'], color='w', linestyle='dashed')
-ax2.plot(df['date'], df['rel_mvrv142'], linestyle=':', color='m')
+ax2.plot(df['date'], df['rel_mvrv'], color='w')
+ax2.plot(df['date'], df['rel_mvrv142'], color='m')
 ax2.set_facecolor('black')
 ax2.set_title("Relative MVRV Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.set_ylabel("Ratio Value", fontsize=20, fontweight='bold', color='w')
 ax2.axhspan(1.05, 0.95, color='r', alpha=0.4)
-""" ax2.axhspan(.45, 0.4, color='w', alpha=0.4) """
+ax2.axhspan(.45, 0.4, color='w', alpha=0.4)
 ax2.legend()
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
