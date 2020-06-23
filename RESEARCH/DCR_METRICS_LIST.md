@@ -34,6 +34,8 @@
 - **RVT Ratio** - Measures Realized Cap vs on-chain flows, providing an on-chain valuation vs on-chain marginal buying / selling comparison
 - **HODL Power** - Provides an adjusted measure on Realized Cap by using the % of supply in the ticket pool
 - **Stake Pool Flows** - Shows how many DCR have left or entered the ticket pool (on a net basis) over 28 or 142 days
+- **Mayer Multiple** - Price versus its 200-day moving average
+- **S2F Multiple** - Price versus its Stock-to-Flow Model implied price
 
 ---
 
