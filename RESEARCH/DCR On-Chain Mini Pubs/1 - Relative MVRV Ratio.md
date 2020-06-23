@@ -57,6 +57,10 @@ Relevant tools for analysis with their respective calculations are included belo
 
 ![Decred Price Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Price%20Chart.PNG)
 
+![Relative Price](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Relative%20Price%20Chart.PNG)
+
+![Relative Ratio](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Relative%20Ratio%20Chart.PNG)
+
 - Decred has an elegant Relative Value Channel (the space between the On-Chain DCRBTC Price and the Relative MVRV Price)
 - DCRBTC price action contained on the upside by the Relative MVRV Price, showing Bitcoin defending its relative on-chain premium vs Decred
 - On-Chain DCRBTC price has provided historical support on many occasions, as in theory it should reflect the minimum fair DCRBTC price
