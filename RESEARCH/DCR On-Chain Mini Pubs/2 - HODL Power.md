@@ -63,6 +63,10 @@ Relevant tools for analysis with their respective calculations are included belo
 
 ![Price Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Price%20Chart.PNG)
 
+![HODL Power Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/HODL%20Power%20Chart.PNG)
+
+![MVRV Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/MVRV%20Chart.PNG)
+
 - Bull trend support is the Realized Cap, with resistance at Full HODL Power
 - Bear trend resistance is the Realized Cap, with support at the Realized Float Cap
 
