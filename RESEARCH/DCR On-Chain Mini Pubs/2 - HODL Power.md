@@ -85,9 +85,7 @@ After this piece, we now have the following for Decred's Realized Cap:
 - A toolset for DCRBTC in the Relative MVRV Ratio 
 - An adjusted Realized Cap in the HODL Power toolset
 
-With time I expect our understanding of the Realized Cap to further expand, and with that new tools released into the on-chain wild. 
-
-Until then - signing out.
+Signing out.
 
 [PBN](https://twitter.com/PermabullNino)
 

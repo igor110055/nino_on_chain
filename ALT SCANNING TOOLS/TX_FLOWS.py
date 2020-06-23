@@ -7,13 +7,13 @@ import cm_data_converter
 cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
-asset = "usdt"
+asset = "dcr"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2016-11-01"
-date_2 = "2020-05-31"
+date_2 = "2020-06-21"
 tx = cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 # clean CM data
@@ -23,7 +23,7 @@ price_clean = cm_data_converter.cm_data_convert(price)
 df = pd.DataFrame(tx_clean)
 df_1 = pd.DataFrame(price_clean)
 # CALC AVGS AND RATIO
-avg28 = df.rolling(window=28).sum()
+avg28 = df.rolling(window=28).mean()
 avg56 = df.rolling(window=56).sum()
 ratio = avg28 / avg56
 # plot
