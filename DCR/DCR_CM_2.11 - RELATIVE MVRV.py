@@ -5,6 +5,8 @@ import numpy as np
 from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter as cmdc
+import matplotlib.ticker as ticker
+from matplotlib.ticker import ScalarFormatter
 
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
@@ -96,6 +98,7 @@ ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
 ax1.legend()
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
 ax2.plot(df['date'], df['rel_mvrv'], color='w')
@@ -109,5 +112,7 @@ ax2.legend()
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
 ax2.grid()
+for axis in [ax2.yaxis]:
+    axis.set_major_formatter(ScalarFormatter())
 
 plt.show()

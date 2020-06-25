@@ -5,15 +5,17 @@ import numpy as np
 from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter as cmdc
+import matplotlib.ticker as ticker
+from matplotlib.ticker import ScalarFormatter
 
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
 # PULL DATA
-asset = "dcr"
+asset = "bch"
 asset1 = "btc"
-date1 = "2016-02-08"
-date2 = "2020-06-19"
+date1 = "2011-01-01"
+date2 = "2020-06-22"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -39,17 +41,18 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-line1 = ax1.plot(df['date'], df['dcrbtc'], label='DCRBTC Market Traded Price', color='w')
-line2 = ax1.plot(df['date'], df['relnvtprice'], label='DCRBTC NVT Price', linestyle='dashed', color='aqua')
-line3 = ax1.plot(df['date'], df['relnvtprice2'], label='2x DCRBTC NVT Price', linestyle='dashed', color='y')
-line4 = ax1.plot(df['date'], df['relnvtprice4'], label='4x DCRBTC NVT Price', linestyle='dashed', color='r')
-ax1.set_ylabel("DCRBTC", fontsize=20, fontweight='bold', color='w')
+line1 = ax1.plot(df['date'], df['dcrbtc'], label=asset.upper() + 'BTC Market Traded Price', color='w')
+line2 = ax1.plot(df['date'], df['relnvtprice'], label=asset.upper() + 'BTC NVT Price', linestyle='dashed', color='aqua')
+line3 = ax1.plot(df['date'], df['relnvtprice2'], label='2x ' + asset.upper() + 'BTC NVT Price', linestyle='dashed', color='y')
+line4 = ax1.plot(df['date'], df['relnvtprice4'], label='4x ' + asset.upper() + 'BTC NVT Price', linestyle='dashed', color='r')
+ax1.set_ylabel(asset.upper() + "BTC", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
-ax1.set_title("DCRBTC vs Relative NVT Price", fontsize=20, fontweight='bold', color='w')
+ax1.set_title(asset.upper() + "BTC vs Relative NVT Price", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
 ax1.legend(edgecolor='w')
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['relnvt'], color='w')
@@ -62,5 +65,7 @@ ax2.grid()
 ax2.axhspan(1.05, 0.95, color='aqua', alpha=1)
 ax2.axhline(2, color='y', alpha=1)
 ax2.axhline(4, color='r', alpha=1)
+for axis in [ax2.yaxis]:
+    axis.set_major_formatter(ScalarFormatter())
 
 plt.show()

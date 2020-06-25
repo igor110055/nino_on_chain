@@ -4,18 +4,20 @@ import numpy as np
 from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter as cmdc
+import matplotlib.ticker as ticker
+from matplotlib.ticker import ScalarFormatter
 
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
-asset = "dcr"
+asset = "zec"
 asset1 = "btc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2011-01-01"
-date_2 = "2020-06-09"
+date_2 = "2020-06-24"
 
 dcr_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2))
 btc_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "TxTfrValAdjNtv", date_1, date_2))
@@ -59,6 +61,8 @@ ax2 = ax1.twinx()
 ax2.plot(df['date'], df['dcrbtc'], color='w')
 """ ax2.set_yscale('log') """
 ax2.tick_params(color='w', labelcolor='w')
-ax2.set_ylabel('DCRBTC', fontsize=20, fontweight='bold', color='w')
+ax2.set_ylabel(asset.upper() + 'BTC', fontsize=20, fontweight='bold', color='w')
+ax2.set_yscale('log')
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 plt.show()

@@ -4,6 +4,9 @@ import numpy as np
 from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter as cmdc
+import matplotlib.ticker as ticker
+from matplotlib.ticker import ScalarFormatter
+
 
 # Add early price data
 
@@ -18,14 +21,14 @@ cm = coinmetrics.Community()
 
 # List all available metrics.
 asset = "btc"
-asset1 = "zec"
+asset1 = "dcr"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-06-18"
+date_2 = "2020-06-24"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -87,7 +90,8 @@ ax1.set_facecolor('black')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_yscale('log')
 ax1.grid()
-ax1.set_title("Actual DCRBTC vs Mining DCRBTC", fontsize=20, fontweight='bold', color='w')
+ax1.set_title("Actual " + asset1.upper() + "BTC vs Mining " + asset1.upper() + "BTC", fontsize=20, fontweight='bold', color='w')
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 ax2 = plt.subplot(2,1,2, sharex=ax1) 
 ax2.plot(df['date'], df['mixedratio'], color='aqua')
@@ -97,5 +101,7 @@ ax2.set_title("Mixed Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.set_ylabel("Ratio Value", fontsize=20, fontweight='bold', color='w')
 ax2.grid()
+for axis in [ax2.yaxis]:
+    axis.set_major_formatter(ScalarFormatter())
 
 plt.show()
