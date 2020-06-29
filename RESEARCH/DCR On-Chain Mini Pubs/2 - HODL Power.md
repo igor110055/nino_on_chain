@@ -59,6 +59,13 @@ Relevant tools for analysis with their respective calculations are included belo
 
 ---
 
+## Why Do These Tools Matter?
+
+Decred's ticket pool is what makes its Realized Cap unique, and a psychological line in the sand for network stakeholders for short term price action. However, the ticket pool, its size, how the size of it expands / contracts over the long term, and what this tells us about adoption / potential price action is an underexplored topic of discussion.
+
+Locking DCR up in tickets come with opportunity costs, and those that do not lock DCR up in tickets signal to the network that they perceive these costs to be high. Over the short term, these costs are largely focused on price action. However, as adoption ramps up or winds down over the long term there's an opportunity cost of holding what can be perceived as better or worse money (depending on what the user defines as "quality money"). The tools included within leverage the Realized Cap, the ticket pool's impact on Realized Cap, and our understanding of these blockchain mechanics to help us better understand the valuation of the Decred network over both the short and long term.
+
+---
 ## Charts + Analysis
 
 ![Price Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/2%20-%20HODL%20Power%20Images/Price%20Chart.PNG)
