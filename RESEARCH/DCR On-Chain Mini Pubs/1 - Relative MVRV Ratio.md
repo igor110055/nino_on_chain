@@ -52,7 +52,15 @@ Relevant tools for analysis with their respective calculations are included belo
 ![Relative MVRV Average](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Relative%20MVRV%20Average.PNG)
 
 ---
+## Why Do These Tools Matter?
 
+Spending within the cryptocurrency space is one of the most deliberate financial acts somebody can commit to. This naturally emerges as a function of the fact that transactions cannot be reversed once they've been included in a block that gets onto the consensus chain - the slightest mistake doesn't have any recourse / means to recover. At a pyschological level, this is a significant line in the sand: when coins move, the owner has decided that the risk of a mistake in coin movement is worth it for the potential reward (i.e. the reason the owner is moving the coins).
+
+In Bitcoin, HODLers coins do not move frequently - giving us less frequent updates on their pyschological outlook. On the Decred chain, we receive this signal for intent incredibly frequently, with HODLers coins moving around in the ticket system.
+
+By comparing Realized Caps and MVRV Ratios we are exploring relative psychology between networks, and where periods of relative fear / euphoria are likely kicking in for stakeholders.
+
+---
 ## Charts + Analysis
 
 ![Decred Price Chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/1%20-%20Relative%20MVRV%20Ratio/Price%20Chart.PNG)
