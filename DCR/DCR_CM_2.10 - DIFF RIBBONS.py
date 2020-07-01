@@ -16,7 +16,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2010-01-01"
-date_2 = "2020-06-26"
+date_2 = "2020-06-30"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -70,7 +70,7 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(2,1,1)
+""" ax1 = plt.subplot(2,1,1)
 ax1.plot(df['date'], df['PriceUSD'], label='USD Price', color='w')
 ax1.plot(df['date'], df['ribbonprice7'], label='Ribbon Price', color='aqua')
 ax1.set_facecolor('black')
@@ -79,7 +79,7 @@ ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_title("DCRUSD vs Mining Price", fontsize=20, fontweight='bold', color='w')
 ax1.grid()
-ax1.legend(loc='upper right')
+ax1.legend(loc='upper right') """
 
 ax2 = ax1.twinx()
 ax2.plot(df['date'], df['profitmargin'], color='aqua', linestyle=':')
@@ -90,7 +90,7 @@ ax2.set_ylim(1.5*df['profitmargin'].min(), 3*df['profitmargin'].max())
 ax2.tick_params(color='w', labelcolor='w')
 ax2.legend(loc='upper left')
 
-ax3 = plt.subplot(2,1,2, sharex=ax1)
+ax3 = plt.subplot(1,1,1, sharex=ax1)
 ax3.plot(df['date'], df['difficulty'], label='Difficulty', color='aqua')
 ax3.plot(df['date'], df['ribbon_200'], label='200', color='lime')
 ax3.plot(df['date'], df['ribbon_128'], label='128', color='aqua', alpha=0.5)
