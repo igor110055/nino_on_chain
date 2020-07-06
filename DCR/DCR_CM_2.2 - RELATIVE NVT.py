@@ -12,10 +12,10 @@ from matplotlib.ticker import ScalarFormatter
 cm = coinmetrics.Community()
 
 # PULL DATA
-asset = "bch"
+asset = "dcr"
 asset1 = "btc"
 date1 = "2011-01-01"
-date2 = "2020-06-22"
+date2 = "2020-07-06"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 

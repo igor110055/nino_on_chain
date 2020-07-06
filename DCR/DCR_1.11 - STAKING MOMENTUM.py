@@ -1,6 +1,7 @@
 import coinmetrics
 import cm_data_converter as cmdc
 import matplotlib as mpl
+import matplotlib.ticker as ticker
 
 # DCRDATA
 from tinydecred.pydecred.dcrdata import DcrdataClient
@@ -25,7 +26,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-18"
+date_2 = "2020-07-06"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
 price.columns = ['date', 'dcrbtc']
@@ -91,8 +92,8 @@ ax2.set_title("DCRBTC", fontsize=20, fontweight='bold', color='w')
 ax2.axhspan(.0105, .0095, color='lime', alpha=0.75)
 ax2.axhspan(.0016, .0014, color='m', alpha=0.75)
 ax2.axhspan(.004, .0039, color='y', alpha=0.75)
-ax2.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), '')))
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax2.set_ylabel("Price", fontsize=20, fontweight='bold', color='w')
 ax2.grid()
 
 plt.show()
