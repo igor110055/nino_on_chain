@@ -10,14 +10,14 @@ from matplotlib.ticker import ScalarFormatter
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
-asset = "zec"
+asset = "dcr"
 asset1 = "btc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2011-01-01"
-date_2 = "2020-06-28"
+date_2 = "2020-07-07"
 
 dcr_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2))
 btc_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "TxTfrValAdjNtv", date_1, date_2))

@@ -12,13 +12,13 @@ cm = coinmetrics.Community()
 
 # List all available metrics for DCR.
 asset = "btc"
-asset1 = "zec"
+asset1 = "dcr"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-06-19"
+date_2 = "2020-07-07"
 
 roi = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "ROI30d", date_1, date_2))
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
@@ -55,8 +55,10 @@ ax2.set_ylabel("30 Day ROI (%)", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.legend(loc='upper left')
 ax2.axhline(0, color='r', linestyle='dashed')
+ax2.axhspan(40,50, color='w', alpha=0.5)
+ax2.axhspan(-20,-30, color='lime', alpha=0.5)
 
-ax3 = plt.subplot(2,1,2)
+ax3 = plt.subplot(2,1,2, sharex=ax1)
 ax3.plot(df['date'], df['altmcap'], color='w', label=asset1.upper() + " MCAP")
 ax3.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax3.set_facecolor('black')
@@ -74,5 +76,6 @@ ax4.set_ylabel("30 Day ROI (%)", fontsize=20, fontweight='bold', color='w')
 ax4.tick_params(color='w', labelcolor='w')
 ax4.legend(loc='upper left')
 ax4.axhline(0, color='r', linestyle='dashed')
+ax4.axhspan(-40,-50, color='lime', alpha=0.5)
 
 plt.show()
