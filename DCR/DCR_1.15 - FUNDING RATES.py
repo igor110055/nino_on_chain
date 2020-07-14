@@ -84,6 +84,7 @@ ax11.tick_params(color='w', labelcolor='w')
 ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 ax11.axhline(-15, color='aqua', linestyle='dashed')
 ax11.axhline(15, color='aqua', linestyle='dashed')
+# toggle top and bottom to 0.74 and 0.26 respectively for best view
 
 """ ax2 = plt.subplot(2,1,2)
 ax2.plot(df['date'], df['PriceBTC'], color='w')
