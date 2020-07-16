@@ -18,7 +18,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-13"
+date_2 = "2020-07-15"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -50,13 +50,14 @@ df['tixror'] = df['tixrew'] / df['tixprice']
 
 df = df[df.tixror != 0]
 
-print(df)
-
 # CALC FUNDING RATE
+days = 28
 
-df['fundrate'] = df['tixror'] - df['tixror'].rolling(28).mean()
-df['fundzscore'] = (df['fundrate'] - df['fundrate'].rolling(28).mean()) / df['fundrate'].rolling(28).std()
+df['fundrate'] = df['tixror'] - df['tixror'].rolling(days).mean()
+df['fundzscore'] = (df['fundrate'] - df['fundrate'].rolling(days).mean()) / df['fundrate'].rolling(days).std()
 df['fundsum'] = df['fundzscore'].rolling(14).sum()
+
+print(df)
 
 # PLOT
 

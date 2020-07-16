@@ -45,21 +45,45 @@ df['dcrmarketcap'].mask(df['dcrmarketcap'] == 0, df['CapMrktCurUSD'], inplace=Tr
 
 # CALC METRICS
 
+#subpaidusd
 df['suppdiff'] = df['supply'].diff(1)
 df['suppdiffusd'] = df['suppdiff'] * df['dcrusd']
+
+df['suppissue'] = df['suppdiff'].cumsum()
+
 df['cumsub'] = df['suppdiffusd'].cumsum()
 df['powsub'] = df['cumsub'] * 0.6
 df['possub'] = df['cumsub'] * 0.3
 df['treassub'] = df['cumsub'] * 0.1
 df['networkprofit'] = (df['dcrmarketcap'] - df['cumsub']) / df['cumsub']
 
+#subpaidbtc
 df['dcrbtcmarketcap'] = df['dcrmarketcap'] / df['btcusd']
 df['suppdiffbtc'] = df['suppdiffusd'] / df['btcusd']
+
 df['cumsubbtc'] = df['suppdiffbtc'].cumsum()
 df['powsubbtc'] = df['cumsubbtc'] * 0.6
 df['possubbtc'] = df['cumsubbtc'] * 0.3
 df['treassubbtc'] = df['cumsubbtc'] * 0.1
 df['networkprofitbtc'] = (df['dcrbtcmarketcap'] - df['cumsubbtc']) / df['cumsubbtc']
+
+#totalsubusd
+issue = 21000000 - 1680000
+df['percissue'] = df['suppissue'] / issue
+df['issfactor'] = 1 / df['percissue']
+
+df['totsub'] = df['cumsub'] * df['issfactor']
+df['totpow'] = df['powsub'] * df['issfactor']
+df['totpos'] = df['possub'] * df['issfactor']
+df['tottreas'] = df['treassub'] * df['issfactor']
+df['totnetworkprofit'] = (df['dcrmarketcap'] - df['totsub']) / df['totsub']
+
+#totalsubbtc
+df['totsubbtc'] = df['cumsubbtc'] * df['issfactor']
+df['totpowbtc'] = df['powsubbtc'] * df['issfactor']
+df['totposbtc'] = df['possubbtc'] * df['issfactor']
+df['tottreasbtc'] = df['treassubbtc'] * df['issfactor']
+df['totnetworkprofitbtc'] = (df['dcrbtcmarketcap'] - df['totsubbtc']) / df['totsubbtc']
 
 print(df)
 
@@ -68,8 +92,10 @@ print(df)
 fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
- 
-ax1.plot(df['date'], df['dcrmarketcap'], label='Decred Market Cap', color='w')
+
+# subsidy paid chart
+
+""" ax1.plot(df['date'], df['dcrmarketcap'], label='Decred Market Cap', color='w')
 ax1.plot(df['date'], df['cumsub'], label='Cumulative Subsidy', linestyle=':', color='aqua')
 ax1.plot(df['date'], df['powsub'], label='PoW Subsidy', linestyle=':', color='r')
 ax1.plot(df['date'], df['possub'], label='PoS Subsidy', linestyle=':', color='m')
@@ -91,6 +117,64 @@ ax2.plot(df['date'], df['networkprofit'], color='aqua', alpha=1)
 
 ax2.fill_between(df['date'], df['networkprofit'], where=df['networkprofit'] > 0, facecolor='aqua', alpha=0.4)
 ax2.fill_between(df['date'], df['networkprofit'], where=df['networkprofit'] < 0, facecolor='red', alpha=0.4)
+
+ax2.set_ylabel('Network P/L on Subsidies Issued (%)', fontsize=20, fontweight='bold', color='w')
+ax2.set_ylim(-1, 30)
+ax2.tick_params(color='w', labelcolor='w') """
+
+# total subisdy chart usd
+
+""" ax1.plot(df['date'], df['dcrmarketcap'], label='Decred Market Cap', color='w')
+ax1.plot(df['date'], df['totsub'], label='Cumulative Subsidy', color='aqua')
+ax1.plot(df['date'], df['totpow'], label='PoW Subsidy', color='r')
+ax1.plot(df['date'], df['totpos'], label='PoS Subsidy', color='m')
+ax1.plot(df['date'], df['tottreas'], label='Treasury Subsidy', color='y')
+
+ax1.set_yscale('log')
+ax1.set_facecolor('black')
+ax1.set_ylim(0, df['dcrmarketcap'].max()*3)
+ax1.legend(loc='upper left')
+ax1.grid()
+ax1.set_title("Market Cap vs Block Subsidies", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel('Network Value', fontsize=20, fontweight='bold', color='w')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+ax2 = ax1.twinx()
+ax2.plot(df['date'], df['totnetworkprofit'], color='aqua', alpha=1)
+
+ax2.fill_between(df['date'], df['totnetworkprofit'], where=df['totnetworkprofit'] > 0, facecolor='aqua', alpha=0.4)
+ax2.fill_between(df['date'], df['totnetworkprofit'], where=df['totnetworkprofit'] < 0, facecolor='red', alpha=0.4)
+
+ax2.set_ylabel('Network P/L on Subsidies Issued (%)', fontsize=20, fontweight='bold', color='w')
+ax2.set_ylim(-1, 30)
+ax2.tick_params(color='w', labelcolor='w') """
+
+# total subisdy chart btc
+
+ax1.plot(df['date'], df['dcrbtcmarketcap'], label='Decred Market Cap', color='w')
+ax1.plot(df['date'], df['totsubbtc'], label='Cumulative Subsidy', color='aqua')
+ax1.plot(df['date'], df['totpowbtc'], label='PoW Subsidy', color='r')
+ax1.plot(df['date'], df['totposbtc'], label='PoS Subsidy', color='m')
+ax1.plot(df['date'], df['tottreasbtc'], label='Treasury Subsidy', color='y')
+
+ax1.set_yscale('log')
+ax1.set_facecolor('black')
+ax1.set_ylim(0, df['dcrbtcmarketcap'].max()*2)
+ax1.legend(loc='upper left')
+ax1.grid()
+ax1.set_title("Market Cap vs Block Subsidies", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel('Network Value', fontsize=20, fontweight='bold', color='w')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+ax2 = ax1.twinx()
+ax2.plot(df['date'], df['totnetworkprofitbtc'], color='aqua', alpha=1)
+
+ax2.fill_between(df['date'], df['totnetworkprofitbtc'], where=df['totnetworkprofitbtc'] > 0, facecolor='aqua', alpha=0.4)
+ax2.fill_between(df['date'], df['totnetworkprofitbtc'], where=df['totnetworkprofitbtc'] < 0, facecolor='red', alpha=0.4)
 
 ax2.set_ylabel('Network P/L on Subsidies Issued (%)', fontsize=20, fontweight='bold', color='w')
 ax2.set_ylim(-1, 30)

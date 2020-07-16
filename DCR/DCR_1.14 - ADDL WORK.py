@@ -26,15 +26,16 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-13"
+date_2 = "2020-07-15"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 supply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date_1, date_2))
-price = supply.merge(price, on='date', how='left').merge(pricebtc, on='date', how='left').merge(mcap, on='date', how='left')
+realcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date_1, date_2))
+price = supply.merge(price, on='date', how='left').merge(pricebtc, on='date', how='left').merge(mcap, on='date', how='left').merge(realcap, on='date', how='left')
 price['date'] = pd.to_datetime(pd.to_datetime(price['date'], unit='s', utc=True).dt.strftime('%Y-%m-%d'))
-price.columns = ['date', 'supply', 'PriceUSD', 'PriceBTC', 'mcap']
+price.columns = ['date', 'supply', 'PriceUSD', 'PriceBTC', 'mcap', 'realcap']
 
 price = price.merge(early, on='date', how='left')
 price = price.fillna(0)
@@ -55,15 +56,34 @@ df = df.merge(price, on='date', how='left')
 
 # Calc Metrics
 
+days = 142 # change rolling value to look at different timeframes for work weighted prices
+
 df['addsupp'] = df['supply'].diff(1)
 df['addsuppdollar'] = df['addsupp'] * df['PriceUSD']
+df['addsuppbtc'] = df['addsupp'] * df['PriceBTC']
 df['powcumsum'] = (df['addsuppdollar'].cumsum()) * 0.6
+df['btcpowcumsum'] = (df['addsuppbtc'].cumsum()) * 0.6
 
 df['addwork'] = df['work'].diff(1)
 df['wtwork'] = df['addwork'] / df['work'].iloc[-1]
 df['wtworksum'] = df['wtwork'].cumsum() # this is a check column to make sure wtwork adds up to 1
 
-df['dailyworkval'] = (df['addsupp'] * df['PriceUSD']) / df['addwork']
+df['rollworksum'] = df['addwork'].rolling(days, min_periods=0).sum() 
+df['rollwtwork'] = df['addwork'] / df['rollworksum'].shift(-1 * days)
+
+df['dailyworkval'] = (df['PriceUSD']) * df['wtwork']
+df['dcrdailyworkval'] = df['addsupp'] * df['wtwork']
+df['btcdailyworkval'] = (df['PriceBTC']) * df['wtwork']
+
+df['rollworkval'] = (df['PriceUSD']) * df['rollwtwork']
+df['dcrrollworkval'] = df['addsupp'] * df['rollwtwork']
+df['btcrollworkval'] = (df['PriceBTC']) * df['rollwtwork']
+
+df['usdsumworkval'] = df['dailyworkval'].cumsum()
+df['btcsumworkval'] = df['btcdailyworkval'].cumsum()
+
+df['usdrollingwork'] = df['rollworkval'].rolling(days).sum()
+df['btcrollingwork'] = df['btcrollworkval'].rolling(days).sum()
 
 print(df)
 
@@ -76,6 +96,7 @@ fig.patch.set_alpha(1)
 ax1 = plt.subplot(1,1,1)
 ax1.plot(df['date'], df['mcap'], label='Market Cap', color='w')
 ax1.plot(df['date'], df['powcumsum'], label='PoW Reward Sum', color='r')
+ax1.plot(df['date'], df['realcap'], label='Realized Cap', color='lime')
 ax1.set_ylabel("USD Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("Market Cap vs Mining Tools", fontsize=20, fontweight='bold', color='w')
@@ -88,11 +109,38 @@ ax1.get_yaxis().set_major_formatter(
 
 ax11 = ax1.twinx()
 ax11.bar(df['date'], df['wtworksum'], color='aqua', alpha=0.5)
-
 ax11.set_ylabel("Work Contributed Over Lifetime", fontsize=20, fontweight='bold', color='w')
 ax11.tick_params(color='w', labelcolor='w')
 ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
-ax11.axhline(0.5, color='m', linestyle='dashed')
-ax11.axhline(0.1, color='m', linestyle='dashed')
+ax11.axhline(0.5, color='aqua', linestyle='dashed')
+ax11.axhline(0.1, color='aqua', linestyle='dashed')
+
+""" ax2 = plt.subplot(2,1,1)
+ax2.plot(df['date'], df['usdsumworkval'], color='lime')
+ax2.plot(df['date'], df['PriceUSD'], color='w')
+ax2.plot(df['date'], df['usdrollingwork'], color='aqua')
+ax2.set_title("DCRUSD vs Lifetime Work-Weighted Price", fontsize=20, fontweight='bold', color='w')
+ax2.set_facecolor('black')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_yscale('log')
+ax2.grid()
+ax2.set_ylim(df['PriceUSD'].min(), df['PriceUSD'].max()*1.3)
+ax2.legend()
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax2.set_ylabel("DCRUSD Value", fontsize=20, fontweight='bold', color='w')
+
+ax22 = plt.subplot(2,1,2)
+ax22.plot(df['date'], df['btcsumworkval'], color='lime')
+ax22.plot(df['date'], df['PriceBTC'], color='w')
+ax22.plot(df['date'], df['btcrollingwork'], color='aqua')
+ax22.set_title("DCRBTC vs Lifetime Work-Weighted Price", fontsize=20, fontweight='bold', color='w')
+ax22.set_yscale('log')
+ax22.grid()
+ax22.tick_params(color='w', labelcolor='w')
+ax22.set_facecolor('black')
+ax22.set_ylim(df['PriceBTC'].min(), df['PriceBTC'].max()*1.3)
+ax22.legend()
+ax22.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax22.set_ylabel("DCRBTC Value", fontsize=20, fontweight='bold', color='w') """
 
 plt.show()
