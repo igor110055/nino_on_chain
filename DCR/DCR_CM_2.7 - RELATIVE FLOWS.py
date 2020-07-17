@@ -17,7 +17,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2011-01-01"
-date_2 = "2020-07-07"
+date_2 = "2020-07-16"
 
 dcr_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2))
 btc_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "TxTfrValAdjNtv", date_1, date_2))
@@ -32,10 +32,11 @@ df = dcr_flow.merge(btc_flow, on='date', how='left').merge(dcr_supp, on='date', 
 df.columns = ['date', 'dcrflow', 'btcflow', 'dcrsupply', 'btcsupply', 'dcrusd', 'btcusd']
 
 # CALC METRICS
+number = 28
 
 df['dcrbtc'] = df['dcrusd'] / df['btcusd']
-df['dcr142sum'] = df['dcrflow'].rolling(142).sum()
-df['btc142sum'] = df['btcflow'].rolling(142).sum()
+df['dcr142sum'] = df['dcrflow'].rolling(number).sum()
+df['btc142sum'] = df['btcflow'].rolling(number).sum()
 df['dcradjflow'] = df['dcr142sum'] / df['dcrsupply']
 df['btcadjflow'] = df['btc142sum'] / df['btcsupply']
 df['thermometer'] = (df['dcradjflow'] / df['btcadjflow']) - 1

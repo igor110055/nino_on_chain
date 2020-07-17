@@ -26,7 +26,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-15"
+date_2 = "2020-07-16"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -74,6 +74,7 @@ df['rollwtwork'] = df['addwork'] / df['rollworksum'].shift(-1 * days)
 df['dailyworkval'] = (df['PriceUSD']) * df['wtwork']
 df['dcrdailyworkval'] = df['addsupp'] * df['wtwork']
 df['btcdailyworkval'] = (df['PriceBTC']) * df['wtwork']
+df['mcapworkval'] = df['mcap'] * df['wtwork']
 
 df['rollworkval'] = (df['PriceUSD']) * df['rollwtwork']
 df['dcrrollworkval'] = df['addsupp'] * df['rollwtwork']
@@ -81,6 +82,7 @@ df['btcrollworkval'] = (df['PriceBTC']) * df['rollwtwork']
 
 df['usdsumworkval'] = df['dailyworkval'].cumsum()
 df['btcsumworkval'] = df['btcdailyworkval'].cumsum()
+df['mcapsumworkval'] = df['mcapworkval'].cumsum()
 
 df['usdrollingwork'] = df['rollworkval'].rolling(days).sum()
 df['btcrollingwork'] = df['btcrollworkval'].rolling(days).sum()
@@ -99,21 +101,31 @@ ax1.plot(df['date'], df['powcumsum'], label='PoW Reward Sum', color='r')
 ax1.plot(df['date'], df['realcap'], label='Realized Cap', color='lime')
 ax1.set_ylabel("USD Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
-ax1.set_title("Market Cap vs Mining Tools", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
-ax1.grid()
-ax1.legend(loc='upper left')
+ax1.legend(loc='upper right')
 ax1.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
-ax11 = ax1.twinx()
-ax11.bar(df['date'], df['wtworksum'], color='aqua', alpha=0.5)
+ax11 = ax1.twiny()
+ax11.plot(df['wtworksum'], df['mcap'], color='aqua', alpha=1, label='Market Cap vs Work as Time') # work as time (twiny)
+ax11.set_title("Market Cap vs Mining Tools\n", fontsize=20, fontweight='bold', color='w')
 ax11.set_ylabel("Work Contributed Over Lifetime", fontsize=20, fontweight='bold', color='w')
 ax11.tick_params(color='w', labelcolor='w')
-ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
-ax11.axhline(0.5, color='aqua', linestyle='dashed')
-ax11.axhline(0.1, color='aqua', linestyle='dashed')
+""" ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
+ax11.grid()
+ax11.legend(loc='upper left')
+
+ax111 = ax1.twinx()
+ax111.bar(df['date'], df['addwork'], color='c', alpha=0.7)
+""" ax11.bar(df['date'], df['wtworksum'], color='aqua', alpha=0.5) """ # basic look for total work vs price need to use 
+ax111.tick_params(color='w', labelcolor='w')
+ax111.set_ylabel("Work Contributed per Day (Units = Exahash)", fontsize=20, fontweight='bold', color='w')
+ax111.grid()
+ax111.set_yscale('log')
+ax111.set_ylim(1, 500000)
+ax111.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 """ ax2 = plt.subplot(2,1,1)
 ax2.plot(df['date'], df['usdsumworkval'], color='lime')
