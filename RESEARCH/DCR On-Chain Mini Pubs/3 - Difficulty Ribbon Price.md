@@ -49,17 +49,17 @@ Miners are the largest natural sellers of any PoW cryptocurrency. Conversely (an
 
 An increase in mining profitability (the ability to acquire coins below market traded price) is sharp on both sides: 
 
-(1) Allows a larger cross section of miners to hold DCR without selling, however
-(2) It keeps weaker miners in the game, who begin to weigh on price as price starts moving downwards
+- Allows a larger cross section of miners to hold DCR without selling, however
+- It keeps weaker miners in the game, who need to sell coins earlier as price starts moving downwards
 
 Actual price increasing can improve profitability, however this piece is focused on the cost side of the equation. Now, there are two ways the cost to mine can decrease:
 
-(1) Difficulty adjusting downwards, lowering the minimum threshold to generate a hash below target or
-(2) Hash becomes cheaper to acquire, due to improvements in hardware which allow more hash to be generated per unit of electricity committed
+- Difficulty adjusting downwards, lowering the minimum threshold to generate a hash below target or
+- Hash becomes cheaper to acquire, due to improvements in hardware which allow more hash to be generated per unit of electricity committed
 
 The introduction of ASICs for Decred took place in early 2018, and with this came a large decrease in the cost to acquire hash. Depending on timing, this can weigh very heavily on price for a cryptocurrency. In the case of Decred, it got the worst of both worlds: the evaporation of the marginal buyer (which happens for any coin in a bear market) and a decrease in the cost to mine, allowing miners to keep selling their DCR *profitably* at much lower prices. 
 
-This inevitably kept pushing prices until selling no longer becomes profitable for marginal sellers and most importantly natural sellers (miners), which occurs at the cost to mine DCR. The charts and analysis below will hopefully help everyone better understand the mechanics that have been at play since ASIC introduction, and arms everyone better for future market cycles.
+This inevitably kept pushing prices lower until selling no longer became profitable for marginal sellers and most importantly natural sellers (miners). This line in the sand where selling no longer is worthwhile occurs at the cost to mine DCR. The charts and analysis below will hopefully help everyone better understand the mechanics that have been at play since ASIC introduction, and arms everyone better for future market cycles.
 
 ---
 ## Charts + Analysis
