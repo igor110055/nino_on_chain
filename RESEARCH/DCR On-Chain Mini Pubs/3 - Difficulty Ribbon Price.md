@@ -1,4 +1,4 @@
-# Decred On-Chain Mini Pub 1: Relative MVRV Ratio
+# Decred On-Chain Mini Pub 3: Difficulty Ribbon Price
 
 ## Relevant Reading
 
