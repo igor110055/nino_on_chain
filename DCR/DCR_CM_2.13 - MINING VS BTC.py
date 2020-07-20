@@ -28,7 +28,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-07-15"
+date_2 = "2020-07-20"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -85,7 +85,7 @@ fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2, 1, 1)
 ax1.plot(df['date'], df['altbtcprice'], label='Actual', color='w')
-ax1.plot(df['date'], df['mixedprice'], label='Mixed', color='aqua', linestyle='dashed')
+ax1.plot(df['date'], df['mixedprice'], label='Mining Price', color='aqua')
 ax1.set_facecolor('black')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_yscale('log')
@@ -98,7 +98,7 @@ ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['mixedratio'], color='aqua')
 ax2.set_facecolor('black')
 ax2.tick_params(color='w', labelcolor='w')
-ax2.set_title("Mixed Ratio", fontsize=20, fontweight='bold', color='w')
+ax2.set_title("Actual Price / Mining Price Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.set_ylabel("Ratio Value", fontsize=20, fontweight='bold', color='w')
 ax2.grid()

@@ -4,19 +4,20 @@ import numpy as np
 from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter as cmdc
+import matplotlib.ticker as ticker
 
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
 # List all available metrics.
-asset = "dcr"
+asset = "zec"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2010-01-01"
-date_2 = "2020-07-15"
+date_2 = "2020-07-20"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -77,18 +78,19 @@ ax1.set_facecolor('black')
 ax1.set_ylabel('USD Prices', fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
-ax1.set_title("DCRUSD vs Mining Price", fontsize=20, fontweight='bold', color='w')
+ax1.set_title(asset.upper()+ "USD vs Mining Price", fontsize=20, fontweight='bold', color='w')
 ax1.grid()
 ax1.legend(loc='upper right')
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax2 = ax1.twinx()
+""" ax2 = ax1.twinx()
 ax2.plot(df['date'], df['profitmargin'], color='aqua', linestyle=':')
 ax2.set_ylabel('Miner P/L per Coin (%)', fontsize=20, fontweight='bold', color='w')
 ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] > 0, facecolor='aqua', alpha=0.4)
 ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=1)
 ax2.set_ylim(1.5*df['profitmargin'].min(), 3*df['profitmargin'].max())
 ax2.tick_params(color='w', labelcolor='w')
-ax2.legend(loc='upper left')
+ax2.legend(loc='upper left') """
 
 ax3 = plt.subplot(2,1,2, sharex=ax1)
 ax3.plot(df['date'], df['difficulty'], label='Difficulty', color='aqua')
@@ -103,7 +105,7 @@ ax3.plot(df['date'], df['ribbon_9'], label='9', color='aqua', alpha=0.5)
 ax3.set_facecolor('black')
 ax3.set_yscale('log')
 ax3.tick_params(color='w', labelcolor='w')
-ax3.set_title("Decred Difficulty Ribbon", fontsize=20, fontweight='bold', color='w')
+ax3.set_title(asset.upper() + " Difficulty Ribbon", fontsize=20, fontweight='bold', color='w')
 ax3.set_ylabel('Difficulty Target', fontsize=20, fontweight='bold', color='w')
 ax3.grid()
 ax3.legend(loc='best')
