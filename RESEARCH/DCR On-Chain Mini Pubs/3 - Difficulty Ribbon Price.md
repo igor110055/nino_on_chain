@@ -59,16 +59,64 @@ Actual price increasing can improve profitability, however this piece is focused
 
 The introduction of ASICs for Decred took place in early 2018, and with this came a large decrease in the cost to acquire hash. Depending on timing, this can weigh very heavily on price for a cryptocurrency. In the case of Decred, it got the worst of both worlds: the evaporation of the marginal buyer (which happens for any coin in a bear market) and a decrease in the cost to mine, allowing miners to keep selling their DCR *profitably* at much lower prices. 
 
-This inevitably kept pushing prices lower until selling no longer became profitable for marginal sellers and most importantly natural sellers (miners). This line in the sand where selling no longer is worthwhile occurs at the cost to mine DCR. The charts and analysis below will hopefully help everyone better understand the mechanics that have been at play since ASIC introduction, and arms everyone better for future market cycles.
+This inevitably kept pushing prices lower until selling no longer became profitable for marginal sellers and most importantly natural sellers (miners). This line in the sand where selling no longer is worthwhile occurs at the cost to mine DCR. The charts and analysis below will should help everyone better understand the mechanics that have been at play since ASIC introduction, and arms everyone better for future market cycles.
 
 ---
 ## Charts + Analysis
 
+It was important to test the validity of the Difficulty Ribbon Price (DR Price) versus Bitcoin, as (1) the original Difficulty Ribbons were initially created for Bitcoin and (2) Bitcoin has a longer history to test them against. As such - we will below first look at BTCUSD versus the DR Price, and then expand by looking at the DR Price versus DCRUSD & DCRBTC.
+
+[btcusd chart]
+
+Above we have BTCUSD, DR Price, Miner Profitability (which = BTCUSD / DR Price), and the BTC Difficulty Ribbon are charted:
+
+- The Bitcoin chart shows three boom/bust cycles, ending in 2011, 2015, and 2019
+- Bitcoin ASICs were introduced during the 2015 cycle, as can be seen by the wide Difficulty Ribbon and large gap between BTCUSD and the DR Price
+- The DR Price telegraphed where the eventual price bottoms were on all three occasions (see magnets on chart)
+- Mining Profitability *implies* that miners could have been earning as much as 6x in late 2013, which was the peak period of difficulty growth following ASICs
+- Note how Mining Profitability has never reached the levels it was at during peak ASIC transition
+- Bitcoin's second bust cycle / time to bottom lasted an entire year (all of 2015) - by far its longest, likely due to needing more time to shakeout new ASIC miners
+
+[dcrusd chart]
+
+Above the DCRUSD, DR Price, Miner Profitability (which = DCRUSD / DR Price), and the DCR Difficulty Ribbon are charted:
+
+- Decred has a much shorter history than Bitcoin, with only one true boom/bust cycle
+- However, DCRUSD has had two collisions with the DR Price, once in late 2016 and in 2019-2020
+- The DR Price shows that ASIC introduction kicked off early 2018, with a steep decline in price
+- Mining Profitability *implies* that miners could have been earning as much as 7x in middle of 2018, which was the peak period of difficulty growth following ASICs
+- By the middle of 2018, the DR Price had hit $10 / DCR
+- Once again - the DR Price has been a magnet for price in bear markets
+- Decred's bust cycle has lasted from 9 months if you measure by when DCRUSD collides with DR Price, and 18 months if you measure by sideways DCRUSD price action
+- In Decred's case, the DR Price moved upwards to collide with the DCRUSD price - showing that DR Price can move upwards to put in a bottom as well (as opposed to DCRUSD *needing* to go downwards to put in a bottom)
+
+[dcrbtc chart]
+
+Above the DCRBTC, DR DCRBTC Price, and Miner Profitability (which = DCRBTC / DR DCRBTC) are charted:
+
+- Note: this shows the amount of BTC a miner could acquire from their mined DCR
+- ASIC introduction in early 2018 pushed the DR DCRBTC Price down to ~.002 DCR / BTC, where it has remained for more than two years
+- The biggest takeaway from this chart is that the DR DCRBTC Price nailed the bear market bottom price for DCRBTC
+- This view of DCRBTC price action can be useful for future Decred market cycles, as its true bottom *generally* can't be considered to be in until its BTC pair bottoms
+- An argument can be made that this ~.002 DCR / BTC area was always the bear market bottom price target for DCRBTC
 
 ---
 ## Final Point
 
+It's important to end on the following points:
 
+- The Difficulty Ribbon Price is best used as a macro tool as opposed to a precision tool for short term trading
+- It can be used on coins outside of BTC and DCR, however - its signal is distorted on coins that have meddled with their PoW mechanics (Ethereum & Monero, for example)
+- ASIC introduction has had a massive impact on Decred price action, and likely caused it to have a particularly tough bear market recovery
+- Mining profitability will likely never return to early ASIC levels which likely means that less bleed-out will be required to put in Decred's next bear market bottom
+
+Signing out.
+
+[Permabull Nino](https://twitter.com/PermabullNino)
 
 ---
 ## Code
+
+[DCRUSD DF Price](https://github.com/permabullnino/nino_on_chain/blob/master/DCR/DCR_CM_2.10%20-%20DIFF%20RIBBONS.py)
+
+[DCRBTC DF Price](https://github.com/permabullnino/nino_on_chain/blob/master/DCR/DCR_CM_2.13%20-%20MINING%20VS%20BTC.py)

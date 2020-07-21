@@ -27,7 +27,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
-date_1 = "2011-01-01"
+date_1 = "2016-02-01"
 date_2 = "2020-07-20"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
@@ -90,6 +90,7 @@ ax1.set_facecolor('black')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_yscale('log')
 ax1.grid()
+ax1.set_ylabel("DCRBTC Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_title("Actual " + asset1.upper() + "BTC vs Mining " + asset1.upper() + "BTC", fontsize=20, fontweight='bold', color='w')
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 ax1.legend()
@@ -99,7 +100,7 @@ ax2.plot(df['date'], df['mixedratio'], color='aqua')
 ax2.set_facecolor('black')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_title("Actual Price / Mining Price Ratio", fontsize=20, fontweight='bold', color='w')
-ax2.set_yscale('log')
+""" ax2.set_yscale('log') """
 ax2.set_ylabel("Ratio Value", fontsize=20, fontweight='bold', color='w')
 ax2.grid()
 for axis in [ax2.yaxis]:
