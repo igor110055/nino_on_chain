@@ -32,15 +32,15 @@ Relevant tools for analysis with their respective calculations are included belo
 
 **Difficulty Multiple**: The ratio between current mining difficulty and the 200 day mining difficulty average. This ratio represents the current market traded price in ratio form.
 
-![Difficulty Multiple]()
+![Difficulty Multiple](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/3%20-%20Difficulty%20Ribbon%20Price/Difficulty%20Multiple.PNG)
 
 **USD Difficulty Price**: Multiply the inverse Difficulty Multiple by actual price to determine the cost to mine. Shows what the USD price would be if the current mining difficulty was equal to the 200 day mining difficulty average
 
-![USD DR]()
+![USD DR](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/3%20-%20Difficulty%20Ribbon%20Price/USD%20Difficulty%20Price.PNG)
 
 **BTC Difficulty Price**: Divide the USD Difficulty Price by the actual Bitcoin price to determine how many BTC miners could receive if they sold their rewards into BTC on the day they were mined
 
-![BTC DR]()
+![BTC DR](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/3%20-%20Difficulty%20Ribbon%20Price/BTC%20Difficulty%20Price.PNG)
 
 ---
 ## Why Do These Tools Matter?
@@ -66,7 +66,7 @@ This inevitably kept pushing prices lower until selling no longer became profita
 
 It was important to test the validity of the Difficulty Ribbon Price (DR Price) versus Bitcoin, as (1) the original Difficulty Ribbons were initially created for Bitcoin and (2) Bitcoin has a longer history to test them against. As such - we will below first look at BTCUSD versus the DR Price, and then expand by looking at the DR Price versus DCRUSD & DCRBTC.
 
-![btcusd chart]()
+![btcusd chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/3%20-%20Difficulty%20Ribbon%20Price/BTCUSD%20Mining.PNG)
 
 Above we have BTCUSD, DR Price, Miner Profitability (which = BTCUSD / DR Price), and the BTC Difficulty Ribbon are charted:
 
@@ -77,7 +77,7 @@ Above we have BTCUSD, DR Price, Miner Profitability (which = BTCUSD / DR Price),
 - Note how Mining Profitability has never reached the levels it was at during peak ASIC transition
 - Bitcoin's second bust cycle / time to bottom lasted an entire year (all of 2015) - by far its longest, likely due to needing more time to shakeout new ASIC miners
 
-![dcrusd chart]()
+![dcrusd chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/3%20-%20Difficulty%20Ribbon%20Price/DCRUSD%20Mining.PNG)
 
 Above the DCRUSD, DR Price, Miner Profitability (which = DCRUSD / DR Price), and the DCR Difficulty Ribbon are charted:
 
@@ -90,7 +90,7 @@ Above the DCRUSD, DR Price, Miner Profitability (which = DCRUSD / DR Price), and
 - Decred's bust cycle has lasted from 9 months if you measure by when DCRUSD collides with DR Price, and 18 months if you measure by sideways DCRUSD price action
 - In Decred's case, the DR Price moved upwards to collide with the DCRUSD price - showing that DR Price can move upwards to put in a bottom as well (as opposed to DCRUSD *needing* to go downwards to put in a bottom)
 
-![dcrbtc chart]()
+![dcrbtc chart](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/3%20-%20Difficulty%20Ribbon%20Price/DCRBTC%20Mining.PNG)
 
 Above the DCRBTC, DR DCRBTC Price, and Miner Profitability (which = DCRBTC / DR DCRBTC) are charted:
 
