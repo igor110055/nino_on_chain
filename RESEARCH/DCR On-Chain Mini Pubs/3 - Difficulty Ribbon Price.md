@@ -7,7 +7,7 @@
 ---
 ## Rationale
 
-[include image from Willy's article]
+![Image From Willy's Article](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/3%20-%20Difficulty%20Ribbon%20Price/Willy%20Article%20Image.PNG)
 
 - The Difficulty Ribbon was an on-chain tool created by [Willy Woo](https://twitter.com/woonomic) in order to track distress among Bitcoin miners
 - The Difficulty Ribbon consists of the (1) the network difficulty and (2) an assortment of moving averages of difficulty, with the 200 day moving average being the slowest-moving
