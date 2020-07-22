@@ -26,7 +26,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-17"
+date_2 = "2020-07-20"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
 price.columns = ['date', 'dcrbtc']
@@ -53,15 +53,14 @@ Stk_part['poolval'] = Stk_part['poolval'] / atoms
 df = price.merge(Stk_part, on='date', how='left')
 
 # Calc Metrics
+earlsupp = 1680000
+final = 21000000 - earlsupp
+pos = 0.3
+final_pos = final * pos
 
-period = 142
-
-df['adjpart'] = df['poolval'] / df['circulation']
-df['adjpart142'] = df['adjpart'].rolling(period).mean()
-df['ratio'] = df['adjpart'] / df['adjpart142']
-df['poolval142'] = df['poolval'].rolling(period).mean()
-
-df['stkgradient'] = ((df['adjpart'] - df['adjpart'].shift(periods=period, axis=0)) / period)
+df['curr_pos'] = (df['circulation'] - earlsupp) * pos
+df['rem_pos'] = final_pos - df['curr_pos']
+df['scarce_ratio'] = df['poolval'] / df['rem_pos']
 
 print(df)
 
@@ -71,29 +70,23 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(2,1,1)
-
-ax1.plot(df['date'], df['adjpart'], color='w')
-ax1.plot(df['date'], df['adjpart142'], color='aqua')
-
-ax1.set_title("Staking Momentum (%)", fontsize=20, fontweight='bold', color='w')
-ax1.set_ylabel("% of Supply in Ticket Pool", fontsize=20, fontweight='bold', color='w')
+ax1 = plt.subplot(1,1,1)
+ax1.bar(df['date'], df['scarce_ratio'], color='lime', alpha=0.5)
+ax1.set_title("Scarcity vs DCRBTC Price", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel("Scarcity (DCR)", fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_facecolor('black')
 ax1.grid()
-ax1.legend()
+""" ax1.legend() """
+""" ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
-ax2 = plt.subplot(2, 1, 2, sharex=ax1)
-ax2.plot(df['date'], df['dcrbtc'], color='w')
-ax2.set_yscale('log')
-ax2.tick_params(color='w', labelcolor='w')
-ax2.set_facecolor('black')
-ax2.set_title("DCRBTC", fontsize=20, fontweight='bold', color='w')
-ax2.axhspan(.0105, .0095, color='lime', alpha=0.75)
-ax2.axhspan(.0016, .0014, color='m', alpha=0.75)
-ax2.axhspan(.004, .0039, color='y', alpha=0.75)
-ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
-ax2.set_ylabel("Price", fontsize=20, fontweight='bold', color='w')
-ax2.grid()
+ax11 = ax1.twinx()
+ax11.plot(df['date'], df['dcrbtc'], color='w')
+ax11.set_yscale('log')
+ax11.tick_params(color='w', labelcolor='w')
+ax11.set_facecolor('black')
+ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax11.set_ylabel("Price", fontsize=20, fontweight='bold', color='w')
 
 plt.show()

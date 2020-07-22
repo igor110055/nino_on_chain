@@ -57,6 +57,14 @@ df['fundrate'] = df['tixror'] - df['tixror'].rolling(days).mean()
 df['fundzscore'] = (df['fundrate'] - df['fundrate'].rolling(days).mean()) / df['fundrate'].rolling(days).std()
 df['fundsum'] = df['fundzscore'].rolling(14).sum()
 
+# Calc PB Bands
+mult = 21
+
+df['14avg'] = df['PriceUSD'].rolling(mult).mean()
+df['rorsq'] = (1 + df['tixror'])**mult
+df['upband'] = df['14avg'] * df['rorsq']
+df['downband'] = df['14avg'] / df['rorsq']
+
 print(df)
 
 # PLOT
@@ -65,7 +73,7 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(1,1,1)
+ax1 = plt.subplot(2,1,1)
 ax1.plot(df['date'], df['PriceBTC'], color='w')
 ax1.set_ylabel("Price", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
@@ -87,23 +95,22 @@ ax11.axhline(-15, color='aqua', linestyle='dashed')
 ax11.axhline(15, color='aqua', linestyle='dashed')
 # toggle top and bottom to 0.74 and 0.26 respectively for best view
 
-""" ax2 = plt.subplot(2,1,2)
-ax2.plot(df['date'], df['PriceBTC'], color='w')
-ax2.set_ylabel("Price", fontsize=20, fontweight='bold', color='w')
+ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2.plot(df['date'], df['PriceUSD'], color='w')
+ax2.plot(df['date'], df['upband'], color='lime')
+ax2.plot(df['date'], df['downband'], color='aqua')
+""" ax2.set_ylabel("", fontsize=20, fontweight='bold', color='w') """
 ax2.set_facecolor('black')
-ax2.set_title("DCRBTC vs Funding Rates", fontsize=20, fontweight='bold', color='w')
+ax2.set_title("Ticket Returns (%)", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.grid()
 ax2.legend()
 ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax22 = ax2.twinx()
-ax22.bar(df['date'], df['fundsum'], alpha=0)
-ax22.fill_between(df['date'], df['fundzscore'], where=df['fundsum'] > 0, facecolor='red', alpha=0.7)
-ax22.fill_between(df['date'], df['fundzscore'], where=df['fundsum'] < 0, facecolor='lime', alpha=0.7)
+""" ax22 = ax2.twinx()
+ax22.bar(df['date'], df['tixrew'], alpha=0)
 ax22.set_ylabel("Funding Rate Z-Score", fontsize=20, fontweight='bold', color='w')
-ax22.set_ylim(-3, 3)
 ax22.tick_params(color='w', labelcolor='w')
 ax22.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
 

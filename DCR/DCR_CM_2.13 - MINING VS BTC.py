@@ -28,7 +28,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-02-01"
-date_2 = "2020-07-20"
+date_2 = "2020-07-21"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -50,10 +50,10 @@ df.columns = ['date', 'difficulty', 'PriceUSD', 'altdifficulty', 'AltUSD']
 
 # Merge early price data
 
-df = df.merge(early, on='date', how='left')
+""" df = df.merge(early, on='date', how='left')
 df = df.fillna(0)
 
-df['AltUSD'].mask(df['AltUSD'] == 0, df['earlyusd'], inplace=True)
+df['AltUSD'].mask(df['AltUSD'] == 0, df['earlyusd'], inplace=True) """
 
 # calc ribbons for both coins and mining prices
 df['ribbon_200'] = df['difficulty'].rolling(window=200).mean()
