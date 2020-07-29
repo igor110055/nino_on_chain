@@ -24,8 +24,8 @@ early = df_early[['date', 'PriceUSD', 'PriceBTC', 'CapMrktCurUSD']].copy()
 early['date'] = pd.to_datetime(early['date'], utc=True)
 
 #fetch desired data
-date_1 = "2011-01-01"
-date_2 = "2020-07-07"
+date_1 = "2016-02-01"
+date_2 = "2020-07-21"
 
 supply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date_1, date_2))
 dcrusd = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
@@ -95,7 +95,7 @@ fig.patch.set_alpha(1)
 
 # subsidy paid chart
 
-""" ax1.plot(df['date'], df['dcrmarketcap'], label='Decred Market Cap', color='w')
+ax1.plot(df['date'], df['dcrmarketcap'], label='Decred Market Cap', color='w')
 ax1.plot(df['date'], df['cumsub'], label='Cumulative Subsidy', linestyle=':', color='aqua')
 ax1.plot(df['date'], df['powsub'], label='PoW Subsidy', linestyle=':', color='r')
 ax1.plot(df['date'], df['possub'], label='PoS Subsidy', linestyle=':', color='m')
@@ -112,7 +112,7 @@ ax1.tick_params(color='w', labelcolor='w')
 ax1.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
-ax2 = ax1.twinx()
+""" ax2 = ax1.twinx()
 ax2.plot(df['date'], df['networkprofit'], color='aqua', alpha=1)
 
 ax2.fill_between(df['date'], df['networkprofit'], where=df['networkprofit'] > 0, facecolor='aqua', alpha=0.4)
@@ -153,7 +153,7 @@ ax2.tick_params(color='w', labelcolor='w') """
 
 # total subisdy chart btc
 
-ax1.plot(df['date'], df['dcrbtcmarketcap'], label='Decred Market Cap', color='w')
+""" ax1.plot(df['date'], df['dcrbtcmarketcap'], label='Decred Market Cap', color='w')
 ax1.plot(df['date'], df['totsubbtc'], label='Cumulative Subsidy', color='aqua')
 ax1.plot(df['date'], df['totpowbtc'], label='PoW Subsidy', color='r')
 ax1.plot(df['date'], df['totposbtc'], label='PoS Subsidy', color='m')
@@ -178,6 +178,6 @@ ax2.fill_between(df['date'], df['totnetworkprofitbtc'], where=df['totnetworkprof
 
 ax2.set_ylabel('Network P/L on Subsidies Issued (%)', fontsize=20, fontweight='bold', color='w')
 ax2.set_ylim(-1, 30)
-ax2.tick_params(color='w', labelcolor='w')
+ax2.tick_params(color='w', labelcolor='w') """
 
 plt.show()

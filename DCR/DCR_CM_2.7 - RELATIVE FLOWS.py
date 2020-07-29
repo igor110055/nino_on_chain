@@ -16,7 +16,7 @@ asset1 = "btc"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
-date_1 = "2011-01-01"
+date_1 = "2016-02-01"
 date_2 = "2020-07-16"
 
 dcr_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2))
@@ -32,7 +32,7 @@ df = dcr_flow.merge(btc_flow, on='date', how='left').merge(dcr_supp, on='date', 
 df.columns = ['date', 'dcrflow', 'btcflow', 'dcrsupply', 'btcsupply', 'dcrusd', 'btcusd']
 
 # CALC METRICS
-number = 28
+number = 142
 
 df['dcrbtc'] = df['dcrusd'] / df['btcusd']
 df['dcr142sum'] = df['dcrflow'].rolling(number).sum()
