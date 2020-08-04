@@ -27,7 +27,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2013-01-01"
-date_2 = "2020-07-27"
+date_2 = "2020-07-30"
 metric = "CapMrktCurUSD"
 
 df = pd.DataFrame(columns=['date'])

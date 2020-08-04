@@ -21,10 +21,13 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-24"
+date_2 = "2020-08-03"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
-price.columns = ['date', 'PriceBTC']
+mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
+
+price = price.merge(mcap, on='date', how='left')
+price.columns = ['date', 'PriceBTC', 'mcap']
 # STAKE PARTICIPATION DATA
 
 df = pd.DataFrame(dcrdata.chart("stake-participation"))
@@ -39,6 +42,13 @@ df = df.merge(price, on='date', how='left')
 
 df['28 Inflow'] = df['poolval'].diff(28)
 df['142 Inflow'] = df['poolval'].diff(142)
+
+df['28mcap'] = df['mcap'].diff(28)
+df['142mcap'] = df['mcap'].diff(142)
+
+df['28imp'] = df['mcap'] / df['28 Inflow']
+df['142imp'] = df['mcap'] / df['142 Inflow']
+
 
 print(df)
 
@@ -63,9 +73,9 @@ ax1.grid()
 ax1.legend()
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
-ax2.plot(df['date'], df['PriceBTC'], color='w')
+ax2.plot(df['date'], df['142imp'], color='w')
 ax2.set_facecolor('black')
-ax2.set_yscale('log')
+""" ax2.set_yscale('log') """
 ax2.set_title("DCRBTC Price", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.get_yaxis().set_major_formatter(

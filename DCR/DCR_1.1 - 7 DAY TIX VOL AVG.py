@@ -37,7 +37,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-20"
+date_2 = "2020-07-31"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -72,7 +72,7 @@ ax1.axhspan(.004, .0039, color='y', alpha=0.75)
 ax1.grid()
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['rolling_7'], color='aqua')
 ax2.set_facecolor('black')
 ax2.set_ylabel('Ticket Volume', fontsize=20, fontweight='bold', color='w')
