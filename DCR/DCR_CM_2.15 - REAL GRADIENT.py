@@ -7,13 +7,13 @@ import matplotlib as mpl
 cm = coinmetrics.Community()
 
 # Pull data
-asset = "dcr"
+asset = "ltc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-27"
+date_2 = "2020-08-05"
 
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 realcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date_1, date_2))

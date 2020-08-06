@@ -21,7 +21,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-08-03"
+date_2 = "2020-08-05"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
@@ -73,9 +73,9 @@ ax1.grid()
 ax1.legend()
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
-ax2.plot(df['date'], df['142imp'], color='w')
+ax2.plot(df['date'], df['PriceBTC'], color='w')
 ax2.set_facecolor('black')
-""" ax2.set_yscale('log') """
+ax2.set_yscale('log')
 ax2.set_title("DCRBTC Price", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.get_yaxis().set_major_formatter(

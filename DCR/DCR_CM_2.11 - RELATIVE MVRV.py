@@ -13,7 +13,7 @@ cm = coinmetrics.Community()
 
 # PULL DCR & BTC NTV, MVRV, & REALIZED PRICE DATA "2016-08-14"
 
-asset = "dcr"
+asset = "ltc"
 asset2 = "btc"
 date_1 = "2016-01-01"
 date_2 = "2020-08-03"
