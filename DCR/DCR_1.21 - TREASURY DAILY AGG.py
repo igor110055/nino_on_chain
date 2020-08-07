@@ -100,38 +100,41 @@ df1['ratio3'] = df1['poolval'] / df1['circulation']
 
 print(df1)
 
+# Plot
+
 fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-""" ax1.plot(df1['time_stamp'], df1['treasury'], color='lime', alpha=1) """
-ax1.plot(df1['time_stamp'], df1['monthflow'], color='aqua', alpha=1, linewidth=0.3)
-ax1.set_facecolor('black')
-ax1.set_ylabel('Treasury Inflow / Outflow', fontsize=20, fontweight='bold', color='w')
+ax1.plot(df1['time_stamp'], df1['PriceUSD'], color='w')
+ax1.plot(df1['time_stamp'], df1['bullprice'], color='lime', alpha=0.5)
+ax1.plot(df1['time_stamp'], df1['bullishprice'], color='g', alpha=0.5)
+ax1.plot(df1['time_stamp'], df1['moderateprice'], color='orange', alpha=0.5)
+ax1.plot(df1['time_stamp'], df1['bearprice'], color='m', alpha=0.5)
+ax1.plot(df1['time_stamp'], df1['bearishprice'], color='pink', alpha=0.5)
+ax1.plot(df1['time_stamp'], df1['doomprice'], color='r', alpha=0.5)
+ax1.set_ylabel('Price', fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
+ax1.set_yscale('log')
 ax1.set_title("Market Cap vs Treasury Flows vs Budget Prices", fontsize=20, fontweight='bold', color='w')
-ax1.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] > 0, facecolor='aqua', alpha=0.7)
-ax1.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] < 0, facecolor='red', alpha=0.7)
+ax1.set_facecolor('black')
 ax1.grid()
 ax1.legend(loc='upper left')
 ax1.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
-ax11 = ax1.twinx()
-ax11.plot(df1['time_stamp'], df1['PriceUSD'], color='w')
-ax11.plot(df1['time_stamp'], df1['bullprice'], color='lime')
-ax11.plot(df1['time_stamp'], df1['bullishprice'], color='g')
-ax11.plot(df1['time_stamp'], df1['moderateprice'], color='orange')
-ax11.plot(df1['time_stamp'], df1['bearprice'], color='m')
-ax11.plot(df1['time_stamp'], df1['bearishprice'], color='pink')
-ax11.plot(df1['time_stamp'], df1['doomprice'], color='r')
-ax11.set_ylabel('Price', fontsize=20, fontweight='bold', color='w')
+""" ax11 = ax1.twinx()
+ax11.plot(df1['time_stamp'], df1['treasury'], color='lime', alpha=1)
+ax11.plot(df1['time_stamp'], df1['monthflow'], color='aqua', alpha=1, linewidth=0.3)
+ax11.set_ylabel('Treasury Inflow / Outflow', fontsize=20, fontweight='bold', color='w')
 ax11.tick_params(color='w', labelcolor='w')
-ax11.set_yscale('log')
-ax11.legend(loc='lower left')
+ax11.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] > 0, facecolor='aqua', alpha=0.7)
+ax11.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] < 0, facecolor='red', alpha=0.7)
+
+ax11.legend(loc='upper left')
 ax11.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.bar(df1['time_stamp'], df1['wtlow'], color='r')
