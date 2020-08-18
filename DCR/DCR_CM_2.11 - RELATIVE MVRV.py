@@ -16,7 +16,7 @@ cm = coinmetrics.Community()
 asset = "ltc"
 asset2 = "btc"
 date_1 = "2016-01-01"
-date_2 = "2020-08-03"
+date_2 = "2020-08-11"
 
 coin_price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 coin1_price = cm.get_asset_data_for_time_range(asset2, "PriceUSD", date_1, date_2)
@@ -87,8 +87,8 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['coin_coin1'], label='DCRBTC Market Traded Price', color='w')
-ax1.plot(df['date'], df['rel_real'], label='DCR Realized Price / BTC Realized Price', color='lime')
+ax1.plot(df['date'], df['coin_coin1'], label= asset.upper() + 'BTC Market Traded Price', color='w')
+ax1.plot(df['date'], df['rel_real'], label= asset.upper() + ' Realized Price / BTC Realized Price', color='lime')
 ax1.plot(df['date'], df['rel_mvrv_price'], label='Relative MVRV Price', color='r')
 ax1.plot(df['date'], df['mid_point'], label='Mid-Point', color='aqua')
 ax1.set_ylabel("DCRBTC", fontsize=20, fontweight='bold', color='w')

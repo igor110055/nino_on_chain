@@ -11,7 +11,7 @@ cm = coinmetrics.Community()
 # List all available metrics.
 asset = "eth"
 date_1 = "2011-01-01"
-date_2 = "2020-06-01"
+date_2 = "2020-08-11"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print(available_data_types)

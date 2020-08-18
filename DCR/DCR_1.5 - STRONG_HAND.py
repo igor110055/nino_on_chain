@@ -33,7 +33,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-08-01"
+date_2 = "2020-08-17"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
 mcap = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)

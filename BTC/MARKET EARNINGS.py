@@ -10,14 +10,14 @@ import matplotlib as mpl
 cm = coinmetrics.Community()
 
 # List all available metrics for BTC
-asset = "dcr"
+asset = "btc"
 metric = "PriceUSD"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-07-01"
-date_2 = "2020-06-30"
+date_2 = "2020-08-11"
 df = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, metric, date_1, date_2))
 df.columns = ['date', metric]
 
@@ -25,9 +25,9 @@ df.columns = ['date', metric]
 
 df['move'] = df[metric].diff(1)
 df['percentdailymove'] = df[metric].pct_change(1)
-df['percent7'] = df['percentdailymove'].rolling(7).sum()
+df['percent7'] = df['percentdailymove'].rolling(14).sum()
 df['percent14'] = df['percentdailymove'].rolling(28).sum()
-df['percent28'] = df['percentdailymove'].rolling(142).sum()
+df['percent28'] = df['percentdailymove'].rolling(56).sum()
 df['percentcombo'] = df['percent7'] + df['percent14'] + df['percent28']
 print(df)
 

@@ -45,7 +45,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-08-04"
+date_2 = "2020-08-11"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
@@ -70,6 +70,9 @@ doom = 0.03
 df1['dcrinflow'] = np.where(df1['value'] > 0, df1['value'], 0)
 df1['dcroutflow'] = np.where(df1['value'] < 0, df1['value'], 0)
 
+df1['usdoutflow'] = df1['dcroutflow'] * df1['PriceUSD']
+df1['cumoutusd'] = (df1['usdoutflow'].cumsum()) * -1
+
 df1['Price30'] = df1['PriceUSD'].rolling(90).mean()
 
 df1['poolvalusd'] = df1['poolval'] * df1['PriceUSD']
@@ -93,6 +96,17 @@ df1['valueusd'] = df1['value'] * df1['PriceUSD']
 df1['treasuryusd'] = df1['treasury'] * df1['PriceUSD']
 df1['nontreasusd'] = df1['Mcap'] - df1['treasuryusd'] - df1['poolvalusd']
 
+df1['bulltreasury'] = df1['treasury'] * df1['bullprice']
+df1['runway'] = 1 / df1['adjwtlow']
+df1['PE'] = df1['treasuryusd'] / df1['cumoutusd']
+df1['equity'] = df1['treasuryusd'] - df1['cumoutusd']
+
+df1['pe5'] = 5 * df1['cumoutusd']
+df1['pe10'] = 10 * df1['cumoutusd']
+df1['pe20'] = 20 * df1['cumoutusd']
+df1['pe40'] = 40 * df1['cumoutusd']
+df1['pe60'] = 60 * df1['cumoutusd']
+
 df1['ratio'] = df1['nontreasusd'] / df1['treasuryusd']
 df1['ratio1'] = df1['poolval'] / df1['treasury']
 df1['ratio2'] = df1['treasury'] / df1['circulation']
@@ -108,12 +122,12 @@ fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
 ax1.plot(df1['time_stamp'], df1['PriceUSD'], color='w')
-ax1.plot(df1['time_stamp'], df1['bullprice'], color='lime', alpha=0.5)
-ax1.plot(df1['time_stamp'], df1['bullishprice'], color='g', alpha=0.5)
-ax1.plot(df1['time_stamp'], df1['moderateprice'], color='orange', alpha=0.5)
-ax1.plot(df1['time_stamp'], df1['bearprice'], color='m', alpha=0.5)
-ax1.plot(df1['time_stamp'], df1['bearishprice'], color='pink', alpha=0.5)
-ax1.plot(df1['time_stamp'], df1['doomprice'], color='r', alpha=0.5)
+ax1.plot(df1['time_stamp'], df1['bullprice'], color='lime', alpha=0.75)
+ax1.plot(df1['time_stamp'], df1['bullishprice'], color='g', alpha=0.75)
+ax1.plot(df1['time_stamp'], df1['moderateprice'], color='orange', alpha=0.75)
+ax1.plot(df1['time_stamp'], df1['bearprice'], color='m', alpha=0.75)
+ax1.plot(df1['time_stamp'], df1['bearishprice'], color='pink', alpha=0.75)
+ax1.plot(df1['time_stamp'], df1['doomprice'], color='r', alpha=0.75)
 ax1.set_ylabel('Price', fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_yscale('log')
@@ -137,11 +151,40 @@ ax11.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
-ax2.bar(df1['time_stamp'], df1['wtlow'], color='r')
+ax2.plot(df1['time_stamp'], df1['treasuryusd'], color='w')
+ax2.plot(df1['time_stamp'], df1['cumoutusd'], color='aqua')
+ax2.plot(df1['time_stamp'], df1['pe5'])
+ax2.plot(df1['time_stamp'], df1['pe10'])
+ax2.plot(df1['time_stamp'], df1['pe20'])
+ax2.plot(df1['time_stamp'], df1['pe40'])
+ax2.plot(df1['time_stamp'], df1['pe60'])
+""" ax2.plot(df1['time_stamp'], df1['bulltreasury'], color='lime')
+ax2.plot(df1['time_stamp'], df1['equity'], color='aqua') """
 ax2.set_facecolor('black')
-ax2.set_title("Daily Outflow / Treasury Ratio", fontsize=20, fontweight='bold', color='w')
+ax2.set_title("Treasury Values vs Treasury Runway", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
+ax2.set_ylabel("USD Value", fontsize=20, fontweight='bold', color='w')
+ax2.set_yscale('log')
 ax2.grid()
-ax2.set_ylabel("Ratio Value", fontsize=20, fontweight='bold', color='w')
+ax2.legend(loc='upper left')
+ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+""" ax22 = ax2.twinx()
+ax22.bar(df1['time_stamp'], df1['runway'], color='aqua', alpha=0.5)
+ax22.tick_params(color='w', labelcolor='w')
+ax22.grid()
+ax22.set_ylabel("Treasury Runway in Months", fontsize=20, fontweight='bold', color='w')
+ax22.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+
+""" ax22 = ax2.twinx()
+ax22.plot(df1['time_stamp'], df1['PE'], color='aqua', alpha=1)
+ax22.tick_params(color='w', labelcolor='w')
+ax22.grid()
+ax22.set_ylabel("Treasury Value / Cum. Treasury Spend", fontsize=14, fontweight='bold', color='w')
+ax22.set_yscale('log')
+ax22.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 plt.show()
