@@ -33,6 +33,8 @@ df = df.sort_values(by='time_stamp')
 df = df.reset_index()
 
 df['value'] = df['direction'] * df['value']   # change values negatives if outflow
+df['dcrinflow'] = np.where(df['value'] > 0, df['value'], 0)
+df['dcroutflow'] = np.where(df['value'] < 0, df['value'], 0)
 
 df1 = df.groupby('time_stamp')['value'].sum()
 df1 = pd.DataFrame(df1)
@@ -45,7 +47,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-08-11"
+date_2 = "2020-08-18"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
@@ -67,10 +69,11 @@ bearish = 0.02
 bear = 0.025
 doom = 0.03
 
-df1['dcrinflow'] = np.where(df1['value'] > 0, df1['value'], 0)
-df1['dcroutflow'] = np.where(df1['value'] < 0, df1['value'], 0)
+df1['dcroutflowmax'] = (df1['dcroutflow'].rolling(90).min()) * -1
+df1['dcrtotoutflow'] = df1['dcroutflow'].cumsum()
 
 df1['usdoutflow'] = df1['dcroutflow'] * df1['PriceUSD']
+df1['usdoutflowmax'] = (df1['usdoutflow'].rolling(90).min()) * -1
 df1['cumoutusd'] = (df1['usdoutflow'].cumsum()) * -1
 
 df1['Price30'] = df1['PriceUSD'].rolling(90).mean()
@@ -80,6 +83,7 @@ df1['poolvalusd'] = df1['poolval'] * df1['PriceUSD']
 df1['monthflow'] = df1['value'].rolling(90).sum()
 df1['treasury'] = df1['value'].cumsum()
 df1['valperdcr'] = df1['Mcap'] / df1['treasury']
+df1['valperpool'] = df1['poolvalusd'] / df1['treasury']
 
 df1['wtoutflow'] = df1['dcroutflow'] / df1['treasury']
 df1['wtlow'] = df1['wtoutflow'].rolling(90).min()
@@ -177,6 +181,14 @@ ax22.grid()
 ax22.set_ylabel("Treasury Runway in Months", fontsize=20, fontweight='bold', color='w')
 ax22.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+
+ax22 = ax2.twinx()
+ax22.bar(df1['time_stamp'], df1['dcrtotoutflow'], color='pink', alpha=0.5)
+ax22.tick_params(color='w', labelcolor='w')
+ax22.grid()
+ax22.set_ylabel("Max $ Spend (90 Days Rolling)", fontsize=14, fontweight='bold', color='w')
+ax22.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 """ ax22 = ax2.twinx()
 ax22.plot(df1['time_stamp'], df1['PE'], color='aqua', alpha=1)
