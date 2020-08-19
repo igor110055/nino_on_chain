@@ -55,12 +55,17 @@ df1['time_stamp'] = pd.to_datetime(df1['time_stamp']) # change back to datetime 
 
 # Create metrics
 
+total = 1932000
+
 bull = 0.005
 bullish = 0.01
 moderate = 0.015
 bearish = 0.02
 bear = 0.025
 doom = 0.03
+
+df1['treasiss'] = df1['dcrinflow'].cumsum()
+df1['treasrem'] = total - df1['treasiss']
 
 df1['dcroutflowmax'] = (df1['dcroutflow'].rolling(90).min()) * -1
 df1['dcrtotoutflow'] = df1['dcroutflow'].cumsum()
@@ -73,6 +78,7 @@ df1['Price90'] = df1['PriceUSD'].rolling(90).mean()
 
 df1['monthflow'] = df1['value'].rolling(90).sum()
 df1['treasury'] = df1['value'].cumsum()
+df1['projrem'] = df1['treasury'] + df1['treasrem']
 df1['valperdcr'] = df1['Mcap'] / df1['treasury']
 
 df1['wtoutflow'] = df1['dcroutflow'] / df1['treasury']
@@ -90,10 +96,11 @@ df1['valueusd'] = df1['value'] * df1['PriceUSD']
 df1['treasuryusd'] = df1['treasury'] * df1['PriceUSD']
 
 df1['bulltreasury'] = df1['treasury'] * df1['bullprice']
-df1['runway'] = 1 / df1['adjwtlow']
+df1['runway'] = df1['projrem'] / df1['dcroutflowmax']
 df1['PE'] = df1['treasuryusd'] / df1['cumoutusd']
 df1['equity'] = df1['treasuryusd'] - df1['cumoutusd']
 
+df1['pe2'] = 2 * df1['cumoutusd']
 df1['pe5'] = 5 * df1['cumoutusd']
 df1['pe10'] = 10 * df1['cumoutusd']
 df1['pe20'] = 20 * df1['cumoutusd']
@@ -108,7 +115,7 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(2,1,1)
+""" ax1 = plt.subplot(2,1,1)
 ax1.plot(df1['time_stamp'], df1['PriceUSD'], color='w')
 ax1.plot(df1['time_stamp'], df1['bullprice'], color='lime', alpha=0.75)
 ax1.plot(df1['time_stamp'], df1['bullishprice'], color='g', alpha=0.75)
@@ -124,7 +131,7 @@ ax1.set_facecolor('black')
 ax1.grid()
 ax1.legend(loc='upper left')
 ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 """ ax11 = ax1.twinx()
 ax11.plot(df1['time_stamp'], df1['treasury'], color='lime', alpha=1)
@@ -138,29 +145,30 @@ ax11.legend(loc='upper left')
 ax11.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
-ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2 = plt.subplot(1,1,1, sharex=ax1)
 ax2.plot(df1['time_stamp'], df1['treasuryusd'], color='w')
 ax2.plot(df1['time_stamp'], df1['cumoutusd'], color='aqua')
+ax2.plot(df1['time_stamp'], df1['pe2'])
 ax2.plot(df1['time_stamp'], df1['pe5'])
 ax2.plot(df1['time_stamp'], df1['pe10'])
 ax2.plot(df1['time_stamp'], df1['pe20'])
 ax2.plot(df1['time_stamp'], df1['pe40'])
 ax2.plot(df1['time_stamp'], df1['pe60'])
 ax2.set_facecolor('black')
-ax2.set_title("Treasury Values vs Treasury Runway", fontsize=20, fontweight='bold', color='w')
+ax2.set_title("Treasury Values vs Treasury Spending", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_ylabel("USD Value", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
-ax2.grid()
 ax2.legend(loc='upper left')
 ax2.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax22 = ax2.twinx()
-ax22.bar(df1['time_stamp'], df1['dcrtotoutflow'], color='aqua', alpha=0.5)
+ax22.bar(df1['time_stamp'], df1['runway'], color='aqua', alpha=0.5)
 ax22.tick_params(color='w', labelcolor='w')
+ax22.set_ylim((0, df1['runway'].max() * 2))
 ax22.grid()
-ax22.set_ylabel("Treasury Runway in Months", fontsize=20, fontweight='bold', color='w')
+ax22.set_ylabel("Max Daily USD Treasury Spend (90 Days)", fontsize=20, fontweight='bold', color='w')
 ax22.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
