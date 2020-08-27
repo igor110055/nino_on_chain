@@ -1,12 +1,3 @@
-Outline
-
-- % of supply in treasury, sum of dcr in treasury, sum of dcr paid for work
-- dcr paid denominated in usd using daily flows, and dcr paid (both done using 90 day max to give cleaner look)
-- quarterly dcr flows
-- budget
-- runway
-- PE ratio, Equity & total amount of paid out for work
-
 # Decred On-Chain: Treasury Accounting
 
 Decred is many things:
@@ -42,6 +33,8 @@ Within we will run through a high-level accountant's report to the Decred Treasu
 ![Basic View DCR](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Basic%20View%20DCR.PNG)
 
 ![Basic View USD](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Basic%20View%20USD.PNG)
+
+!['% of Monthly Spend'](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Monthly%20Spend%20%25.PNG)
 
 ## DCR Contractor P/L
 ![Contractor PL USD](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Contractor%20PL%20USD.PNG)
