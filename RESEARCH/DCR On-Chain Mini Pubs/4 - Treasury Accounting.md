@@ -86,11 +86,27 @@ Below we will cover the basics of the Decred Treasury from both a DCR and USD fo
 - The above is just a simple example of mental budgeting individual stakeholders can perform with available Treasury payment data (more on this in future sections)
 
 ## DCR Contractor P/L
+
+Contractors are the backbone of the Decred DAO and the ultimate Decred bulls. Furthermore, and as established in the previous section - they're a significant stakeholder group, as they've received a cumulative ~400k DCR since project inception. In this section we'll perform a quick pulse check on this group, and where their DCR bags stand.
+
 ![Contractor PL USD](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Contractor%20PL%20USD.PNG)
 
-- 
+- Plotted above are (1) the current value of the ~400k DCR contractors have received (white) versus (2) the value of these same DCR based on the date they were paid out to contractors (blue)
+- The bottom of the chart shows the $ difference between these two values, tracking their profits / losses on their DCR received to date (assuming no coins haven't been sold)
+- Note: although contractors do not hold all their coins, there is convincing evidence that they [do HODL a significant portion of their DCR payments for contracting work](https://www.blockcommons.red/post/dcr-on-chain-1/)
+
+- At peak bull, DCR paid to contractors were $10 Million more valuable than when contractors received them
+- On the other hand, their max loss on payments were around $5 Million
+- Contractors have had two periods of sitting on losses: late 2016 and late 2018 - present
+- Contractors are currently sitting at breakeven, with their cost basis presenting formidable resistance since the beginning of 2019 
 
 ![Contractor PL %](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Contractor%20PL%20Percentage.PNG)
+
+- This chart expands on the one previously shown by (1) calculating contractor profits on a % basis and (2) plotting a line to show what seems like a significant psychological level for contractor pain (red)
+
+- The red line shows when contractors are 40% underwater on their cumulative payments received, which has proven to be the "max pain" point for a reversal in price action on multiple occasions
+- At peak bull, the value of contractor coins were ~12.5x more valuable than what they had received them at
+- The current value of contractor coins (white) is around $7 Million, and the all time high is around $13 Million - making the current value of coins held / paid to contractors only 2x from a new high in Decred's lifetime
 
 ## DCR Treasury Flows
 ![90 Day Flows](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Quarterly%20Flows.PNG)

@@ -175,15 +175,15 @@ ax11.get_yaxis().set_major_formatter(
 
 
 ax2 = plt.subplot(1,1,1, sharex=ax1)
-ax2.plot(df1['time_stamp'], df1['treasuryusd'], label='Treasury USD Value', color='w')
+ax2.plot(df1['time_stamp'], df1['contractearnings'], label='Treasury USD Value', color='w')
 ax2.plot(df1['time_stamp'], df1['cumoutusd'], label='Total Contractor USD Pay', color='aqua')
-""" ax2.plot(df1['time_stamp'], df1['40drawdown'], label='Earnings 40% Drawdown', color='red') """
-ax2.plot(df1['time_stamp'], df1['pe2'], label='2x')
+ax2.plot(df1['time_stamp'], df1['40drawdown'], label='Earnings 40% Drawdown', color='red')
+""" ax2.plot(df1['time_stamp'], df1['pe2'], label='2x')
 ax2.plot(df1['time_stamp'], df1['pe5'], label='5x')
 ax2.plot(df1['time_stamp'], df1['pe10'], label='10x')
 ax2.plot(df1['time_stamp'], df1['pe20'], label='20x')
 ax2.plot(df1['time_stamp'], df1['pe40'], label='40x')
-ax2.plot(df1['time_stamp'], df1['pe60'], label='60x')
+ax2.plot(df1['time_stamp'], df1['pe60'], label='60x') """
 ax2.fill_between(df1['time_stamp'], df1['pe10'], df1['pe20'], where= df1['pe20'] > df1['pe10'], facecolor='lime', alpha=0.7)
 ax2.grid()
 ax2.set_facecolor('black')
