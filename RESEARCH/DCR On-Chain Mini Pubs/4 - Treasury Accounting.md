@@ -39,19 +39,23 @@ Within we will run through a high-level accountant's report to the Decred Treasu
 ---
 
 ## Basic View of the Treasury
+![Basic View DCR](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Basic%20View%20DCR.PNG)
 
-
+![Basic View USD](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Basic%20View%20USD.PNG)
 
 ## DCR Contractor P/L
+![Contractor PL USD](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Contractor%20PL%20USD.PNG)
 
+![Contractor PL %](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Contractor%20PL%20Percentage.PNG)
 
 ## DCR Treasury Flows
-
+![90 Day Flows](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Quarterly%20Flows.PNG)
 
 ## DCR Treasury Budgeting
-
+[Budget](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Budget.PNG)
 
 ## DCR Treasury Runway
-
+[Runway](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Runway.PNG)
 
 ## DCR Treasury Returns
+[Returns](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Treasury%20Returns.PNG)
