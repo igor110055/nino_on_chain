@@ -109,7 +109,14 @@ Contractors are the backbone of the Decred DAO and the ultimate Decred bulls. Fu
 - The current value of contractor coins (white) is around $7 Million, and the all time high is around $13 Million - making the current value of coins held / paid to contractors only 2x from a new high in Decred's lifetime
 
 ## DCR Treasury Flows
+
+Network stakeholders have one goal for the Treasury: to keep increasing the amount of DCR that sit in it. Below is a basic view of the Treasury and its accumulation rate of DCR over a rolling 90-day span.
+
 ![90 Day Flows](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Quarterly%20Flows.PNG)
+
+- From 2016 through 2018, the Treasury was accumulating between 40k - 50k DCR every 90 days
+- DCR flows flipped negative in late 2019 after sustained bearish price action, and has yet to convincingly flip positive again
+- The beginning of negative flows naturally makes stakeholders uneasy, which is why budgeting is important, and the topic of discussion in the next section...
 
 ## DCR Treasury Budgeting
 ![Budget](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Budget.PNG)
