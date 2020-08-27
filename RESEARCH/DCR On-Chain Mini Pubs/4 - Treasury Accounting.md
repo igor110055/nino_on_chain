@@ -1,5 +1,12 @@
 # Decred On-Chain: Treasury Accounting
 
+## Relevant Reading
+
+- [Decred, The Resilient Stronghold](https://medium.com/decred/decred-the-resilient-stronghold-4038dc64dd2a)
+- [Decred Blockchain Analysis - Part 1](https://www.blockcommons.red/post/dcr-on-chain-1/)
+
+## Treasury Foundations
+
 Decred is many things:
 
 1) A money
@@ -73,10 +80,15 @@ Below we will cover the basics of the Decred Treasury from both a DCR and USD fo
 
 !['% of Monthly Spend'](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Monthly%20Spend%20%25.PNG)
 
-- Looking through the 
+- USD payment data can also help stakeholders understand what share of Treasury spend a proposal is budgeting for
+- The table above assumes the monthly spend of the Treasury is around $200k, and takes various monthly spend budgets for an individual contractor to estimate their portion of the total monthly charge
+- By seeing what share of total Treasury outlay a certain proposal is budgeting for on a monthly basis, stakeholders can come up with their own benchmarks for what they consider reasonable
+- The above is just a simple example of mental budgeting individual stakeholders can perform with available Treasury payment data (more on this in future sections)
 
 ## DCR Contractor P/L
 ![Contractor PL USD](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Contractor%20PL%20USD.PNG)
+
+- 
 
 ![Contractor PL %](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Contractor%20PL%20Percentage.PNG)
 
