@@ -47,9 +47,9 @@ Below we will cover the basics of the Decred Treasury from both a DCR and USD fo
 - The chart above plots the Treasury (white line) and cumulative sum of DCR paid to contractors (blue line) through the project's lifetime
 - Red bars show the daily sum of DCR sent to contractors
 
-- The Treasury balance has hovered around 600k - 630k DCR since early 2019
-- Cumulative DCR sent to contractors currently sits around 400k DCR
-- Maximum daily spends of DCR has consistently hit ~17.5k since early 2019, around the same time the cumulative spends line started to accelerate upwards
+- The Treasury balance has hovered around **600k - 630k DCR** since early 2019
+- Cumulative DCR sent to contractors currently sits around **400k DCR**
+- Maximum daily spends of DCR has consistently hit **~17.5k** since early 2019, around the same time the cumulative spends line started to accelerate upwards
 
 - To date, there seems to be two different eras of DCR Treasury spends
 - Era 1: small DCR outlay, and payments paid in smaller / separate batches
@@ -63,13 +63,13 @@ Below we will cover the basics of the Decred Treasury from both a DCR and USD fo
 - Red bars show the daily sum of USD sent to contractors
 - USD outlay is calculated by using the USD price on the day the DCR were transacted
 
-- Treasury Value: ~$10 - $11 Million
-- Cumulative Spends: ~$8 - $9 Million
-- Max USD Daily Outlay: ~$400k
+- Treasury Value: **~$10 - $11 Million**
+- Cumulative Spends: **~$8 - $9 Million**
+- Max USD Daily Outlay: **~$400k**
 
 - The value of the Treasury collided with Cumulative Spends on the "doomsday candle" from Covid-19 shutdowns
 
-- Since the middle of 2017, contractor pay has consistently remained between $100k and $300k
+- Since the middle of 2017, contractor pay has consistently remained between **$100k and $300k**
 - This well defined range of spending can be used as a possible measure of two things: (1) contractor retention and (2) budgeting
 
 - The easiest way to measure contractor retention / growth is by looking at the USD value of Treasury spends
@@ -95,8 +95,8 @@ Contractors are the backbone of the Decred DAO and the ultimate Decred bulls. Fu
 - The bottom of the chart shows the $ difference between these two values, tracking their profits / losses on their DCR received to date (assuming no coins haven't been sold)
 - Note: although contractors do not hold all their coins, there is convincing evidence that they [do HODL a significant portion of their DCR payments for contracting work](https://www.blockcommons.red/post/dcr-on-chain-1/)
 
-- At peak bull, DCR paid to contractors were $10 Million more valuable than when contractors received them
-- On the other hand, their max loss on payments were around $5 Million
+- At peak bull, DCR paid to contractors were **$10 Million** more valuable than when contractors received them
+- On the other hand, their max loss on payments were around **$5 Million**
 - Contractors have had two periods of sitting on losses: late 2016 and late 2018 - present
 - Contractors are currently sitting at breakeven, with their cost basis presenting formidable resistance since the beginning of 2019 
 
@@ -104,9 +104,9 @@ Contractors are the backbone of the Decred DAO and the ultimate Decred bulls. Fu
 
 - This chart expands on the one previously shown by (1) calculating contractor profits on a % basis and (2) plotting a line to show what seems like a significant psychological level for contractor pain (red)
 
-- The red line shows when contractors are 40% underwater on their cumulative payments received, which has proven to be the "max pain" point for a reversal in price action on multiple occasions
-- At peak bull, the value of contractor coins were ~12.5x more valuable than what they had received them at
-- The current value of contractor coins (white) is around $7 Million, and the all time high is around $13 Million - making the current value of coins held / paid to contractors only 2x from a new high in Decred's lifetime
+- The red line shows when contractors are **40%** underwater on their cumulative payments received, which has proven to be the "max pain" point for a reversal in price action on multiple occasions
+- At peak bull, the value of contractor coins were **~12.5x** more valuable than what they had received them at
+- The current value of contractor coins (white) is around **$7 Million**, and the all time high is around **$13 Million** - making the current value of coins held / paid to contractors only **2x** from a new high in Decred's lifetime
 
 ## DCR Treasury Flows
 
@@ -114,7 +114,7 @@ Network stakeholders have one goal for the Treasury: to keep increasing the amou
 
 ![90 Day Flows](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Quarterly%20Flows.PNG)
 
-- From 2016 through 2018, the Treasury was accumulating between 40k - 50k DCR every 90 days
+- From 2016 through 2018, the Treasury was accumulating between **40k - 50k DCR** every 90 days
 - DCR flows flipped negative in late 2019 after sustained bearish price action, and has yet to convincingly flip positive again
 - The beginning of negative flows naturally makes stakeholders uneasy, which is why budgeting is important, and the topic of discussion in the next section...
 
@@ -131,8 +131,8 @@ While stakeholders have to date done a great job budgeting for the Treasury, it 
 - Per the bottom chart, bear markets are defined by spends greater than **2%** of the current Treasury balance, and viceversa for bull markets
 - % of current Treasury balance spent monthly on contracting has ranged from **0.5% - 4%** through Decred's lifetime
 
-- Budget Prices indicate that DCRUSD needs to be at ~$80 in order to only draw 0.5% of current Treasury balance on contractor paydays (bull case)
-- Budget Prices indicate that DCRUSD needs to be at ~$10 in order to draw 4% of current Treasury balance on contractor paydays (bear case)
+- Budget Prices indicate that DCRUSD needs to be at **~$80** in order to only draw **0.5%** of current Treasury balance on contractor paydays (bull case)
+- Budget Prices indicate that DCRUSD needs to be at **~$10** in order to draw **4%** of current Treasury balance on contractor paydays (bear case)
 - Although not the main purpose of the tool, Budget Prices can be used to identify DCRUSD max pain / gain as it pinpoints areas of Treasury euphoria (low % draw of Treasury) and capitulation (high % draw of Treasury)
 
 ## DCR Treasury Runway
@@ -151,6 +151,6 @@ The final and overhanging question surrounding the Treasury and contracting rema
 
 ![Returns](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Treasury%20Returns.PNG)
 
-- At peak bull, the Treasury was valued at a 60x multiple to the total Treasury spends
-- At bear market lows, the Treasury was valued equally to the total Treasury spends
-- The sweetspot for the Treasury-to-Spend multiple has historically landed between 10 -20x, which if revisited today, would imply a $135 Million Treasury valuation
+- At peak bull, the Treasury was valued at a **60x** multiple to the total Treasury spends
+- At bear market lows, the Treasury was valued **equally** to the total Treasury spends
+- The sweetspot for the Treasury-to-Spend multiple has historically landed between 10 -20x, which if revisited today, would imply a **$135 Million Treasury valuation**
