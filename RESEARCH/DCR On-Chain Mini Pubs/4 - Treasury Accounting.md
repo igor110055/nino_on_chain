@@ -153,4 +153,4 @@ The final and overhanging question surrounding the Treasury and contracting rema
 
 - At peak bull, the Treasury was valued at a **60x** multiple to the total Treasury spends
 - At bear market lows, the Treasury was valued **equally** to the total Treasury spends
-- The sweetspot for the Treasury-to-Spend multiple has historically landed between 10 -20x, which if revisited today, would imply a **$135 Million Treasury valuation**
+- The sweetspot for the Treasury-to-Spend multiple has historically landed between **10 -20x**, which if revisited today, would imply a **$135 Million Treasury valuation**
