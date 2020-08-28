@@ -147,6 +147,10 @@ Sustainability is a pillar Decred bulls hang their hat on. Fortunately, with ava
 
 ## DCR Treasury Returns
 
-
+The final and overhanging question surrounding the Treasury and contracting remains: what has the ROI been on contracting work to date, and what can we consider reasonable? By comparing the USD value of the Treasury (white) and the total contractor pay through Decred's lifetime, we can see at what multiple the Treasury is trading at versus the work its funding. After all - one of the goals of contracting work is to increase the value of the network, and in doing so, the Treasury.
 
 ![Returns](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Treasury%20Returns.PNG)
+
+- At peak bull, the Treasury was valued at a 60x multiple to the total Treasury spends
+- At bear market lows, the Treasury was valued equally to the total Treasury spends
+- The sweetspot for the Treasury-to-Spend multiple has historically landed between 10 -20x, which if revisited today, would imply a $135 Million Treasury valuation
