@@ -119,10 +119,34 @@ Network stakeholders have one goal for the Treasury: to keep increasing the amou
 - The beginning of negative flows naturally makes stakeholders uneasy, which is why budgeting is important, and the topic of discussion in the next section...
 
 ## DCR Treasury Budgeting
+
+While stakeholders have to date done a great job budgeting for the Treasury, it still seemed worthwhile to attempt to build a public-facing budgeting tool. As such, we have two charts below, one building on top of the other:
+
+- Top Chart: Current DCRUSD Price, plotted against various "Budget Prices" which show what DCRUSD price will allow for only certain % of Treasury being depleted on monthly contractor paydays. These prices are built based on the data from the bottom chart...
+
+- Bottom Chart: Shows the largest % draw on the current Treasury balance over a rolling 90-day period (Max DCR Spend / Treasury DCR Balance)
+
 ![Budget](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Budget.PNG)
 
+- Per the bottom chart, bear markets are defined by spends greater than **2%** of the current Treasury balance, and viceversa for bull markets
+- % of current Treasury balance spent monthly on contracting has ranged from **0.5% - 4%** through Decred's lifetime
+
+- Budget Prices indicate that DCRUSD needs to be at ~$80 in order to only draw 0.5% of current Treasury balance on contractor paydays (bull case)
+- Budget Prices indicate that DCRUSD needs to be at ~$10 in order to draw 4% of current Treasury balance on contractor paydays (bear case)
+- Although not the main purpose of the tool, Budget Prices can be used to identify DCRUSD max pain / gain as it pinpoints areas of Treasury euphoria (low % draw of Treasury) and capitulation (high % draw of Treasury)
+
 ## DCR Treasury Runway
+
+Sustainability is a pillar Decred bulls hang their hat on. Fortunately, with available data we can place a number on the sustainability of Decred, and how this number has changed over time. Below we perform a simple calculation of taking the current Treasury balance + remaining DCR to be issued to the Treasury, and divide the sum by the max 90-day DCR spend to *estimate* how many months of runway the project has before exhausting all Treasury funds.
+
 ![Runway](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Runway.PNG)
 
+- At peak bull, the Treasury had over 1,000 months of projected runway, the equivalent of **80+ years of funding**
+- For the meat of the 2017 bull market, the Treasury ranged between 300 - 500 months of projected runway, the equivalent of **25 - 40 years of funding**
+- At current price levels, the Treasury has a projected 95 months of projected runway, the equivalent of **8 years of funding**
+
 ## DCR Treasury Returns
+
+
+
 ![Returns](https://github.com/permabullnino/nino_on_chain/blob/master/RESEARCH/DCR%20On-Chain%20Mini%20Pub%20Images/4%20-%20Treasury%20Accounting/Treasury%20Returns.PNG)
