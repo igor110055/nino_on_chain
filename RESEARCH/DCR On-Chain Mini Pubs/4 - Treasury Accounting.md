@@ -1,4 +1,4 @@
-# Decred On-Chain: Treasury Accounting
+# Decred On-Chain: DAO + Treasury Accounting
 
 ## Relevant Reading
 
@@ -154,3 +154,21 @@ The final and overhanging question surrounding the Treasury and contracting rema
 - At peak bull, the Treasury was valued at a **60x** multiple to the total Treasury spends
 - At bear market lows, the Treasury was valued **equally** to the total Treasury spends
 - The sweetspot for the Treasury-to-Spend multiple has historically landed between **10 -20x**, which if revisited today, would imply a **$135 Million Treasury valuation**
+
+## Closing Out
+
+Closing thoughts:
+
+- We're moving into a new distributed world, and DAOs with treasuries are likely to become a larger part of it 
+- Accounting and budgeting are going to become a necessary part of ultimately fulfilling a DAOs vision 
+- What's interesting about DAOs + Treasuries is that the accounting data is *always* public, as opposed to other mission-driven collectives which only publish their accounting data as needed
+- Accounting data always being public completely changes the game, as it opens the gate for building accounting tools to anyone and everyone (as opposed to needing to be hired to build the tooling in traditional accounting spaces)
+- We are the tip of this massive shift, and with its longstanding track record, my hunch is that Decred will be leading the charge
+
+Until then - signing out,
+
+[Permabull Nino](https://twitter.com/PermabullNino)
+
+## Code
+
+[Treasury Accounting](https://github.com/permabullnino/nino_on_chain/blob/master/DCR/DCR_1.19%20-%20TREASURY.py)
