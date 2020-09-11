@@ -25,7 +25,7 @@ early['date'] = pd.to_datetime(early['date'], utc=True)
 
 #fetch desired data
 date_1 = "2016-02-01"
-date_2 = "2020-08-03"
+date_2 = "2020-09-10"
 
 supply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date_1, date_2))
 dcrusd = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
