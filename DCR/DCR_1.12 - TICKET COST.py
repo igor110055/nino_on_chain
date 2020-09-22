@@ -33,7 +33,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-18"
+date_2 = "2020-09-15"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -49,6 +49,8 @@ df['date'] = pd.to_datetime(df['date'])
 
 # Calc metrics
 
+btcath = 1.4
+
 df['tixpriceusd'] = df['tixprice'] * df['PriceUSD']
 df['tixpricebtc'] = df['tixprice'] * df['PriceBTC']
 
@@ -57,6 +59,9 @@ df['tixpricebtc142'] = df['tixpricebtc'].rolling(142).mean()
 
 df['dcrvolusd'] = df['dcrvol'] * df['PriceUSD']
 df['dcrvolbtc'] = df['dcrvol'] * df['PriceBTC']
+
+df['fromathusd'] = df['tixpriceusd'] / df['tixpriceusd'].max()
+df['fromathbtc'] = df['tixpricebtc'] / btcath
 
 print(df)
 
@@ -79,11 +84,11 @@ ax1.legend()
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 ax11 = ax1.twinx()
-ax11.bar(df['date'], df['dcrvolbtc'], color='aqua')
-ax11.set_ylabel("BTC Tix Vol", fontsize=20, fontweight='bold', color='w')
+ax11.plot(df['date'], df['fromathbtc'], color='aqua')
+ax11.set_ylabel("ATH Ratio", fontsize=20, fontweight='bold', color='w')
 ax11.tick_params(color='w', labelcolor='w')
-ax11.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+""" ax11.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
 ax2.plot(df['date'], df['tixpriceusd'], label='Ticket Cost USD', color='w')
@@ -99,10 +104,10 @@ for axis in [ax2.yaxis]:
     axis.set_major_formatter(ScalarFormatter())
 
 ax22 = ax2.twinx()
-ax22.bar(df['date'], df['dcrvolusd'], color='aqua')
-ax22.set_ylabel("USD Tix Vol", fontsize=20, fontweight='bold', color='w')
+ax22.plot(df['date'], df['fromathusd'], color='aqua')
+ax22.set_ylabel("ATH Ratio", fontsize=20, fontweight='bold', color='w')
 ax22.tick_params(color='w', labelcolor='w')
-ax22.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+""" ax22.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 plt.show()

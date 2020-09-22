@@ -12,7 +12,7 @@ cm = coinmetrics.Community()
 # List all available metrics.
 asset = "btc"
 date_1 = "2011-01-01"
-date_2 = "2020-09-11"
+date_2 = "2020-09-16"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print(available_data_types)
@@ -79,15 +79,16 @@ ax1.set_facecolor('black')
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_title(asset.upper() + " Fees Ribbon", fontsize=20, fontweight='bold', color='w')
-ax1.set_ylabel('Daily Fee Sum (BTC)', fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel('Daily Fee Sum' + '(' + asset.upper() + ')', fontsize=20, fontweight='bold', color='w')
 ax1.grid()
+""" ax1.set_ylim(1, df['FeeTotntv'].max()*1.1) """
 ax1.legend(loc='best')
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
 ax2.plot(df['date'], df['PriceUSD'], color='w')
 ax2.set_facecolor('black')
 ax2.tick_params(color='w', labelcolor='w')
-ax2.set_title("BTCUSD", fontsize=20, fontweight='bold', color='w')
+ax2.set_title(asset.upper() + "USD", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.grid()
 ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))

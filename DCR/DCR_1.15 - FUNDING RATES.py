@@ -19,7 +19,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-09-10"
+date_2 = "2020-09-16"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -52,7 +52,7 @@ df['tixror'] = df['tixrew'] / df['tixprice']
 df = df[df.tixror != 0]
 
 # CALC FUNDING RATE
-days = 56
+days = 28
 
 df['fundrate'] = df['tixror'] - df['tixror'].rolling(days).mean()
 df['fundzscore'] = (df['fundrate'] - df['fundrate'].rolling(days).mean()) / df['fundrate'].rolling(days).std()
@@ -62,8 +62,8 @@ df['tixrewusd'] = df['tixrew'] * df['PriceUSD']
 df['tixrewbtc'] = df['tixrew'] * df['PriceBTC']
 
 # Calc PB Bands
-mult = 56
-avgnum = 142
+mult = 14
+avgnum = 14
 
 df['14avg'] = df['PriceUSD'].rolling(avgnum).mean()
 df['rorsq'] = (1 + df['tixror'])**mult
@@ -101,8 +101,9 @@ ax11.axhline(15, color='aqua', linestyle='dashed')
 # toggle top and bottom to 0.74 and 0.26 respectively for best view
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
-line2 = ax2.plot(df['date'], df['tixrewbtc'], color='w')
-line2 = ax2.plot(df['date'], df['PriceBTC'], color='lime')
+ax2.plot(df['date'], df['PriceUSD'], color='w')
+ax2.plot(df['date'], df['downband'], color='lime')
+ax2.plot(df['date'], df['upband'], color='red')
 ax2.set_facecolor('black')
 ax2.set_ylabel("Tix Reward USD", fontsize=20, fontweight='bold', color='w')
 ax2.set_title("Ticket Returns in USD & BTC", fontsize=20, fontweight='bold', color='w')

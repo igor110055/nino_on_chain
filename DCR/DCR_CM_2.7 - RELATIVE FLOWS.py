@@ -10,14 +10,18 @@ from matplotlib.ticker import ScalarFormatter
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
 
-asset = "dcr"
-asset1 = "btc"
+# List the assets Coin Metrics has data for.
+supported_assets = cm.get_supported_assets()
+print("supported assets:\n", supported_assets)
+
+asset = "bnb_mainnet"
+asset1 = "eth"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-01"
-date_2 = "2020-09-10"
+date_2 = "2020-09-17"
 
 dcr_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "TxTfrValAdjNtv", date_1, date_2))
 btc_flow = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "TxTfrValAdjNtv", date_1, date_2))
@@ -32,7 +36,7 @@ df = dcr_flow.merge(btc_flow, on='date', how='left').merge(dcr_supp, on='date', 
 df.columns = ['date', 'dcrflow', 'btcflow', 'dcrsupply', 'btcsupply', 'dcrusd', 'btcusd']
 
 # CALC METRICS
-number = 142
+number = 28
 
 df['dcrbtc'] = df['dcrusd'] / df['btcusd']
 df['dcr142sum'] = df['dcrflow'].rolling(number).sum()
@@ -54,7 +58,7 @@ ax1.fill_between(df['date'], df['thermometer'], where=df['thermometer'] > 0, fac
 ax1.fill_between(df['date'], df['thermometer'], where=df['thermometer'] < 0, facecolor='red', alpha=0.7)
 ax1.set_facecolor('black')
 ax1.tick_params(color='w', labelcolor='w')
-ax1.set_title("Price vs Relative On-Chain Flows (142 Day)", fontsize=20, fontweight='bold', color='w')
+ax1.set_title("Price vs Relative On-Chain Flows " + str(number) + " Days", fontsize=20, fontweight='bold', color='w')
 ax1.set_ylabel('Throughput Thermometer', fontsize=20, fontweight='bold', color='w')
 ax1.grid()
 
@@ -62,7 +66,7 @@ ax2 = ax1.twinx()
 ax2.plot(df['date'], df['dcrbtc'], color='w')
 """ ax2.set_yscale('log') """
 ax2.tick_params(color='w', labelcolor='w')
-ax2.set_ylabel(asset.upper() + 'BTC', fontsize=20, fontweight='bold', color='w')
+ax2.set_ylabel(asset.upper() + asset1.upper(), fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 

@@ -17,7 +17,7 @@ print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-01-01"
-date_2 = "2020-09-08"
+date_2 = "2020-09-18"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -73,10 +73,10 @@ fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
 ax1.plot(df['date'], df['PriceUSD'], label='USD Price', color='w')
-ax1.plot(df['date'], df['ribbonprice7'], label='Ribbon Price', color='aqua')
+""" ax1.plot(df['date'], df['ribbonprice7'], label='Ribbon Price', color='aqua') """
 ax1.set_facecolor('black')
 ax1.set_ylabel('USD Prices', fontsize=20, fontweight='bold', color='w')
-ax1.set_yscale('log')
+""" ax1.set_yscale('log') """
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_title(asset.upper()+ "USD vs Mining Price", fontsize=20, fontweight='bold', color='w')
 ax1.grid()
@@ -88,7 +88,7 @@ ax2.plot(df['date'], df['profitmargin'], color='aqua', linestyle=':')
 ax2.set_ylabel('Miner P/L per Coin (%)', fontsize=20, fontweight='bold', color='w')
 ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] > 0, facecolor='aqua', alpha=0.4)
 ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=1)
-ax2.set_ylim(1.5*df['profitmargin'].min(), 3*df['profitmargin'].max())
+""" ax2.set_ylim(1.5*df['profitmargin'].min(), 3*df['profitmargin'].max()) """
 ax2.tick_params(color='w', labelcolor='w')
 ax2.legend(loc='upper left')
 

@@ -5,6 +5,7 @@ import numpy as np
 from datetime import datetime as dt
 import pandas as pd
 import cm_data_converter as cmdc
+import matplotlib as mpl
 
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
@@ -17,7 +18,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2011-01-01"
-date_2 = "2020-09-01"
+date_2 = "2020-09-17"
 
 asset = "btc"
 asset1 = "busd"
@@ -103,24 +104,33 @@ df['Reserve Middle'] = (df['Reserve Top'] + df['Reserve Bottom']) / 2
 print(df)
 
 #plot
-plt.figure()
-ax1 = plt.subplot(2, 1, 1)
-""" plt.plot(df['date'], df['Reserve Ratio'], label='Reserve Asset Ratio')
-plt.plot(df['date'], df['14 Day Avg Ratio'], label='14 Day RAR Avg') """
-plt.plot(df['date'], df['Reserve Signal'], label='Reserve Signal', color='r')
-plt.axhspan(37, 70, color='g', alpha=0.25)
-plt.yscale('log')
-plt.grid()
-plt.legend()
-plt.title("Bitcoin Market Cap / Reserve Asset Flows")
 
-plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(df['date'], df['btcmarketcap'], label='BTC Market Cap')
-plt.plot(df['date'], df['Reserve Top'], label='Reserve Top')
-plt.plot(df['date'], df['Reserve Bottom'], label='Reserve Bottom')
-plt.plot(df['date'], df['Reserve Middle'], label='Reserve Middle', linestyle=':')
-plt.title("BTC Market Cap + Reserve Channels")
-plt.yscale('log')
-plt.legend()
-plt.grid()
+fig, ax1 = plt.subplots()
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
+
+ax1 = plt.subplot(2, 1, 1)
+ax1.plot(df['date'], df['Reserve Signal'], label='Reserve Signal', color='aqua')
+ax1.axhspan(37, 70, color='w', alpha=0.25)
+ax1.set_yscale('log')
+ax1.set_facecolor('black')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.grid()
+ax1.legend()
+ax1.set_title("Bitcoin Market Cap / Reserve Asset Flows", fontsize=20, fontweight='bold', color='w')
+
+ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+ax2.plot(df['date'], df['btcmarketcap'], label='BTC Market Cap', color='w')
+ax2.plot(df['date'], df['Reserve Top'], label='Reserve Top', color='m')
+ax2.plot(df['date'], df['Reserve Bottom'], label='Reserve Bottom', color='lime')
+ax2.plot(df['date'], df['Reserve Middle'], label='Reserve Middle', linestyle=':', color='aqua')
+ax2.set_facecolor('black')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_title("BTC Market Cap + Reserve Channels", fontsize=20, fontweight='bold', color='w')
+ax2.set_yscale('log')
+ax2.legend()
+ax2.grid()
+ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
 plt.show()

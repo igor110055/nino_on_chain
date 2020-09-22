@@ -37,7 +37,7 @@ df['feesum'] = df['Feetot'].cumsum()
 df['valueratio'] = df['mcap'] / df['feesum']
 df['avgcap'] = df['mcap'].rolling(90).mean()
 df['blkchainsize'] = df['bytes'].cumsum()
-df['chaincost'] = df['feesum'] / df['blkchainsize']
+df['chaincost'] = df['blkchainsize'] / df['feesum'] 
 
 #NTV Metrics
 df['feesumntv'] = df['FeeTotntv'].cumsum()
@@ -53,7 +53,7 @@ fig.patch.set_facecolor('#E0E0E0')
 fig.patch.set_alpha(0.7)
 
 ax1 = plt.subplot(2, 1, 1)
-plt.plot(df['date'], df['satperbyte'])
+plt.plot(df['date'], df['feesumntv'])
 plt.yscale('log')
 plt.legend()
 plt.grid()
