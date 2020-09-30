@@ -33,7 +33,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-08-25"
+date_2 = "2020-09-30"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
@@ -153,37 +153,38 @@ ax11.axhline(0.02, color='aqua', linestyle='dashed')
 ax11.grid() """
 
 
-""" ax11 = plt.subplot(1,1,1)
-ax1.plot(df1['time_stamp'], df1['treasury'], color='w', alpha=1, label='Treasury DCR Balance')
+ax1 = plt.subplot(1,1,1)
+ax1.plot(df1['time_stamp'], df1['treasuryusd'], color='w', alpha=1, label='Treasury USD Balance')
 ax1.set_facecolor('black')
-ax1.set_title("Treasury Balance vs Quarterly DCR Flows", fontsize=20, fontweight='bold', color='w')
-ax1.set_ylabel('Treasury Balance', fontsize=20, fontweight='bold', color='w')
+ax1.set_title("Treasury USD Balance vs Treasury Runway", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel('Treasury Balance USD', fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.legend(loc='upper left')
-ax1.get_yaxis().set_major_formatter
+ax1.set_yscale('log')
+ax1.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax11 = ax1.twinx()
-ax11.plot(df1['time_stamp'], df1['monthflow'], color='aqua', alpha=1, linewidth=0.3)
-ax11.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] > 0, facecolor='aqua', alpha=0.7)
-ax11.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] < 0, facecolor='red', alpha=0.7)
+""" ax11.bar(df1['time_stamp'], df1['runway'], color='aqua', alpha=0.5) """
+ax11.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] > 0, facecolor='aqua', alpha=1) 
+ax11.fill_between(df1['time_stamp'], df1['monthflow'], where= df1['monthflow'] < 0, facecolor='red', alpha=0.7) 
 ax11.grid()
-ax11.set_ylabel('Treasury Inflow / Outflow', fontsize=20, fontweight='bold', color='w')
+ax11.set_ylabel('Months of Treasury Runway', fontsize=20, fontweight='bold', color='w')
 ax11.tick_params(color='w', labelcolor='w')
 ax11.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 
-ax2 = plt.subplot(1,1,1, sharex=ax1)
+""" ax2 = plt.subplot(1,1,1, sharex=ax1)
 ax2.plot(df1['time_stamp'], df1['contractearnings'], label='Treasury USD Value', color='w')
 ax2.plot(df1['time_stamp'], df1['cumoutusd'], label='Total Contractor USD Pay', color='aqua')
 ax2.plot(df1['time_stamp'], df1['40drawdown'], label='Earnings 40% Drawdown', color='red')
-""" ax2.plot(df1['time_stamp'], df1['pe2'], label='2x')
+ax2.plot(df1['time_stamp'], df1['pe2'], label='2x')
 ax2.plot(df1['time_stamp'], df1['pe5'], label='5x')
 ax2.plot(df1['time_stamp'], df1['pe10'], label='10x')
 ax2.plot(df1['time_stamp'], df1['pe20'], label='20x')
 ax2.plot(df1['time_stamp'], df1['pe40'], label='40x')
-ax2.plot(df1['time_stamp'], df1['pe60'], label='60x') """
+ax2.plot(df1['time_stamp'], df1['pe60'], label='60x')
 ax2.fill_between(df1['time_stamp'], df1['pe10'], df1['pe20'], where= df1['pe20'] > df1['pe10'], facecolor='lime', alpha=0.7)
 ax2.grid()
 ax2.set_facecolor('black')
@@ -193,7 +194,7 @@ ax2.set_ylabel("USD Value", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.legend(loc='upper left')
 ax2.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 """ ax22 = ax2.twinx()
 ax22.plot(df1['time_stamp'], df1['ltcontractplusd'], color='red', alpha=0.3)

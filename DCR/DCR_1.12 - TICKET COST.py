@@ -83,10 +83,10 @@ ax1.grid()
 ax1.legend()
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax11 = ax1.twinx()
+""" ax11 = ax1.twinx()
 ax11.plot(df['date'], df['fromathbtc'], color='aqua')
 ax11.set_ylabel("ATH Ratio", fontsize=20, fontweight='bold', color='w')
-ax11.tick_params(color='w', labelcolor='w')
+ax11.tick_params(color='w', labelcolor='w') """
 """ ax11.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
@@ -103,10 +103,10 @@ ax2.grid()
 for axis in [ax2.yaxis]:
     axis.set_major_formatter(ScalarFormatter())
 
-ax22 = ax2.twinx()
+""" ax22 = ax2.twinx()
 ax22.plot(df['date'], df['fromathusd'], color='aqua')
 ax22.set_ylabel("ATH Ratio", fontsize=20, fontweight='bold', color='w')
-ax22.tick_params(color='w', labelcolor='w')
+ax22.tick_params(color='w', labelcolor='w') """
 """ ax22.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 

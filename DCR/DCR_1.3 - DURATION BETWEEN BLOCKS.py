@@ -18,7 +18,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-09-23"
+date_2 = "2020-09-29"
 
 price = cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2)
 
@@ -72,7 +72,7 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(2,1,1)
+ax1 = plt.subplot(1,1,1)
 ax1.plot(comb_df['date'], comb_df['Mining Pulse'], color='aqua', alpha=0.7)
 ax1.set_facecolor('black')
 ax1.set_ylabel('Seconds Faster / Slower than Target', fontsize=12, fontweight='bold', color='w')
@@ -91,7 +91,7 @@ ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
 ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax3 = plt.subplot(2,1,2, sharex=ax1)
+""" ax3 = plt.subplot(2,1,2, sharex=ax1)
 ax3.plot(comb_df['date'], comb_df['Mini Mining Pulse'], color='aqua', alpha=0.7)
 ax3.set_facecolor('black')
 ax3.set_ylabel('Seconds Faster / Slower than Target', fontsize=12, fontweight='bold', color='w')
@@ -108,6 +108,6 @@ ax4.plot(comb_df['date'], comb_df['DCRBTC'], color='w')
 ax4.set_ylabel('DCRBTC', fontsize=20, fontweight='bold', color='w')
 ax4.tick_params(color='w', labelcolor='w')
 ax4.set_yscale('log')
-ax4.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax4.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
 
 plt.show()
