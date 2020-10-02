@@ -1,0 +1,21 @@
+/* this is practice */
+
+body {
+    background-image:url(Images/Austria.jpg);
+}
+
+h1 {
+    font-size: 100px; 
+    text-align: center;
+    background-color: grey;
+    opacity: 0.3;
+}
+
+#p1 {
+    text-align: center;
+}
+
+p.center {
+    color: hotpink;
+    border-style: dotted;
+}
