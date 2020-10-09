@@ -21,7 +21,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-09-30"
+date_2 = "2020-10-07"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
 
@@ -38,11 +38,13 @@ df.columns = ['count', 'date']
 df = df.merge(price, on='date', how='left')
 
 # CALC METRICS
-avg1 = 14
-avg2 = 142
+avg1 = 50
+avg2 = 200
 
-df['14tx'] = df['count'].rolling(avg1).mean()
-df['142tx'] = df['count'].rolling(avg2).mean()
+df['txmean1'] = df['count'].rolling(avg1).mean()
+df['txmean2'] = df['count'].rolling(avg2).mean()
+
+print(df)
 
 # PLOT
 
@@ -51,8 +53,8 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['14tx'], label= str(avg1) + ' Day Tx Avg', color='aqua')
-ax1.plot(df['date'], df['142tx'], label=str(avg2) + ' Day Tx Avg', color='lime')
+""" ax1.plot(df['date'], df['count'], label= str(avg1) + ' Day Tx Avg', color='aqua') """
+ax1.plot(df['date'], df['txmean2'], label=str(avg2) + ' Day Tx Avg', color='lime')
 """ ax1.set_yscale('log') """
 ax1.set_facecolor('black')
 ax1.set_title("Tx Averages " + str(avg1) + " & " + str(avg2), fontsize=20, fontweight='bold', color='w')

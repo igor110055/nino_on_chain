@@ -18,7 +18,7 @@ print("available data types:\n", available_data_types) """
 # List assets & dates
 
 date_1 = "2017-01-01"
-date_2 = "2020-10-03"
+date_2 = "2020-10-07"
 
 asset = "btc"
 asset1 = "busd"
@@ -67,14 +67,14 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['ReserveRatio'], color='w')
+ax1.plot(df['date'], df['btc'], color='w')
 ax1.set_facecolor('black')
 ax1.set_title("Bitcoin Market Cap", fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
-""" ax1.set_yscale('log') """
+ax1.set_yscale('log')
 ax1.grid()
-""" ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['BuyPower'], color='w')
