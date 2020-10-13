@@ -26,7 +26,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-08-03"
+date_2 = "2020-10-12"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -87,6 +87,11 @@ df['mcapsumworkval'] = df['mcapworkval'].cumsum()
 df['usdrollingwork'] = df['rollworkval'].rolling(days).sum()
 df['btcrollingwork'] = df['btcrollworkval'].rolling(days).sum()
 
+targets = [1,10,20,30,40,50,60,70,80,90,100,110,120]
+
+for target in targets:
+    df[str(target)] = np.where(target < df['PriceUSD'], df['addwork'], 0).cumsum() / df['work']
+
 print(df)
 
 # Plot
@@ -95,7 +100,53 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(1,1,1)
+ax1 = plt.subplot(2,1,1)
+ax1.barh(df['PriceUSD'], df['addwork'], color='aqua', alpha=0.25)
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_facecolor('black')
+ax1.set_title("PoW Contributed At Certain DCRUSD Prices", fontsize=20, fontweight='bold', color='w', y=1.08)
+ax1.set_ylabel("DCRUSD", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylim(df['PriceUSD'].min(), df['PriceUSD'].max() * 1.1)
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax1.get_xaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+ax2 = ax1.twiny()
+ax2.plot(df['date'].iloc[:-2], df['PriceUSD'].iloc[:-2], color='w')
+ax2.set_facecolor('black')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_yscale('log')
+ax2.grid()
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+
+ax3 = plt.subplot(2,1,2, sharex=ax2)
+ax3.plot(df['date'], df['1'], color='w', label="PoW Contributed w/ DCRUSD > $1: " + str(round(df['1'].iloc[-2], 4)))
+ax3.plot(df['date'], df['10'], color='lime', label="PoW Contributed w/ DCRUSD > $10: " + str(round(df['10'].iloc[-2], 4)))
+ax3.plot(df['date'], df['20'], color='aqua', label="PoW Contributed w/ DCRUSD > $20: " + str(round(df['20'].iloc[-2], 4)))
+ax3.plot(df['date'], df['40'], color='m', label="PoW Contributed w/ DCRUSD > $40: " + str(round(df['40'].iloc[-2], 4)))
+ax3.plot(df['date'], df['80'], color='r', label="PoW Contributed w/ DCRUSD > $80: " + str(round(df['80'].iloc[-2], 4)))
+ax3.legend(loc='lower left')
+ax3.tick_params(color='w', labelcolor='w')
+ax3.set_facecolor('black')
+ax3.set_title("% of Total PoW Contributed Above Certain DCRUSD Prices", fontsize=20, fontweight='bold', color='w')
+ax3.grid()
+ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+
+""" ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2.plot(df['date'].iloc[:-2], df['PriceUSD'].iloc[:-2], color='w')
+ax2.set_facecolor('black')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.grid()
+ax2.set_title("DCRUSD", fontsize=20, fontweight='bold', color='w')
+ax2.set_yscale('log')
+ax2.axhline(1, color='w', linestyle='dashed')
+ax2.axhline(10, color='lime', linestyle='dashed')
+ax2.axhline(20, color='aqua', linestyle='dashed')
+ax2.axhline(40, color='m', linestyle='dashed')
+ax2.axhline(80, color='r', linestyle='dashed')
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
+
+""" ax1 = plt.subplot(1,1,1)
 ax1.plot(df['date'], df['mcap'], label='Market Cap', color='w')
 ax1.plot(df['date'], df['powcumsum'], label='PoW Reward Sum', color='r')
 ax1.plot(df['date'], df['realcap'], label='Realized Cap', color='lime')
@@ -112,20 +163,20 @@ ax11.plot(df['wtworksum'], df['mcap'], color='aqua', alpha=1, label='Market Cap 
 ax11.set_title("Market Cap vs Mining Tools\n", fontsize=20, fontweight='bold', color='w')
 ax11.set_ylabel("Work Contributed Over Lifetime", fontsize=20, fontweight='bold', color='w')
 ax11.tick_params(color='w', labelcolor='w')
-""" ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
+ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 ax11.grid()
 ax11.legend(loc='upper left')
 
 ax111 = ax1.twinx()
 ax111.bar(df['date'], df['addwork'], color='c', alpha=0.7)
-""" ax11.bar(df['date'], df['wtworksum'], color='aqua', alpha=0.5) """ # basic look for total work vs price need to use 
+ax11.bar(df['date'], df['wtworksum'], color='aqua', alpha=0.5) # basic look for total work vs price need to use 
 ax111.tick_params(color='w', labelcolor='w')
 ax111.set_ylabel("Work Contributed per Day (Units = Exahash)", fontsize=20, fontweight='bold', color='w')
 ax111.grid()
 ax111.set_yscale('log')
 ax111.set_ylim(1, 500000)
 ax111.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 """ ax2 = plt.subplot(2,1,1)
 ax2.plot(df['date'], df['usdsumworkval'], color='lime')

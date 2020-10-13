@@ -42,7 +42,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-09"
+date_2 = "2020-10-12"
 metric = "PriceUSD"
 metric1 = "PriceBTC"
 metric2 = "CapMrktCurUSD"
@@ -131,7 +131,7 @@ ax1.legend()
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 ax2 = plt.subplot(2,1,2)
-ax2.plot(df['date'].iloc[:-3], df['PriceUSD'].iloc[:-3], color='w', label='DCRUSD: ' + str(round(df['PriceUSD'].iloc[-3], 2)))
+line = ax2.plot(df['date'].iloc[:-3], df['PriceUSD'].iloc[:-3], color='w', label='DCRUSD: ' + str(round(df['PriceUSD'].iloc[-3], 2)))
 ax2.plot(df['date'].iloc[:-3], df['wtdcrusd'].iloc[:-3], color='lime', label='LT DCRUSD: ' + str(round(df['wtdcrusd'].iloc[-3], 2)))
 ax2.plot(df['date'].iloc[:-3], df['realdcrusd'].iloc[:-3], color='aqua', label='Realized DCRUSD: ' + str(round(df['realdcrusd'].iloc[-3], 2)))
 ax2.fill_between(df['date'], df['wtdcrusd'], df['realdcrusd'], where= df['realdcrusd'] > df['wtdcrusd'], facecolor='lime', alpha=0.5) 

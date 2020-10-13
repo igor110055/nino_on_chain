@@ -16,8 +16,8 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
-date_1 = "2016-01-01"
-date_2 = "2020-09-29"
+date_1 = "2019-01-01"
+date_2 = "2020-10-09"
 
 diff = cm.get_asset_data_for_time_range(asset, "DiffMean", date_1, date_2)
 price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
@@ -87,7 +87,7 @@ ax2 = ax1.twinx()
 ax2.plot(df['date'], df['profitmargin'], color='aqua', linestyle=':')
 ax2.set_ylabel('Miner P/L per Coin (%)', fontsize=20, fontweight='bold', color='w')
 ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] > 0, facecolor='aqua', alpha=0.4)
-ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=1)
+ax2.fill_between(df['date'], df['profitmargin'], where=df['profitmargin'] < 0, facecolor='red', alpha=0.4)
 """ ax2.set_ylim(1.5*df['profitmargin'].min(), 3*df['profitmargin'].max()) """
 ax2.tick_params(color='w', labelcolor='w')
 ax2.legend(loc='upper left')
