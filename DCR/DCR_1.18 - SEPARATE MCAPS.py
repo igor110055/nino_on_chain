@@ -14,19 +14,28 @@ dcrdata = DcrdataClient("https://alpha.dcrdata.org/")
 cm = coinmetrics.Community()
 
 # PULL DATA
+""" available_data_types = cm.get_available_data_types_for_asset(asset)
+print("available data types:\n", available_data_types) """
+
 asset = "dcr"
 asset1 = "btc"
-date1 = "2016-06-01"
-date2 = "2020-09-09"
-available_data_types = cm.get_available_data_types_for_asset(asset)
-print("available data types:\n", available_data_types)
+date_1 = "2016-06-01"
+date_2 = "2020-10-21"
+metric = "CapMrktCurUSD"
+metric1 = "CapRealUSD"
+metric2 = "PriceUSD"
+metric3 = "PriceBTC"
 
-dcrmcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date1, date2))
-btcmcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset1, "CapMrktCurUSD", date1, date2))
-dcrreal= cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapRealUSD", date1, date2))
+assetlist = [asset, asset1]
+metriclist = [metric, metric1, metric2, metric3]
 
-df = dcrmcap.merge(btcmcap, on='date', how='left').merge(dcrreal, on='date', how='left')
-df.columns = ['date', 'dcrmcap', 'btcmcap', 'dcrreal']
+df = pd.DataFrame(columns=['date'])
+
+for coin in assetlist:
+    for item in metriclist: 
+        df1 = cmdc.combo_convert(cm.get_asset_data_for_time_range(coin, item, date_1, date_2))
+        df1.columns = ['date', coin + item]
+        df = df.merge(df1, on='date', how='outer')
 
 # Pull DCRDATA
 atoms = 100000000
@@ -47,12 +56,15 @@ df = df.merge(Stk_part, on='date', how='left')
 df['adjpart'] = df['poolval'] / df['circulation']
 df['floatpart'] = (1 - df['adjpart'])
 
-df['poolcap'] = df['dcrmcap'] * df['adjpart']
-df['floatcap'] = df['dcrmcap'] * df['floatpart']
+df['poolcap'] = df['dcrCapMrktCurUSD'] * df['adjpart']
+df['floatcap'] = df['dcrCapMrktCurUSD'] * df['floatpart']
 
-df['dcrbtcadj'] = df['dcrmcap'] / df['btcmcap']
-df['pooldcrbtc'] = df['poolcap'] / df['btcmcap']
-df['floatdcrbtc'] = df['floatcap'] / df['btcmcap']
+df['dcrbtcadj'] = df['dcrCapMrktCurUSD'] / df['btcCapMrktCurUSD']
+df['pooldcrbtc'] = df['poolcap'] / df['btcCapMrktCurUSD']
+df['floatdcrbtc'] = df['floatcap'] / df['btcCapMrktCurUSD']
+
+df['poolcapdcrbtc'] = df['poolcap'] / df['btcPriceUSD']
+df['realcapdcrbtc'] = df['dcrCapRealUSD'] / df['btcPriceUSD']
 
 print(df)
 
@@ -63,11 +75,11 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['dcrmcap'], color='w', label='Decred Market Cap')
+""" ax1 = plt.subplot(1,1,1)
+ax1.plot(df['date'], df['dcrCapMrktCurUSD'], color='w', label='Decred Market Cap')
 ax1.plot(df['date'], df['poolcap'], color='aqua', label='Pool Cap')
 ax1.plot(df['date'], df['floatcap'], color='red', label='Float Cap')
-ax1.plot(df['date'], df['dcrreal'], color='lime', label='Decred Realized Cap')
+ax1.plot(df['date'], df['dcrCapRealUSD'], color='lime', label='Decred Realized Cap')
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("Market Cap Comparison", fontsize=20, fontweight='bold', color='w')
@@ -76,9 +88,9 @@ ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
 ax1.legend(edgecolor='w')
 ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
-ax2 = plt.subplot(2,1,2, sharex=ax1)
+""" ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['dcrbtcadj'], color='w', label='Adj DCRBTC')
 ax2.plot(df['date'], df['pooldcrbtc'], color='aqua', label='Pool DCRBTC')
 ax2.plot(df['date'], df['floatdcrbtc'], color='red', label='Float DCRBTC')
@@ -89,6 +101,30 @@ ax2.set_facecolor('black')
 ax2.set_yscale('log')
 ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 ax2.set_title("Market Cap Values Divided by Bitcoin Market Cap", fontsize=20, fontweight='bold', color='w')
-ax2.grid()
+ax2.grid() """
+
+ax1 = plt.subplot(1,1,1)
+""" ax1.plot(df['date'], df['poolcapdcrbtc'], color='w', label='Decred Market Cap') """
+ax1.plot(df['date'], df['realcapdcrbtc'], color='lime', label='real Cap')
+ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
+ax1.set_facecolor('black')
+ax1.set_title("Market Cap Comparison", fontsize=20, fontweight='bold', color='w')
+ax1.set_yscale('log')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.grid()
+ax1.legend(edgecolor='w')
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+""" ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2.plot(df['date'], df['buyingpower'], color='w', label='Buying Power: ' + str(round(df['buyingpower'].iloc[-2], 4)))
+ax2.set_title("Market Cap Values Divided by Bitcoin Market Cap", fontsize=20, fontweight='bold', color='w')
+ax2.set_ylabel("DCRBTC Values", fontsize=20, fontweight='bold', color='w')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.legend(loc='upper right')
+ax2.set_facecolor('black')
+ax2.set_yscale('log')
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax2.grid()  """
 
 plt.show()

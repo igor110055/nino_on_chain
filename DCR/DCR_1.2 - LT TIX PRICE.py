@@ -42,7 +42,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-12"
+date_2 = "2020-10-27"
 metric = "PriceUSD"
 metric1 = "PriceBTC"
 metric2 = "CapMrktCurUSD"
@@ -87,6 +87,8 @@ sum1 = 56
 sum2 = 112
 sum3 = 284
 
+df['btcPriceUSD'] = df['PriceUSD'] / df['PriceBTC']
+
 df['dcrvol'] = df['tixprice'] * df['tixvol']
 df['dcrvolcum'] = df['dcrvol'].cumsum()
 df['dcrvolsum1'] = df['dcrvol'].rolling(sum1).sum()
@@ -96,6 +98,7 @@ df['volratio1'] = df['dcrvolsum1'] / df['dcrvolsum2']
 df['volratio2'] = df['dcrvolsum1'] / df['dcrvolsum3']
 
 #btc metrics
+df['realdcrbtc'] = df['realdcrusd'] / df['btcPriceUSD'].rolling(21).mean()
 df['dcrbtcvol'] = df['dcrvol'] * df['PriceBTC']
 df['dcrbtcvolcum'] = df['dcrbtcvol'].cumsum()
 df['wtdcrbtc'] = df['dcrbtcvolcum'] / df['dcrvolcum']
@@ -122,9 +125,12 @@ fig.patch.set_alpha(1)
 ax1 = plt.subplot(2,1,1)
 ax1.plot(df['date'].iloc[:-3], df['PriceBTC'].iloc[:-3], color='w', label='DCRBTC: ' + str(round(df['PriceBTC'].iloc[-3], 5)))
 ax1.plot(df['date'].iloc[:-3], df['wtdcrbtc'].iloc[:-3], color='lime', label='LT DCRBTC: ' + str(round(df['wtdcrbtc'].iloc[-3], 5)))
+ax1.plot(df['date'].iloc[:-3], df['realdcrbtc'].iloc[:-3], color='aqua', label='Realized DCRBTC: ' + str(round(df['realdcrbtc'].iloc[-3], 5)))
+ax1.fill_between(df['date'], df['wtdcrbtc'], df['realdcrbtc'], where= df['realdcrbtc'] > df['wtdcrbtc'], facecolor='lime', alpha=0.5) 
+ax1.fill_between(df['date'], df['wtdcrbtc'], df['realdcrbtc'], where= df['realdcrbtc'] < df['wtdcrbtc'], facecolor='aqua', alpha=0.5) 
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_facecolor('black')
-ax1.set_title("DCRBTC & Lifetime Ticket Price", fontsize=20, fontweight='bold', color='w')
+ax1.set_title("DCRBTC & Lifetime Ticket Price & Realized Price", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.grid()
 ax1.legend()

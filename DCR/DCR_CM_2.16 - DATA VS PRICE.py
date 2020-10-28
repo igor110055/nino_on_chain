@@ -14,7 +14,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2010-02-08"
-date_2 = "2020-10-12"
+date_2 = "2020-10-30"
 
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 blk = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "BlkSizeByte", date_1, date_2))
@@ -36,6 +36,8 @@ control = number1 / number2
 df['142datasum'] = df['blkdata'].rolling(number2).sum()
 df['28datasum'] = df['blkdata'].rolling(number1).sum()
 df['dataratio'] = df['28datasum'] / df['142datasum']
+
+print(df)
 
 # Plot
 

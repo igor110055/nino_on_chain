@@ -26,7 +26,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-12"
+date_2 = "2020-10-26"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -65,6 +65,7 @@ df['powcumsum'] = (df['addsuppdollar'].cumsum()) * 0.6
 df['btcpowcumsum'] = (df['addsuppbtc'].cumsum()) * 0.6
 
 df['addwork'] = df['work'].diff(1)
+df['addworkavg'] = df['addwork'].rolling(days).mean()
 df['wtwork'] = df['addwork'] / df['work'].iloc[-1]
 df['wtworksum'] = df['wtwork'].cumsum() # this is a check column to make sure wtwork adds up to 1
 
@@ -92,6 +93,11 @@ targets = [1,10,20,30,40,50,60,70,80,90,100,110,120]
 for target in targets:
     df[str(target)] = np.where(target < df['PriceUSD'], df['addwork'], 0).cumsum() / df['work']
 
+targetsbtc = [.001,.002,.003,.004,.005,.006,.007,.008,.009,.01,.011,.012,.013,.014]
+
+for targeta in targetsbtc:
+    df[str(targeta)] = np.where(targeta < df['PriceBTC'], df['addwork'], 0).cumsum() / df['work']
+
 print(df)
 
 # Plot
@@ -100,13 +106,49 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(2,1,1)
+#DCRBTC VPVR
+
+""" ax1 = plt.subplot(2,1,1)
+ax1.barh(df['PriceBTC'], df['addwork'], color='aqua', alpha=0.25)
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_facecolor('black')
+ax1.set_title("PoW Contributed At Certain DCRBTC Prices", fontsize=20, fontweight='bold', color='w', y=1.08)
+ax1.set_ylabel("DCRBTC", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylim(df['PriceBTC'].min(), df['PriceBTC'].max() * 1.1)
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax1.get_xaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+ax2 = ax1.twiny()
+ax2.plot(df['date'].iloc[:-2], df['PriceBTC'].iloc[:-2], color='w')
+ax2.set_facecolor('black')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_yscale('log')
+ax2.grid()
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
+
+ax3 = plt.subplot(1,1,1)
+ax3.plot(df['date'], df['0.001'], color='w', label="PoW Contributed w/ DCRBTC > .001: " + str(round(df['0.001'].iloc[-2], 1)))
+ax3.plot(df['date'], df['0.002'], color='lime', label="PoW Contributed w/ DCRBTC > .002: " + str(round(df['0.002'].iloc[-2], 4)))
+ax3.plot(df['date'], df['0.004'], color='aqua', label="PoW Contributed w/ DCRBTC > .004: " + str(round(df['0.004'].iloc[-2], 4)))
+ax3.plot(df['date'], df['0.006'], color='m', label="PoW Contributed w/ DCRBTC > .006: " + str(round(df['0.006'].iloc[-2], 4)))
+ax3.plot(df['date'], df['0.008'], color='r', label="PoW Contributed w/ DCRBTC > .008: " + str(round(df['0.008'].iloc[-2], 4)))
+ax3.legend()
+ax3.tick_params(color='w', labelcolor='w')
+ax3.set_facecolor('black')
+ax3.set_title("% of Total PoW Contributed Above Certain DCRBTC Prices", fontsize=20, fontweight='bold', color='w')
+ax3.grid()
+ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+
+#DCRUSD VPVR
+""" ax1 = plt.subplot(2,1,1)
 ax1.barh(df['PriceUSD'], df['addwork'], color='aqua', alpha=0.25)
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_facecolor('black')
 ax1.set_title("PoW Contributed At Certain DCRUSD Prices", fontsize=20, fontweight='bold', color='w', y=1.08)
 ax1.set_ylabel("DCRUSD", fontsize=20, fontweight='bold', color='w')
 ax1.set_ylim(df['PriceUSD'].min(), df['PriceUSD'].max() * 1.1)
+ax1.set_xscale('log')
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 ax1.get_xaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
@@ -130,8 +172,9 @@ ax3.tick_params(color='w', labelcolor='w')
 ax3.set_facecolor('black')
 ax3.set_title("% of Total PoW Contributed Above Certain DCRUSD Prices", fontsize=20, fontweight='bold', color='w')
 ax3.grid()
-ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
 
+#### other charts
 """ ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'].iloc[:-2], df['PriceUSD'].iloc[:-2], color='w')
 ax2.set_facecolor('black')

@@ -25,7 +25,7 @@ early['date'] = pd.to_datetime(early['date'], utc=True)
 
 #fetch desired data
 date_1 = "2016-02-01"
-date_2 = "2020-09-17"
+date_2 = "2020-10-26"
 
 supply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date_1, date_2))
 dcrusd = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
@@ -90,6 +90,12 @@ df['remtotusd'] = df['totsub'] - df['cumsub']
 df['rempowusd'] = df['totpow'] - df['powsub']
 df['remposusd'] = df['totpos'] - df['possub']
 df['remtreasusd'] = df['tottreas'] - df['treassub']
+
+#remsubbtc
+df['remtotbtc'] = df['totsubbtc'] - df['cumsubbtc']
+df['rempowbtc'] = df['totpowbtc'] - df['powsubbtc']
+df['remposbtc'] = df['totposbtc'] - df['possubbtc']
+df['remtreasbtc'] = df['tottreasbtc'] - df['treassubbtc']
 
 print(df)
 
@@ -174,9 +180,9 @@ ax1.set_title("Market Cap vs Block Subsidies", fontsize=20, fontweight='bold', c
 ax1.set_ylabel('Network Value', fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
-ax2 = ax1.twinx()
+""" ax2 = ax1.twinx()
 ax2.plot(df['date'], df['totnetworkprofitbtc'], color='aqua', alpha=1)
 
 ax2.fill_between(df['date'], df['totnetworkprofitbtc'], where=df['totnetworkprofitbtc'] > 0, facecolor='aqua', alpha=0.4)
@@ -188,7 +194,7 @@ ax2.tick_params(color='w', labelcolor='w') """
 
 # remaining subsidy usd
 
-ax1.plot(df['date'], df['dcrmarketcap'], label='Decred Market Cap', color='w')
+""" ax1.plot(df['date'], df['dcrmarketcap'], label='Decred Market Cap', color='w')
 ax1.plot(df['date'], df['remtotusd'], label='Cumulative Subsidy', color='aqua')
 ax1.plot(df['date'], df['rempowusd'], label='PoW Subsidy', color='r')
 ax1.plot(df['date'], df['remposusd'], label='PoS Subsidy', color='m')
@@ -200,6 +206,25 @@ ax1.set_ylim(0, df['dcrmarketcap'].max()*3)
 ax1.legend(loc='upper left')
 ax1.grid()
 ax1.set_title("Market Cap vs Block Subsidies", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel('Network Value', fontsize=20, fontweight='bold', color='w')
+ax1.tick_params(color='w', labelcolor='w')
+ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+
+# remaining subsidy btc
+
+ax1.plot(df['date'], df['dcrbtcmarketcap'], label='Decred Market Cap: ' + str(round(df['dcrbtcmarketcap'].iloc[-1], 0)) + ' BTC', color='w')
+ax1.plot(df['date'], df['remtotbtc'], label='Cumulative Subsidy: ' + str(round(df['remtotbtc'].iloc[-1], 0)) + ' BTC', color='aqua')
+ax1.plot(df['date'], df['rempowbtc'], label='PoW Subsidy: ' + str(round(df['rempowbtc'].iloc[-1], 0)) + ' BTC', color='r')
+ax1.plot(df['date'], df['remposbtc'], label='PoS Subsidy: ' + str(round(df['remposbtc'].iloc[-1], 0)) + ' BTC', color='m')
+ax1.plot(df['date'], df['remtreasbtc'], label='Treasury Subsidy: ' + str(round(df['remtreasbtc'].iloc[-1], 0)) + ' BTC', color='y')
+
+ax1.set_yscale('log')
+ax1.set_facecolor('black')
+ax1.set_ylim(0, df['dcrbtcmarketcap'].max()*2)
+ax1.legend(loc='upper left')
+ax1.grid()
+ax1.set_title("Market Cap vs Remaining Block Subsidies", fontsize=20, fontweight='bold', color='w')
 ax1.set_ylabel('Network Value', fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.get_yaxis().set_major_formatter(

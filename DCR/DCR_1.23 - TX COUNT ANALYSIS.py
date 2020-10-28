@@ -21,7 +21,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-07"
+date_2 = "2020-10-27"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
 
@@ -53,7 +53,7 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-""" ax1.plot(df['date'], df['count'], label= str(avg1) + ' Day Tx Avg', color='aqua') """
+""" ax1.plot(df['date'], df['txmean1'], label= str(avg1) + ' Day Tx Avg', color='aqua') """
 ax1.plot(df['date'], df['txmean2'], label=str(avg2) + ' Day Tx Avg', color='lime')
 """ ax1.set_yscale('log') """
 ax1.set_facecolor('black')

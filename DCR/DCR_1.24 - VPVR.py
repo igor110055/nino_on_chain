@@ -43,7 +43,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-12"
+date_2 = "2020-10-19"
 metric = "PriceUSD"
 metric1 = "PriceBTC"
 metric2 = "CapMrktCurUSD"
@@ -91,6 +91,11 @@ targets = [1,10,20,30,40,50,60,70,80,90,100,110,120]
 for target in targets:
     df[str(target)] = np.where(target < df['PriceUSD'], df['dcrvol'], 0).cumsum() / df['dcrvolcum']
 
+targetsbtc = [.001,.002,.003,.004,.005,.006,.007,.008,.009,.01,.011,.012,.013,.014]
+
+for targeta in targetsbtc:
+    df[str(targeta)] = np.where(targeta < df['PriceBTC'], df['dcrvol'], 0).cumsum() / df['dcrvolcum']
+
 print(df)
 
 # Plot
@@ -99,6 +104,41 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
+#DCRBTC VPVR
+
+""" ax1 = plt.subplot(1,1,1)
+ax1.barh(df['PriceBTC'], df['dcrvol'], color='aqua', alpha=0.25)
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_facecolor('black')
+ax1.set_title("PoS Contributed At Certain DCRBTC Prices", fontsize=20, fontweight='bold', color='w', y=1.08)
+ax1.set_ylabel("DCRBTC", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylim(0.0005, 0.015)
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax1.get_xaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+ax2 = ax1.twiny()
+ax2.plot(df['date'].iloc[:-2], df['PriceBTC'].iloc[:-2], color='w')
+ax2.set_facecolor('black')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.grid()
+ax2.set_yscale('log')
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
+
+""" ax3 = plt.subplot(1,1,1)
+ax3.plot(df['date'], df['0.001'], color='w', label="DCR in Tix > .001: " + str(round(df['0.001'].iloc[-2], 4)))
+ax3.plot(df['date'], df['0.002'], color='lime', label="DCR in Tix > .002: " + str(round(df['0.002'].iloc[-2], 4)))
+ax3.plot(df['date'], df['0.004'], color='aqua', label="DCR in Tix > .004: " + str(round(df['0.004'].iloc[-2], 4)))
+ax3.plot(df['date'], df['0.006'], color='m', label="DCR in Tix > .006: " + str(round(df['0.006'].iloc[-2], 4)))
+ax3.plot(df['date'], df['0.008'], color='r', label="DCR in Tix > .008: " + str(round(df['0.008'].iloc[-2], 4)))
+ax3.legend()
+ax3.tick_params(color='w', labelcolor='w')
+ax3.set_facecolor('black')
+ax3.set_title("% of Total DCR Ticket Volume Above Certain DCRBTC Prices", fontsize=20, fontweight='bold', color='w')
+ax3.grid()
+ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
+
+# USD VPVR
 ax1 = plt.subplot(2,1,1)
 ax1.barh(df['PriceUSD'], df['dcrvol'], color='aqua', alpha=0.25)
 ax1.tick_params(color='w', labelcolor='w')

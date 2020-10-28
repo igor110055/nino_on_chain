@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime as dt
 import pandas as pd
-import cm_data_converter
+import cm_data_converter as cmdc
+import matplotlib.ticker as ticker
+import matplotlib as mpl
 
 # Initialize a reference object, in this case `cm` for the Community API
 cm = coinmetrics.Community()
@@ -13,63 +15,53 @@ asset = "btc"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
+
 #fetch desired data
 date_1 = "2011-01-01"
-date_2 = "2020-09-22"
-block = cm.get_asset_data_for_time_range(asset, "BlkCnt", date_1, date_2)
-price = cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2)
-# clean CM data
-block_clean = cm_data_converter.cm_data_convert(block)
-price_clean = cm_data_converter.cm_data_convert(price)
+date_2 = "2020-10-26"
 
-# CLEAN DATES
+metric = "PriceUSD"
+metric1 = "BlkCnt"
 
-date = cm_data_converter.cm_date_format(price)
+metriclist = [metric, metric1]
 
-# convert to pandas
-df = pd.DataFrame(block_clean)
-df_1 = pd.DataFrame(price_clean)
-# calculate block times in seconds
-dia_seconds = 86400
-blk_time = dia_seconds / df
-#print(blk_time)
-#calculate average block time
-avg_blk = blk_time.rolling(window=14).mean()
-spread_blk = avg_blk - 600
+df = pd.DataFrame(columns=['date'])
 
-avg_blk1 = blk_time.rolling(window=42).mean()
-spread_blk1 = avg_blk1 - 600
-# merge price and blk time into a dataset, then send to excel
-blk_time['Price'] = df_1
-blk_time['Avg'] = avg_blk
-blk_time['Spread'] = spread_blk
-blk_time['Spread1'] = spread_blk1
-blk_time['date'] = date
+for item in metriclist:
+    df1 = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, item, date_1, date_2))
+    df1.columns = ['date', item]
+    df = df.merge(df1, on='date', how='outer')
 
-blk_time['date'] = pd.to_datetime(blk_time['date'], utc=True)
+# calc metrics
 
-print(blk_time)
-""" blk_time.to_excel('btc_blk_times.xlsx') """
+mins = 1440
 
-#plot blk time versus price
-plt.figure()
-ax1 = plt.subplot(2, 1, 1)
-plt.plot(blk_time['date'], blk_time['Spread'], label='14 Day Avg Block Time - Target Block Time')
-plt.plot(blk_time['date'], blk_time['Spread1'], label='70 Day Avg Block Time - Target Block Time')
-plt.title("Block Time")
-plt.axhline(0, color='r', linestyle=':')
-plt.axhline(50, color='r', linestyle=':')
-plt.axhline(-50, color='r', linestyle=':')
-""" plt.axhspan(-50, -100, color='g', alpha=0.25)
-plt.axhspan(0, 50, color='g', alpha=0.25) """
-plt.fill_between(blk_time['date'], blk_time['Spread1'], blk_time['Spread'], where=blk_time['Spread'] > blk_time['Spread1'], facecolor='blue', alpha=0.25)
-plt.fill_between(blk_time['date'], blk_time['Spread1'], blk_time['Spread'], where=blk_time['Spread'] < blk_time['Spread1'], facecolor='red', alpha=0.25)
-plt.legend()
-plt.grid()
+df['blktime'] = mins / df['BlkCnt']
+df['blktimeavg'] = df['blktime'].rolling(14).mean()
+df['blktimeavg1'] = df['blktime'].rolling(70).mean()
 
-plt.subplot(2, 1, 2, sharex=ax1)
-plt.plot(blk_time['date'], df_1)
-plt.title("Price")
-plt.yscale('log')
-plt.grid()
+print(df)
+
+# Plot
+fig, ax1 = plt.subplots()
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(1)
+
+ax1 = plt.subplot(1,1,1)
+ax1.plot(df['date'], df['blktimeavg1'], color='aqua', label='70 Day Blk Time Avg: ' + str(round(df['blktimeavg1'].iloc[-1], 2)))
+ax1.fill_between(df['date'], df['blktimeavg1'], 10, where= df['blktimeavg1'] > 10, facecolor='red', alpha=0.5) 
+ax1.fill_between(df['date'], df['blktimeavg1'], 10, where= df['blktimeavg1'] < 10, facecolor='lime', alpha=0.5) 
+ax1.tick_params(color='w', labelcolor='w')
+ax1.set_facecolor('black')
+ax1.set_title("BTCUSD vs Average Block Times", fontsize=20, fontweight='bold', color='w')
+ax1.set_ylabel("Minutes", fontsize=20, fontweight='bold', color='w')
+ax1.grid()
+ax1.legend()
+ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+
+ax2 = ax1.twinx()
+ax2.plot(df['date'], df['PriceUSD'], color='w')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.set_yscale('log')
+
 plt.show()

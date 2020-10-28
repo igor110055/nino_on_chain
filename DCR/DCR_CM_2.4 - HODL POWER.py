@@ -16,7 +16,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset1 = "btc"
 date1 = "2016-06-01"
-date2 = "2020-09-29"
+date2 = "2020-10-21"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -52,6 +52,7 @@ df['adjpart'] = df['poolval'] / df['circulation']
 df['floatrealcap'] = (1 - df['adjpart']) * df['dcrreal']
 df['upcap'] = (1 / df['adjpart']) * df['dcrreal']
 df['poolrealcap'] = df['adjpart'] * df['dcrreal']
+df['dollarratio'] = df['upcap'] / df['floatrealcap']
 
 df['mvrvup'] = 1 / df['adjpart']
 df['mvrvdown'] = 1 - df['adjpart']
@@ -80,7 +81,7 @@ ax1.legend(edgecolor='w')
 ax1.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
-ax2 = plt.subplot(2,1,2, sharex=ax1)
+""" ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['dcrmvrv'], color='w', label='MVRV Ratio')
 ax2.plot(df['date'], df['mvrvup'], color='red', label='Full HODL Factor')
 ax2.plot(df['date'], df['mvrvdown'], color='lime', label='Realized Float Factor')
@@ -96,6 +97,15 @@ ax3 = ax2.twinx()
 ax3.plot(df['date'], df['adjpart'], color='w', alpha=0.5, linestyle=':')
 ax3.set_ylabel("Stake Participation", fontsize=20, fontweight='bold', color='w')
 ax3.tick_params(color='w', labelcolor='w')
-ax3.legend(loc='upper left')
+ax3.legend(loc='upper left') """
+
+ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2.plot(df['date'], df['dollarratio'], color='w', label='Dollar Ratio')
+ax2.set_ylabel("Ratio", fontsize=20, fontweight='bold', color='w')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.legend(loc='center right')
+ax2.set_facecolor('black')
+ax2.set_title("Dollar Value Invested to Move Market Cap", fontsize=20, fontweight='bold', color='w')
+ax2.grid()
 
 plt.show()

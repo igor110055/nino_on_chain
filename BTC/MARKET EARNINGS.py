@@ -10,14 +10,14 @@ import matplotlib as mpl
 cm = coinmetrics.Community()
 
 # List all available metrics for BTC
-asset = "btc"
-metric = "PriceUSD"
+asset = "dcr"
+metric = "PriceBTC"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-07-01"
-date_2 = "2020-08-11"
+date_2 = "2020-10-26"
 df = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, metric, date_1, date_2))
 df.columns = ['date', metric]
 
@@ -37,13 +37,13 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1.bar(df['date'], df['percentcombo'], color='w', alpha=0.75)
+ax1.bar(df['date'], df['percent28'], color='w', alpha=0.75)
 ax1.set_facecolor('black')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_title("Daily Move " + asset.upper(), fontsize=20, fontweight='bold', color='w')
 ax1.set_ylabel("USD Moves", fontsize=20, fontweight='bold', color='w')
-ax1.fill_between(df['date'], df['percentcombo'], where=df['percentcombo'] > 0, facecolor='lime', alpha=0.75)
-ax1.fill_between(df['date'], df['percentcombo'], where=df['percentcombo'] < 0, facecolor='red', alpha=0.75)
+ax1.fill_between(df['date'], df['percent28'], where=df['percent28'] > 0, facecolor='lime', alpha=0.75)
+ax1.fill_between(df['date'], df['percent28'], where=df['percent28'] < 0, facecolor='red', alpha=0.75)
 ax1.grid()
 
 ax2 = ax1.twinx()
