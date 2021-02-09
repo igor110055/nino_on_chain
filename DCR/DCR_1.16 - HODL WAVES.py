@@ -33,7 +33,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-08-03"
+date_2 = "2020-12-30"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -74,7 +74,7 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(2,1,1)
+ax1 = plt.subplot(1,1,1)
 ax1.plot(df['date'], df['PriceUSD'], color='w')
 ax1.set_ylabel("DCRUSD Price", fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
@@ -83,18 +83,18 @@ ax1.set_yscale('log')
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 ax11 = ax1.twinx()
-ax11.bar(df['date'], df['28hodladjusd'], label='28 USD Vol', color='aqua')
+ax11.bar(df['date'], df['28hodladjusd'], label='28 USD Vol: ' + str(round(df['28hodladjusd'].iloc[-3],0)), color='aqua')
 """ ax11.plot(df['date'], df['142hodladj'], label='142 HODL', color='lime') """
 ax11.set_ylabel("Volume", fontsize=20, fontweight='bold', color='w')
 ax11.set_title("DCRUSD vs Ticket Volume Denominated in USD", fontsize=20, fontweight='bold', color='w')
 """ ax11.set_yscale('log') """
 ax11.tick_params(color='w', labelcolor='w')
-ax11.legend()
+ax11.legend(loc='upper right')
 ax11.grid()
 ax11.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
-ax2 = plt.subplot(2,1,2, sharex=ax1)
+""" ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['PriceBTC'], color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_ylabel('DCBTC Price', fontsize=20, fontweight='bold', color='w')
@@ -106,13 +106,13 @@ ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)
 
 ax22 = ax2.twinx()
 ax22.bar(df['date'], df['wtdcrvolsum'], label='28 BTC Vol', color='aqua', alpha=0.5)
-""" ax11.plot(df['date'], df['142hodladj'], label='142 HODL', color='lime') """
+ax11.plot(df['date'], df['142hodladj'], label='142 HODL', color='lime')
 ax22.set_ylabel("Volume", fontsize=20, fontweight='bold', color='w')
 ax22.set_title("DCRBTC vs Ticket Volume Denominated in BTC", fontsize=20, fontweight='bold', color='w')
-""" ax11.set_yscale('log') """
+ax11.set_yscale('log')
 ax22.tick_params(color='w', labelcolor='w')
 ax22.legend()
-ax22.grid()
+ax22.grid() """
 """ ax22.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 

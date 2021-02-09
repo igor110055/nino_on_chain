@@ -20,7 +20,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2018-02-01"
-date_2 = "2020-10-26"
+date_2 = "2021-12-30"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 price.columns = ['timestamp', 'btcusd']
@@ -43,6 +43,15 @@ df = df.sort_values(by='timestamp')
 df = df.merge(price, on='timestamp', how='left')
 print(df)
 
+# Calc Metrics
+mid = 40
+
+df['index'] = mid / df['value']
+
+df['wtprice'] = (df['index'] * df['btcusd']).rolling(14).mean()
+df['wtprice1'] = (df['index'] * df['btcusd']).rolling(21).mean()
+df['wtprice2'] = (df['index'] * df['btcusd']).rolling(42).mean()
+
 # plot
 
 fig, ax1 = plt.subplots()
@@ -59,6 +68,10 @@ ax1.axhspan(20,60, color='w', alpha=0.3)
 
 ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['timestamp'], df['btcusd'], color='w')
+ax2.plot(df['timestamp'], df['wtprice'], color='lime')
+ax2.plot(df['timestamp'], df['wtprice2'], color='lime')
+ax2.fill_between(df['timestamp'], df['wtprice'], df['wtprice2'], where=df['btcusd'] >= df['wtprice2'], facecolor='lime', alpha=0.5)
+ax2.fill_between(df['timestamp'], df['wtprice'], df['wtprice2'], where=df['btcusd'] < df['wtprice2'], facecolor='r', alpha=0.5)
 ax2.set_title("BTCUSD", fontsize=20, fontweight='bold', color='w')
 ax2.set_facecolor('black')
 ax2.tick_params(color='w', labelcolor='w')

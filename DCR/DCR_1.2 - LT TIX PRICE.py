@@ -35,14 +35,13 @@ early['date'] = pd.to_datetime(early['date'], utc=True)
 early.columns = ['date', 'dcrusd', 'dcrbtc', 'mcap']
 
 # Pull data
-# Pull data
 asset = "dcr"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-27"
+date_2 = "2021-12-27"
 metric = "PriceUSD"
 metric1 = "PriceBTC"
 metric2 = "CapMrktCurUSD"
@@ -123,28 +122,28 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'].iloc[:-3], df['PriceBTC'].iloc[:-3], color='w', label='DCRBTC: ' + str(round(df['PriceBTC'].iloc[-3], 5)))
+ax1.plot(df['date'].iloc[:-3], df['PriceBTC'].iloc[:-3], color='w', label='DCRBTC: ' + str(round(df['PriceBTC'].iloc[-4], 5)))
 ax1.plot(df['date'].iloc[:-3], df['wtdcrbtc'].iloc[:-3], color='lime', label='LT DCRBTC: ' + str(round(df['wtdcrbtc'].iloc[-3], 5)))
-ax1.plot(df['date'].iloc[:-3], df['realdcrbtc'].iloc[:-3], color='aqua', label='Realized DCRBTC: ' + str(round(df['realdcrbtc'].iloc[-3], 5)))
-ax1.fill_between(df['date'], df['wtdcrbtc'], df['realdcrbtc'], where= df['realdcrbtc'] > df['wtdcrbtc'], facecolor='lime', alpha=0.5) 
-ax1.fill_between(df['date'], df['wtdcrbtc'], df['realdcrbtc'], where= df['realdcrbtc'] < df['wtdcrbtc'], facecolor='aqua', alpha=0.5) 
+""" ax1.plot(df['date'].iloc[:-3], df['realdcrbtc'].iloc[:-3], color='aqua', label='Realized DCRBTC: ' + str(round(df['realdcrbtc'].iloc[-4], 5)))
+ax1.fill_between(df['date'], df['PriceBTC'], df['realdcrbtc'], where= df['realdcrbtc'] > df['PriceBTC'], facecolor='red', alpha=0.5) 
+ax1.fill_between(df['date'], df['PriceBTC'], df['realdcrbtc'], where= df['realdcrbtc'] < df['PriceBTC'], facecolor='lime', alpha=0.5)  """
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_facecolor('black')
-ax1.set_title("DCRBTC & Lifetime Ticket Price & Realized Price", fontsize=20, fontweight='bold', color='w')
+ax1.set_title("DCRBTC & Lifetime Ticket Price", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.grid()
 ax1.legend()
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 ax2 = plt.subplot(2,1,2)
-line = ax2.plot(df['date'].iloc[:-3], df['PriceUSD'].iloc[:-3], color='w', label='DCRUSD: ' + str(round(df['PriceUSD'].iloc[-3], 2)))
+line = ax2.plot(df['date'].iloc[:-3], df['PriceUSD'].iloc[:-3], color='w', label='DCRUSD: ' + str(round(df['PriceUSD'].iloc[-4], 2)))
 ax2.plot(df['date'].iloc[:-3], df['wtdcrusd'].iloc[:-3], color='lime', label='LT DCRUSD: ' + str(round(df['wtdcrusd'].iloc[-3], 2)))
-ax2.plot(df['date'].iloc[:-3], df['realdcrusd'].iloc[:-3], color='aqua', label='Realized DCRUSD: ' + str(round(df['realdcrusd'].iloc[-3], 2)))
-ax2.fill_between(df['date'], df['wtdcrusd'], df['realdcrusd'], where= df['realdcrusd'] > df['wtdcrusd'], facecolor='lime', alpha=0.5) 
-ax2.fill_between(df['date'], df['wtdcrusd'], df['realdcrusd'], where= df['realdcrusd'] < df['wtdcrusd'], facecolor='aqua', alpha=0.5) 
+""" ax2.plot(df['date'].iloc[:-3], df['realdcrusd'].iloc[:-3], color='aqua', label='Realized DCRUSD: ' + str(round(df['realdcrusd'].iloc[-4], 2)))
+ax2.fill_between(df['date'], df['PriceUSD'], df['realdcrusd'], where= df['realdcrusd'] > df['PriceUSD'], facecolor='red', alpha=0.5) 
+ax2.fill_between(df['date'], df['PriceUSD'], df['realdcrusd'], where= df['realdcrusd'] < df['PriceUSD'], facecolor='lime', alpha=0.5)  """
 ax2.tick_params(color='w', labelcolor='w')
 ax2.set_facecolor('black')
-ax2.set_title("DCRUSD & Lifetime Ticket Price & Realized Price", fontsize=20, fontweight='bold', color='w')
+ax2.set_title("DCRUSD & Lifetime Ticket Price", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.grid()
 ax2.legend(loc='lower right')

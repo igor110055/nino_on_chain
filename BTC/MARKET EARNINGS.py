@@ -10,14 +10,14 @@ import matplotlib as mpl
 cm = coinmetrics.Community()
 
 # List all available metrics for BTC
-asset = "dcr"
-metric = "PriceBTC"
+asset = "btc"
+metric = "PriceUSD"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 #fetch desired data
 date_1 = "2016-07-01"
-date_2 = "2020-10-26"
+date_2 = "2020-12-26"
 df = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, metric, date_1, date_2))
 df.columns = ['date', metric]
 

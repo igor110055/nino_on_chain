@@ -10,9 +10,9 @@ import matplotlib.ticker as ticker
 cm = coinmetrics.Community()
 
 # List all available metrics.
-asset = "btc"
-date_1 = "2010-01-01"
-date_2 = "2020-10-26"
+asset = "eth"
+date_1 = "2016-01-01"
+date_2 = "2021-12-29"
 
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print(available_data_types)

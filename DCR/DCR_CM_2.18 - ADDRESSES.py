@@ -13,8 +13,8 @@ asset = "dcr"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
-date_1 = "2016-05-01"
-date_2 = "2020-10-08"
+date_1 = "2013-01-01"
+date_2 = "2020-10-30"
 metric = "AdrActCnt"
 metric1 = "PriceBTC"
 metric2 = "CapMrktCurUSD"
@@ -37,7 +37,7 @@ print(df)
 #Basic Address Metrics
 df['addmean1'] = df['AdrActCnt'].rolling(56).mean()
 df['addmean2'] = df['AdrActCnt'].rolling(142).mean()
-df['addpct'] = df['addmean1'].pct_change(56)
+df['addpct'] = df['addmean1'].pct_change(360)
 
 #Market Cap Metrics
 df['addmcap'] = df['CapMrktCurUSD'] / df['AdrActCnt']
@@ -61,7 +61,7 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['addmean1'], color='w')
+ax1.plot(df['date'], df['addpct'], color='w')
 ax1.set_ylabel("Bytes per Address Used", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("Bytes Added to Chain per Address", fontsize=20, fontweight='bold', color='w')
@@ -83,7 +83,7 @@ ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
 ax2.grid()
 ax2.legend(edgecolor='w')
-""" ax2.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 plt.show()

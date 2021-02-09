@@ -17,8 +17,8 @@ print("available data types:\n", available_data_types) """
 
 # List assets & dates
 
-date_1 = "2017-01-01"
-date_2 = "2020-10-26"
+date_1 = "2015-01-01"
+date_2 = "2021-12-30"
 
 asset = "btc"
 asset1 = "busd"
@@ -30,76 +30,44 @@ asset6 = "usdt_eth"
 asset7 = "usdt_trx"
 asset8 = "pax"
 
-#fetch desired data
+metric = "TxTfrValAdjUSD"
+metric1 = "CapMrktCurUSD"
+metric2 = "SplyCur"
+metric3 = "PriceUSD"
 
-btc = cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2)
-btcflow = cm.get_asset_data_for_time_range(asset, "TxTfrValAdjUSD", date_1, date_2)
-busd = cm.get_asset_data_for_time_range(asset1, "TxTfrValAdjUSD", date_1, date_2)
-husd = cm.get_asset_data_for_time_range(asset2, "TxTfrValAdjUSD", date_1, date_2)
-tusd = cm.get_asset_data_for_time_range(asset3, "TxTfrValAdjUSD", date_1, date_2)
-usdc = cm.get_asset_data_for_time_range(asset4, "TxTfrValAdjUSD", date_1, date_2)
-usdt = cm.get_asset_data_for_time_range(asset5, "TxTfrValAdjUSD", date_1, date_2)
-usdt_eth = cm.get_asset_data_for_time_range(asset6, "TxTfrValAdjUSD", date_1, date_2)
-usdt_trx = cm.get_asset_data_for_time_range(asset7, "TxTfrValAdjUSD", date_1, date_2)
-pax = cm.get_asset_data_for_time_range(asset8, "TxTfrValAdjUSD", date_1, date_2)
+assetlist = [asset, asset1, asset2, asset3, asset4, asset5, asset6, asset7, asset8]
+assetlist1 = [asset]
 
-# clean CM data for each stablecoin
+metriclist = [metric]
+metriclist1 = [metric1, metric2, metric3]
 
-btc_clean = cmdc.cm_data_convert(btc)
-btcflow_clean = cmdc.cm_data_convert(btcflow)
-busd_clean = cmdc.cm_data_convert(busd)
-husd_clean = cmdc.cm_data_convert(husd)
-tusd_clean = cmdc.cm_data_convert(tusd)
-usdc_clean = cmdc.cm_data_convert(usdc)
-usdt_clean = cmdc.cm_data_convert(usdt)
-usdteth_clean = cmdc.cm_data_convert(usdt_eth)
-usdttrx_clean = cmdc.cm_data_convert(usdt_trx)
-pax_clean = cmdc.cm_data_convert(pax)
+df = pd.DataFrame(columns=['date'])
+dff = pd.DataFrame(columns=['date'])
 
-# clean dates
+for coin in assetlist:
+    df1 = cmdc.combo_convert(cm.get_asset_data_for_time_range(coin, metric, date_1, date_2))
+    df1.columns = ['date', coin+metric]
+    df = df.merge(df1, on='date', how='outer')
 
-btc_dates = cmdc.cm_date_format(btc)
-busd_dates = cmdc.cm_date_format(busd)
-husd_dates = cmdc.cm_date_format(husd)
-tusd_dates = cmdc.cm_date_format(tusd)
-usdc_dates = cmdc.cm_date_format(usdc)
-usdt_dates = cmdc.cm_date_format(usdt)
-usdteth_dates = cmdc.cm_date_format(usdt_eth)
-usdttrx_dates = cmdc.cm_date_format(usdt_trx)
-pax_dates = cmdc.cm_date_format(pax)
+for item in metriclist1:
+    df2 = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, item, date_1, date_2))
+    df2.columns = ['date', asset+item]
+    df = df.merge(df2, on='date', how='outer')    
 
-# merge market caps and dates
+print(df)
+######
 
-btc_dates[''] = btc_clean
-btc_dates['1'] = btcflow_clean
-busd_dates[''] = busd_clean
-husd_dates[''] = husd_clean
-tusd_dates[''] = tusd_clean
-usdc_dates[''] = usdc_clean
-usdt_dates[''] = usdt_clean
-usdteth_dates[''] = usdteth_clean
-usdttrx_dates[''] = usdttrx_clean
-pax_dates[''] = pax_clean
-
-btc_dates.columns = ['date', 'btcmarketcap', 'btcflow']
-busd_dates.columns = ['date', 'busdflow']
-husd_dates.columns = ['date', 'husdflow']
-tusd_dates.columns = ['date', 'tusdflow']
-usdc_dates.columns = ['date', 'usdcflow']
-usdt_dates.columns = ['date', 'usdtflow']
-usdteth_dates.columns = ['date', 'usdtethflow']
-usdttrx_dates.columns = ['date', 'usdttrxflow']
-pax_dates.columns = ['date', 'paxmarketcap']
-
-df = btc_dates.merge(busd_dates, on='date', how='left').merge(husd_dates, on='date', how='left').merge(tusd_dates, on='date', how='left').merge(usdc_dates, on='date', how='left').merge(usdt_dates, on='date', how='left').merge(usdteth_dates, on='date', how='left').merge(usdttrx_dates, on='date', how='left').merge(pax_dates, on='date', how='left')
-
-df['Reserve Flow'] = df.iloc[:, 2:10].sum(axis=1)
-df['Reserve Signal'] = df['btcmarketcap'] / df['Reserve Flow'].rolling(window=90).mean()
-df['Reserve Ratio'] = df['btcmarketcap'] / df['Reserve Flow']
+df['Reserve Flow'] = df.iloc[:, 1:9].sum(axis=1)
+df['Reserve Signal'] = df['btcCapMrktCurUSD'] / df['Reserve Flow'].rolling(window=90).mean()
+df['Reserve Ratio'] = df['btcCapMrktCurUSD'] / df['Reserve Flow']
 df['14 Day Avg Ratio'] = df['Reserve Ratio'].rolling(window=14).mean()
 df['Reserve Top'] = df['Reserve Flow'].rolling(90).mean() * 75
 df['Reserve Bottom'] = df['Reserve Flow'].rolling(90).mean() * 35
 df['Reserve Middle'] = (df['Reserve Top'] + df['Reserve Bottom']) / 2
+
+df['Reserve Top Price'] = df['Reserve Top'] / df['btcSplyCur']
+df['Reserve Bottom Price'] = df['Reserve Bottom'] / df['btcSplyCur']
+df['Reserve Middle Price'] = df['Reserve Middle'] / df['btcSplyCur']
 
 print(df)
 
@@ -120,13 +88,13 @@ ax1.legend()
 ax1.set_title("Bitcoin Market Cap / Reserve Asset Flows", fontsize=20, fontweight='bold', color='w')
 
 ax2 = plt.subplot(2, 1, 2, sharex=ax1)
-ax2.plot(df['date'], df['btcmarketcap'], label='BTC Market Cap', color='w')
-ax2.plot(df['date'], df['Reserve Top'], label='Reserve Top', color='m')
-ax2.plot(df['date'], df['Reserve Bottom'], label='Reserve Bottom', color='lime')
-ax2.plot(df['date'], df['Reserve Middle'], label='Reserve Middle', linestyle=':', color='aqua')
+ax2.plot(df['date'], df['btcPriceUSD'], label='BTCUSD Price: ' + str(round(df['btcPriceUSD'].iloc[-1], 2)), color='w')
+ax2.plot(df['date'], df['Reserve Top Price'], label='Reserve Top: ' + str(round(df['Reserve Top Price'].iloc[-1], 2)), color='m')
+ax2.plot(df['date'], df['Reserve Bottom Price'], label='Reserve Bottom: ' + str(round(df['Reserve Bottom Price'].iloc[-1], 2)), color='lime')
+ax2.plot(df['date'], df['Reserve Middle Price'], label='Reserve Middle: ' + str(round(df['Reserve Middle Price'].iloc[-1], 2)), linestyle=':', color='aqua')
 ax2.set_facecolor('black')
 ax2.tick_params(color='w', labelcolor='w')
-ax2.set_title("BTC Market Cap + Reserve Channels", fontsize=20, fontweight='bold', color='w')
+ax2.set_title("BTC USD Price + Reserve Channels", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.legend()
 ax2.grid()

@@ -60,3 +60,5 @@ Mental Cost + Gamability Risk = Social Layer Score
 Ledger Layer Score + Social Layer Score = Money Layer Score
 Ledger Layer = Ledger Consensus
 Social Layer = Social Consensus	
+PoW chains can maintain absolute scarcity, but at the cost of fees
+PoS chains can't maintain absolute scarcity, but can go feeless

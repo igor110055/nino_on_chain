@@ -15,8 +15,8 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset1 = "btc"
 date1 = "2016-02-01"
-date2 = "2020-10-26"
-available_data_types = cm.get_available_data_types_for_asset(asset)
+date2 = "2021-12-26"
+available_data_types = cm.get_available_data_types_for_asset(asset1)
 print("available data types:\n", available_data_types)
 
 dcrbtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date1, date2))

@@ -26,7 +26,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-26"
+date_2 = "2021-12-26"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -127,7 +127,7 @@ ax2.set_yscale('log')
 ax2.grid()
 ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
 
-ax3 = plt.subplot(1,1,1)
+""" ax3 = plt.subplot(1,1,1)
 ax3.plot(df['date'], df['0.001'], color='w', label="PoW Contributed w/ DCRBTC > .001: " + str(round(df['0.001'].iloc[-2], 1)))
 ax3.plot(df['date'], df['0.002'], color='lime', label="PoW Contributed w/ DCRBTC > .002: " + str(round(df['0.002'].iloc[-2], 4)))
 ax3.plot(df['date'], df['0.004'], color='aqua', label="PoW Contributed w/ DCRBTC > .004: " + str(round(df['0.004'].iloc[-2], 4)))
@@ -138,10 +138,10 @@ ax3.tick_params(color='w', labelcolor='w')
 ax3.set_facecolor('black')
 ax3.set_title("% of Total PoW Contributed Above Certain DCRBTC Prices", fontsize=20, fontweight='bold', color='w')
 ax3.grid()
-ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
 
 #DCRUSD VPVR
-""" ax1 = plt.subplot(2,1,1)
+ax1 = plt.subplot(2,1,1)
 ax1.barh(df['PriceUSD'], df['addwork'], color='aqua', alpha=0.25)
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_facecolor('black')
@@ -172,7 +172,7 @@ ax3.tick_params(color='w', labelcolor='w')
 ax3.set_facecolor('black')
 ax3.set_title("% of Total PoW Contributed Above Certain DCRUSD Prices", fontsize=20, fontweight='bold', color='w')
 ax3.grid()
-ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
+ax3.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
 #### other charts
 """ ax2 = plt.subplot(2,1,2, sharex=ax1)

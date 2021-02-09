@@ -16,7 +16,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 asset1 = "btc"
 date1 = "2016-06-01"
-date2 = "2020-10-21"
+date2 = "2021-12-30"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -49,10 +49,17 @@ df = df.merge(Stk_part, on='date', how='left')
 
 df['adjpart'] = df['poolval'] / df['circulation']
 
-df['floatrealcap'] = (1 - df['adjpart']) * df['dcrreal']
-df['upcap'] = (1 / df['adjpart']) * df['dcrreal']
-df['poolrealcap'] = df['adjpart'] * df['dcrreal']
-df['dollarratio'] = df['upcap'] / df['floatrealcap']
+df['floatrealcap'] = ((1 - df['adjpart']) * df['dcrreal']) / df['dcrsupply']
+df['upcap'] = ((1 / df['adjpart']) * df['dcrreal']) / df['dcrsupply']
+df['poolrealcap'] = (df['adjpart'] * df['dcrreal']) / df['dcrsupply']
+df['floatcap'] = (df['dcrmcap'] * (1 - df['adjpart'])) / df['dcrsupply']
+df['realprice'] = df['dcrreal'] / df['dcrsupply']
+
+df['updiff'] = df['upcap'].diff(7)
+
+df['relrealret'] = df['floatcap'].diff(30)
+df['relmcapret'] = df['dcrmcap'].diff(30)
+df['reldiff'] = df['relmcapret'] - df['relrealret']
 
 df['mvrvup'] = 1 / df['adjpart']
 df['mvrvdown'] = 1 - df['adjpart']
@@ -67,10 +74,10 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-ax1.plot(df['date'], df['dcrmcap'], color='w', label='Market Cap')
-ax1.plot(df['date'], df['dcrreal'], color='aqua', label='Realized Cap')
-ax1.plot(df['date'], df['upcap'], color='red', label='Full HODL Power')
-ax1.plot(df['date'], df['floatrealcap'], color='lime', label='Realized Float Cap')
+ax1.plot(df['date'], df['dcrusd'], color='w', label='DCRUSD Price: ' + str(round(df['dcrusd'].iloc[-1],0)))
+ax1.plot(df['date'], df['realprice'], color='aqua', label='Realized Price: ' + str(round(df['realprice'].iloc[-1],0)))
+ax1.plot(df['date'], df['upcap'], color='red', label='Full HODL Power Price: ' + str(round(df['upcap'].iloc[-2],0)))
+ax1.plot(df['date'], df['floatrealcap'], color='lime', label='Realized Float Price: ' + str(round(df['floatrealcap'].iloc[-2],0)))
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("HODL POWER", fontsize=20, fontweight='bold', color='w')
@@ -99,13 +106,26 @@ ax3.set_ylabel("Stake Participation", fontsize=20, fontweight='bold', color='w')
 ax3.tick_params(color='w', labelcolor='w')
 ax3.legend(loc='upper left') """
 
-ax2 = plt.subplot(2,1,2, sharex=ax1)
-ax2.plot(df['date'], df['dollarratio'], color='w', label='Dollar Ratio')
+""" ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2.plot(df['date'], df['reldiff'], color='w', label='Dollar Ratio')
+ax2.fill_between(df['date'], df['reldiff'], where= df['reldiff'] < 0, facecolor='red', alpha=0.5) 
+ax2.fill_between(df['date'], df['reldiff'], where= df['reldiff'] > 0, facecolor='lime', alpha=0.5)
 ax2.set_ylabel("Ratio", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.legend(loc='center right')
 ax2.set_facecolor('black')
 ax2.set_title("Dollar Value Invested to Move Market Cap", fontsize=20, fontweight='bold', color='w')
+ax2.grid() """
+
+ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2.plot(df['date'], df['updiff'], color='w', label='HODL Power Change: ' + str(round(df['updiff'].iloc[-2],2)))
+ax2.fill_between(df['date'], df['updiff'], where= df['updiff'] < 0, facecolor='red', alpha=0.5) 
+ax2.fill_between(df['date'], df['updiff'], where= df['updiff'] > 0, facecolor='lime', alpha=0.5)
+ax2.set_ylabel("Ratio", fontsize=20, fontweight='bold', color='w')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.legend(loc='upper right')
+ax2.set_facecolor('black')
+ax2.set_title("Expansion Tracker", fontsize=20, fontweight='bold', color='w')
 ax2.grid()
 
 plt.show()
