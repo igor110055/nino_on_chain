@@ -104,9 +104,9 @@ ax11.grid()
 ax11.legend()
 ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
 
-ax1 = plt.subplot(2,1,1)
+ax1 = plt.subplot(1,1,1)
 ax1.plot(df['date'], df[asset+'PriceBTC'], label= asset.upper() + 'BTC Market Traded Price: ' + str(round(df[asset+'PriceBTC'].iloc[-1],5)), color='w')
-ax1.plot(df['date'], df['rel_realprice'], label= asset.upper() + ' Realized Price / BTC Realized Price :' + str(round(df['rel_realprice'].iloc[-1],5)), color='lime')
+ax1.plot(df['date'], df['rel_realprice'], label= asset.upper() + ' Realized Price / BTC Realized Price :' + str(round(df['rel_realprice'].iloc[-2],5)), color='lime')
 """ ax1.plot(df['date'], df['dcrratioprice'], label='Historical Bottom Zone: ' + str(round(df['dcrratioprice'].iloc[-1],5)), color='aqua')
 ax1.plot(df['date'], df['assetbtcrealbuypow'], label='DCR Realized Price / BTCUSD.Mean(21 Days): ' + str(round(df['assetbtcrealbuypow'].iloc[-1],5)), color='m') """
 ax1.set_ylabel(asset.upper() + 'BTC', fontsize=20, fontweight='bold', color='w')
@@ -118,7 +118,7 @@ ax1.grid()
 ax1.legend()
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+""" ax2 = plt.subplot(2, 1, 2, sharex=ax1)
 ax2.plot(df['date'], df['MVRVcomp'], color='w')
 ax2.set_facecolor('black')
 ax2.set_title("Compare MVRV Ratios", fontsize=20, fontweight='bold', color='w')
@@ -131,7 +131,7 @@ ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
 ax2.grid()
 for axis in [ax2.yaxis]:
-    axis.set_major_formatter(ScalarFormatter()) 
+    axis.set_major_formatter(ScalarFormatter()) """ 
 
 """ ax2 = plt.subplot(2, 1, 2, sharex=ax1)
 ax2.plot(df['date'], df['rel_mvrv'], color='w')

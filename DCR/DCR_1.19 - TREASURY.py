@@ -118,7 +118,7 @@ df1['pe20'] = 20 * df1['cumoutusd']
 df1['pe40'] = 40 * df1['cumoutusd']
 df1['pe60'] = 60 * df1['cumoutusd']
 
-print(df1)
+print(df1['monthflow'])
 df1.to_csv('treas.csv')
 
 # Plot
@@ -155,7 +155,7 @@ ax11.axhline(0.02, color='aqua', linestyle='dashed')
 ax11.grid() """
 
 
-""" ax1 = plt.subplot(1,1,1)
+ax1 = plt.subplot(1,1,1)
 ax1.plot(df1['time_stamp'], df1['treasuryusd'], color='w', alpha=1, label='Treasury USD Balance: ' + str(round(df1['treasuryusd'].iloc[-2],0)))
 ax1.set_facecolor('black')
 ax1.set_title("Treasury USD Balance vs Treasury Flows", fontsize=20, fontweight='bold', color='w')
@@ -175,7 +175,7 @@ ax11.set_ylabel('Treasury 90 Day Flows', fontsize=20, fontweight='bold', color='
 ax11.tick_params(color='w', labelcolor='w')
 ax11.legend(loc='upper right')
 ax11.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 
 """ ax2 = plt.subplot(1,1,1)
@@ -198,7 +198,7 @@ ax2.legend(loc='upper left')
 ax2.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
-ax2 = plt.subplot(1,1,1)
+""" ax2 = plt.subplot(1,1,1)
 ax2.plot(df1['time_stamp'], df1['contractearnings'], label='Value of Total Contractor Earnings TODAY: ' + str(round(df1['contractearnings'].iloc[-2]/1000000,2)) + 'M', color='w')
 ax2.plot(df1['time_stamp'], df1['cumoutusd'], label='Total Contractor USD Pay: ' + str(round(df1['cumoutusd'].iloc[-2]/1000000,2)) + 'M', color='aqua')
 ax2.plot(df1['time_stamp'], df1['40drawdown'], label='Earnings 40% Drawdown: ' + str(round(df1['40drawdown'].iloc[-2]/1000000,2)) + 'M', color='red')
@@ -210,7 +210,7 @@ ax2.set_ylabel("USD Value", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.legend(loc='upper left')
 ax2.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 """ ax22 = ax2.twinx()
 ax22.plot(df1['time_stamp'], df1['ltcontractplusd'], color='red', alpha=0.3)
@@ -224,13 +224,13 @@ ax22.set_ylabel("Contractor % P/L", fontsize=20, fontweight='bold', color='w')
 ax22.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
-ax22 = ax2.twinx()
+""" ax22 = ax2.twinx()
 ax22.bar(df1['time_stamp'], df1['runway'], color='pink', alpha=0.5)
 ax22.tick_params(color='w', labelcolor='w')
 ax22.grid()
 ax22.set_ylabel("Treasury Runway", fontsize=14, fontweight='bold', color='w')
 ax22.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 """ ax22 = ax2.twinx()
 ax22.plot(df1['time_stamp'], df1['PE'], color='aqua', alpha=1)

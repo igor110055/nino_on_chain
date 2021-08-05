@@ -23,8 +23,8 @@ asset = "dcr"
 asset1 = "btc"
 asset2 = "ltc"
 asset3 = "eth"
-date1 = "2010-01-01"
-date2 = "2020-12-30"
+date1 = "2015-08-09"
+date2 = "2021-12-30"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -56,7 +56,7 @@ df['dcrusd'].mask(df['dcrusd'] == 0, df['PriceUSD'], inplace=True)
 df['dcrbtc'].mask(df['dcrbtc'] == 0, df['PriceBTC'], inplace=True)
 df['dcrmcap'].mask(df['dcrmcap'] == 0, df['CapMrktCurUSD'], inplace=True)
 
-# calc metrics
+# calc metrics  
 
 df['dcrchain'] = df['dcrblk'].cumsum()
 df['btcchain'] = df['btcblk'].cumsum()

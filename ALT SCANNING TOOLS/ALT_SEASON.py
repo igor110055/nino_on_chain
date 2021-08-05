@@ -47,13 +47,13 @@ for item in metriclist:
     df2.columns = ['date', asset+item]
     df = df.merge(df2, on='date', how='left')    
 
-print(df)
 # Metric
 
 df['RealProfit'] = df['btcCapMrktCurUSD'] - df['btcCapRealUSD']
 df['AltSeason'] = df['RealProfit'] / df['ethCapMrktCurUSD']
 df['AltTarget'] = df['AltSeason'] * df['ethPriceBTC']
 
+print(df)
 #plot
 
 fig, ax1 = plt.subplots()
@@ -67,7 +67,7 @@ ax1.plot(df['date'], df['ethPriceBTC'], label='ETHBTC Price: ' + str(round(df['e
 ax1.plot(df['date'], df['AltTarget'], label='Alt Target Price: ' + str(round(df['AltTarget'].iloc[-1],4)), color='lime')
 ax1.set_facecolor('black')
 ax1.tick_params(color='w', labelcolor='w')
-ax1.set_yscale('log')
+ax1.set_yscale('linear')
 ax1.grid()
 ax1.legend(loc='upper middle')
 ax1.set_title("ETHBTC Price", fontsize=20, fontweight='bold', color='w')
