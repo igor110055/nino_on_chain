@@ -9,7 +9,7 @@ url = "https://api.opensea.io/api/v1/collections"
 # Build base dataframe
 offset = 0     #takes you to earliest row - api always starts from most recent
 limit = 300    #rows in each call
-owner = "0x0601d0235645a6ce6356ef11aa0b225c68605131"      #filter by owner
+owner = "0x0a0871c2ea6f24149758dc5bd1136d337b7f47b8"      #filter by owner
 
 merge_list = []
 if offset == 0:
@@ -47,10 +47,16 @@ print(df)
 
 #Build Metrics
 
+df['nft_wealth'] = df['total_supply'] / df['num_owners']
+
+df['one_day_eth_wealth'] = df['nft_wealth'] * df['one_day_average_price']
+df['one_day_adjeth_wealth'] = df['one_day_eth_wealth'] / df['one_day_volume']       #how many days it would take to offload whole NFT stash for a collection
+
 df['seven_day_trade_count'] = df['seven_day_volume'] / df['seven_day_average_price']
 df['seven_day_liquidity'] = df['seven_day_trade_count'] / df['total_supply']
+df['seven_day_eth_wealth'] = df['nft_wealth'] * df['seven_day_average_price']
 
 #Charting
 
-fig = px.bar(df, x='name', y='seven_day_liquidity', title='Stats for Collections Owned by ' + owner)
+fig = px.bar(df, x='name', y='total_supply', title='Stats for Collections Owned by ' + owner, log_y=True)
 fig.show()
