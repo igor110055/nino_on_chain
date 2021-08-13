@@ -9,7 +9,7 @@ url = "https://api.opensea.io/api/v1/collections"
 # Build base dataframe
 offset = 0     #takes you to earliest row - api always starts from most recent
 limit = 300    #rows in each call
-owner = "0x0a0871c2ea6f24149758dc5bd1136d337b7f47b8"      #filter by owner
+owner = "0x00c71f8c497d8950553fcb874f4a8cf74dc88629"      #filter by owner
 
 merge_list = []
 if offset == 0:
@@ -48,15 +48,23 @@ print(df)
 #Build Metrics
 
 df['nft_wealth'] = df['total_supply'] / df['num_owners']
+df['avg_volume'] = df['seven_day_volume'] / 7
 
 df['one_day_eth_wealth'] = df['nft_wealth'] * df['one_day_average_price']
-df['one_day_adjeth_wealth'] = df['one_day_eth_wealth'] / df['one_day_volume']       #how many days it would take to offload whole NFT stash for a collection
+df['one_day_adjeth_wealth'] = df['one_day_eth_wealth'] / df['avg_volume']       #how many days it would take to offload whole NFT stash for a collection
 
-df['seven_day_trade_count'] = df['seven_day_volume'] / df['seven_day_average_price']
-df['seven_day_liquidity'] = df['seven_day_trade_count'] / df['total_supply']
 df['seven_day_eth_wealth'] = df['nft_wealth'] * df['seven_day_average_price']
+df['seven_day_sales_ratio'] = (df['seven_day_sales'] / df['thirty_day_sales']) / 0.23333
+
+df['thirty_day_price_ratio'] = df['one_day_average_price'] / df['thirty_day_average_price']
 
 #Charting
 
-fig = px.bar(df, x='name', y='total_supply', title='Stats for Collections Owned by ' + owner, log_y=True)
-fig.show()
+for col in df.columns:
+
+    fig = px.bar(df, x='name', y=col, title='Stats for Collections Owned by ' + owner, log_y=True, color=col)
+    fig.show()
+
+""" fig = px.bar(df, x='name', y='seven_day_sales_ratio', title='Stats for Collections Owned by ' + owner, log_y=False, color='seven_day_sales_ratio',
+labels={'name':'Collection Name', 'seven_day_sales_ratio':'7-Day Sales / 30-Day Sales'})
+fig.show() """
