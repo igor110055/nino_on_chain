@@ -60,10 +60,10 @@ df['thirty_day_price_ratio'] = df['one_day_average_price'] / df['thirty_day_aver
 
 #Charting
 
-for col in df.columns:
+""" for col in df.columns:
 
     fig = px.bar(df, x='name', y=col, title='Stats for Collections Owned by ' + owner, log_y=True, color=col)
-    fig.show()
+    fig.show() """
 
 """ fig = px.bar(df, x='name', y='seven_day_sales_ratio', title='Stats for Collections Owned by ' + owner, log_y=False, color='seven_day_sales_ratio',
 labels={'name':'Collection Name', 'seven_day_sales_ratio':'7-Day Sales / 30-Day Sales'})
