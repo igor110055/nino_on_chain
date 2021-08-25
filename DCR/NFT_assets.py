@@ -44,7 +44,7 @@ df = df.transpose()
 df.reset_index(inplace=True,drop=True)
 df.insert(0, "name", df2['name'])
 df['slug'] = df2['slug']        #Add slug
-df.to_csv('clean_nft.csv')
+df.to_csv('clean_nft.csv')      #stats csv
 
 print(df)
 
@@ -61,7 +61,7 @@ limit_assets = 50   #rows in each call
 owner_assets = "0x3fdbeedcbfd67cbc00fc169fcf557f77ea4ad4ed"      #filter by owner
 order_direction_assets = "desc"    #or "asc"
 collection_assets = "cryptopunks"       
-order_by_assets = "token_id"
+order_by_assets = "sale_count"
 
 clean_list_assets = []
 
@@ -72,26 +72,38 @@ while data_limit > offset_assets:
 
     response_assets = requests.request("GET", url_assets, params=querystring_assets)
     response_assets = response_assets.json()
+    #print(response_assets)         TEST IN CASE SOMETHING GOES WRONG
     df1_assets = pd.DataFrame(response_assets['assets'])
     clean_list_assets.append(df1_assets)
     print(df1_assets)
 
 df_assets = pd.concat(clean_list_assets)
 df_assets.reset_index(inplace=True,drop=True)
-df_assets.to_csv('nft_assets.csv')
+df_assets.to_csv('nft_assets.csv')      #assets csv
 print(df_assets)
+
+""" TRAITS """
 
 clean_list_traits = []
 
 for item in df_assets['traits']:
-   df1_traits = pd.DataFrame(item)
-   df1_traits[collection_assets+" ID"] = df_assets.loc[df_assets.index,'token_id']
-   print(df1_traits)
-   clean_list_traits.append(df1_traits)
+    df1_traits = pd.DataFrame(item)
+    #df1_traits[collection_assets+" ID"] = df_assets
+    #print(df1_traits)
+    clean_list_traits.append(df1_traits)
 
-df_traits = pd.concat(clean_list_traits)
-df_traits.to_csv('nft_traits.csv')
-print(df_traits)
+df_traits = pd.concat(clean_list_traits)        #concatentate traits df
+
+unique_traits = df_traits['value'].unique()     #build unique traits list
+print(unique_traits)
+
+""" METRICS """
+
+df_traits['wt_trait'] = df_traits[df_traits.value == 'Big Shades'].count()
+print(df_traits['wt_trait'])
+
+df_traits.to_csv('nft_traits.csv')      #traits csv
+""" PLOT """
     
 fig = px.bar(df_assets.head(n=50), x='token_id', y='num_sales', title='Stats for Collections Owned by ' + owner_assets, log_y=False, color='num_sales',
 labels={'token_id':collection_assets + ' ID', 'num_sales':'Total Sales for Item'})
