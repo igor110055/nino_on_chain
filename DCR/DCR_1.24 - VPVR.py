@@ -43,7 +43,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-19"
+date_2 = "2020-12-19"
 metric = "PriceUSD"
 metric1 = "PriceBTC"
 metric2 = "CapMrktCurUSD"
@@ -158,7 +158,7 @@ ax2.grid()
 ax2.set_yscale('log')
 ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax3 = plt.subplot(2,1,2)
+ax3 = plt.subplot(2,1,2, sharex=ax2)
 ax3.plot(df['date'], df['1'], color='w', label="DCR in Tix > 1: " + str(round(df['1'].iloc[-2], 4)))
 ax3.plot(df['date'], df['10'], color='lime', label="DCR in Tix 10>: " + str(round(df['10'].iloc[-2], 4)))
 ax3.plot(df['date'], df['20'], color='aqua', label="DCR in Tix > 20: " + str(round(df['20'].iloc[-2], 4)))

@@ -28,7 +28,7 @@ cm = coinmetrics.Community()
 asset = "dcr"
 
 date_1 = "2016-02-08"
-date_2 = "2020-07-10"
+date_2 = "2020-12-30"
 
 price = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceUSD", date_1, date_2))
 pricebtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "PriceBTC", date_1, date_2))
@@ -90,11 +90,11 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(1, 1, 1)
-ax1.plot(df['date'], df['valpertix'], label='Val Stored / Tix', color='aqua')
-ax1.plot(df['date'], df['PriceUSD'], label='Price USD', color='w')
-ax1.plot(df['date'], df['valperdcrtix'], label='Val Stored / DCR in Tix', color='lime')
-ax1.plot(df['date'], df['valperbyte'], label='Val Stored / Byte', color='r')
-ax1.plot(df['date'], df['valperwork'], label='Val Stored / Exahash', color='orange')
+ax1.plot(df['date'], df['valpertix'], label='Val Stored / Tix: ' + str(round(df['valpertix'].iloc[-3],2)), color='aqua')
+ax1.plot(df['date'], df['PriceUSD'], label='Price USD: ' + str(round(df['PriceUSD'].iloc[-3],2)), color='w')
+ax1.plot(df['date'], df['valperdcrtix'], label='Val Stored / DCR in Tix: ' + str(round(df['valperdcrtix'].iloc[-3],2)), color='lime')
+ax1.plot(df['date'], df['valperbyte'], label='Val Stored / Byte: ' + str(round(df['valperbyte'].iloc[-3],2)), color='r')
+ax1.plot(df['date'], df['valperwork'], label='Val Stored / Exahash: ' + str(round(df['valperwork'].iloc[-3],2)), color='orange')
 ax1.set_facecolor('black')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.set_yscale('log')

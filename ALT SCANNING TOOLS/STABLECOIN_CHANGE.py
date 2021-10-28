@@ -17,8 +17,8 @@ print("available data types:\n", available_data_types)
 
 # List assets & dates
 
-date_1 = "2015-06-01"
-date_2 = "2020-10-30"
+date_1 = "2019-06-01"
+date_2 = "2021-12-30"
 
 asset = "btc"
 asset1 = "busd"
@@ -46,7 +46,8 @@ for coin in assetlist:
 # Calc Metrics
 
 df['StableCap'] = df.iloc[:, 2:9].sum(axis=1)
-df['StableChg'] = df['StableCap'].diff(14)
+df['StableChg'] = df['StableCap'].diff(30)
+df['StableRatio'] = df['StableChg'] / df['btcCapMrktCurUSD']
 
 print(df)
 
@@ -58,22 +59,22 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(1,1,1)
-ax1.plot(df['date'], df['StableChg'], color='lime')
-ax1.set_ylabel("Stable Coin Value", fontsize=20, fontweight='bold', color='w')
+ax1.plot(df['date'], df['StableRatio'], color='lime')
+ax1.set_ylabel("Stable Coin 30-Day Change / BTC Market Cap", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
-ax1.set_title("Bitcoin Market Cap vs Monetary Premium Lines", fontsize=20, fontweight='bold', color='w')
+ax1.set_title("Bitcoin Market Cap vs Money Printer", fontsize=20, fontweight='bold', color='w')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
-ax1.legend(edgecolor='w')
-ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+ax1.legend(loc='upper left')
+""" ax1.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 ax2 = ax1.twinx()
 ax2.plot(df['date'], df[asset+'CapMrktCurUSD'], color='w')
 ax2.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax2.set_yscale('log')
 ax2.tick_params(color='w', labelcolor='w')
-ax2.legend(edgecolor='w')
+ax2.legend()
 ax2.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 

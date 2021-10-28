@@ -16,10 +16,10 @@ cm = coinmetrics.Community()
 
 # PULL DCR & BTC NTV, MVRV, & REALIZED PRICE DATA "2016-08-14"
 
-asset = "dcr"
+asset = "ltc"
 asset1 = "btc"
-date_1 = "2016-05-01"
-date_2 = "2020-10-30"
+date_1 = "2015-01-01"
+date_2 = "2021-12-30"
 metric = "SplyCur"
 metric1 = "PriceBTC"
 metric2 = "PriceUSD"
@@ -70,6 +70,7 @@ df['rel_mvrv'] = df[asset+'CapMVRVCur'] / df[asset1+'CapMVRVCur']
 df['buypowratio'] = df[asset+'PriceBTC'] / df['assetbtcrealbuypow']
 df['REALRATIO'] = df['assetbtcrealbuypow'] / df['rel_realprice']
 df['MVRVcomp'] = df[asset+'CapMVRVCur'] / df['buypowratio']
+df['btc21'] = df[asset1+'PriceUSD'].rolling(21).mean()
 
 df['rel_mvrv_price'] = df[asset+'PriceBTC'] / df['rel_mvrv']
 df['mid_point'] = 0.7 * df['rel_realprice']
@@ -90,9 +91,10 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax11 = plt.subplot(3,1,1)
+""" ax11 = plt.subplot(2,1,1)
 ax11.plot(df['date'], df[asset1+'PriceUSD'], label= asset1.upper() + 'Market Traded Price: ' + str(round(df[asset1+'PriceUSD'].iloc[-1],2)), color='w')
 ax11.plot(df['date'], df['asset1realprice'], label= asset1.upper() + ' Realized Price :' + str(round(df['asset1realprice'].iloc[-1],2)), color='m')
+ax11.plot(df['date'], df['btc21'], label= asset1.upper() + ' Realized Price :' + str(round(df['asset1realprice'].iloc[-1],2)), color='m')
 ax11.set_ylabel(asset1.upper() + "USD", fontsize=20, fontweight='bold', color='w')
 ax11.set_facecolor('black')
 ax11.set_title("Realized Price vs " + asset1.upper() + "USD", fontsize=20, fontweight='bold', color='w')
@@ -100,14 +102,14 @@ ax11.set_yscale('log')
 ax11.tick_params(color='w', labelcolor='w')
 ax11.grid()
 ax11.legend()
-ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+ax11.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y))) """
 
-ax1 = plt.subplot(3,1,2, sharex=ax11)
+ax1 = plt.subplot(1,1,1)
 ax1.plot(df['date'], df[asset+'PriceBTC'], label= asset.upper() + 'BTC Market Traded Price: ' + str(round(df[asset+'PriceBTC'].iloc[-1],5)), color='w')
-ax1.plot(df['date'], df['rel_realprice'], label= asset.upper() + ' Realized Price / BTC Realized Price :' + str(round(df['rel_realprice'].iloc[-1],5)), color='lime')
-""" ax1.plot(df['date'], df['dcrratioprice'], label='Historical Bottom Zone: ' + str(round(df['dcrratioprice'].iloc[-1],5)), color='aqua') """
-ax1.plot(df['date'], df['assetbtcrealbuypow'], label='DCR Realized Price / BTCUSD.Mean(21 Days): ' + str(round(df['assetbtcrealbuypow'].iloc[-1],5)), color='m')
-ax1.set_ylabel("DCRBTC", fontsize=20, fontweight='bold', color='w')
+ax1.plot(df['date'], df['rel_realprice'], label= asset.upper() + ' Realized Price / BTC Realized Price :' + str(round(df['rel_realprice'].iloc[-2],5)), color='lime')
+""" ax1.plot(df['date'], df['dcrratioprice'], label='Historical Bottom Zone: ' + str(round(df['dcrratioprice'].iloc[-1],5)), color='aqua')
+ax1.plot(df['date'], df['assetbtcrealbuypow'], label='DCR Realized Price / BTCUSD.Mean(21 Days): ' + str(round(df['assetbtcrealbuypow'].iloc[-1],5)), color='m') """
+ax1.set_ylabel(asset.upper() + 'BTC', fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title("Relative Value Prices", fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
@@ -116,7 +118,7 @@ ax1.grid()
 ax1.legend()
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
-ax2 = plt.subplot(3, 1, 3, sharex=ax11)
+""" ax2 = plt.subplot(2, 1, 2, sharex=ax1)
 ax2.plot(df['date'], df['MVRVcomp'], color='w')
 ax2.set_facecolor('black')
 ax2.set_title("Compare MVRV Ratios", fontsize=20, fontweight='bold', color='w')
@@ -129,7 +131,7 @@ ax2.tick_params(color='w', labelcolor='w')
 ax2.set_yscale('log')
 ax2.grid()
 for axis in [ax2.yaxis]:
-    axis.set_major_formatter(ScalarFormatter()) 
+    axis.set_major_formatter(ScalarFormatter()) """ 
 
 """ ax2 = plt.subplot(2, 1, 2, sharex=ax1)
 ax2.plot(df['date'], df['rel_mvrv'], color='w')

@@ -16,24 +16,27 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 #fetch desired data
 date_1 = "2010-01-01"
-date_2 = "2020-10-19"
+date_2 = "2021-12-30"
 
 isstot = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "IssTotUSD", date_1, date_2))
 mkt = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
+sply = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "SplyCur", date_1, date_2))
 
-df = isstot.merge(mkt, on='date', how='left')
+df = isstot.merge(mkt, on='date', how='left').merge(sply, on='date', how='left')
 
-df.columns = ['date', 'isstot', 'mkt']
+df.columns = ['date', 'isstot', 'mkt', 'sply']
 #calc metrics 
 
 df['rewardsum'] = df['isstot'].cumsum()
+df['btcprice'] = df['mkt'] / df['sply']
 
-df['2'] = df['rewardsum'] * 2
-df['4'] = df['rewardsum'] * 4
-df['8'] = df['rewardsum'] * 8
-df['16'] = df['rewardsum'] * 16
-df['32'] = df['rewardsum'] * 32
-df['64'] = df['rewardsum'] * 64
+df['reward'] = df['rewardsum'] / df['sply']
+df['2'] = (df['rewardsum'] * 2) / df['sply']
+df['4'] = (df['rewardsum'] * 4) / df['sply']
+df['8'] = (df['rewardsum'] * 8) / df['sply']
+df['16'] = (df['rewardsum'] * 16) / df['sply']
+df['32'] = (df['rewardsum'] * 32) / df['sply']
+df['64'] = (df['rewardsum'] * 64) / df['sply']
 
 print(df)
 
@@ -45,14 +48,14 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(1,1,1)
-ax1.plot(df['date'], df['mkt'], color='w')
-ax1.plot(df['date'], df['rewardsum'], color='aqua', linewidth=2)
+ax1.plot(df['date'], df['btcprice'], color='w')
+ax1.plot(df['date'], df['reward'], color='aqua', linewidth=2)
 ax1.plot(df['date'], df['2'], linestyle=':')
 ax1.plot(df['date'], df['4'], linestyle=':')
 ax1.plot(df['date'], df['8'], color='lime', linewidth=2)
 ax1.plot(df['date'], df['16'], linestyle=':')
-ax1.plot(df['date'], df['32'], linestyle=':')
-ax1.plot(df['date'], df['64'],  color='m', linewidth=2)
+ax1.plot(df['date'], df['32'], linestyle=':', label='32: ' + str(round(df['32'].iloc[-1], 2)))
+ax1.plot(df['date'], df['64'],  color='m', linewidth=2, label='64: ' + str(round(df['64'].iloc[-1], 2)))
 ax1.fill_between(df['date'], df['32'], df['64'], where=df['64'] > df['32'], facecolor='m', alpha=0.5)
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')

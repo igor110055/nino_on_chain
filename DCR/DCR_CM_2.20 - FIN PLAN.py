@@ -15,15 +15,17 @@ df['weeks'] = range(105)
 
 # set price lists
 
+dcrmult = 10
+
 pricelist = [10,20,40,80,160,320,640,1280]
 
 for price in pricelist:
-    df[price] = df['weeks'] * price
+    df[price] = df['weeks'] * price * dcrmult
 
 btcpricelist = [.001,.002,.004,.008,.016,.02,.024,.028]
 
 for btcprice in btcpricelist:
-    df[btcprice] = df['weeks'] * btcprice
+    df[btcprice] = df['weeks'] * btcprice * dcrmult
 
 print(df)
 

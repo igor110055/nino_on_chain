@@ -20,7 +20,7 @@ print("available data types:\n", available_data_types) """
 asset = "dcr"
 asset1 = "btc"
 date_1 = "2016-06-01"
-date_2 = "2020-10-21"
+date_2 = "2020-12-21"
 metric = "CapMrktCurUSD"
 metric1 = "CapRealUSD"
 metric2 = "PriceUSD"
@@ -75,7 +75,7 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-""" ax1 = plt.subplot(1,1,1)
+ax1 = plt.subplot(1,1,1)
 ax1.plot(df['date'], df['dcrCapMrktCurUSD'], color='w', label='Decred Market Cap')
 ax1.plot(df['date'], df['poolcap'], color='aqua', label='Pool Cap')
 ax1.plot(df['date'], df['floatcap'], color='red', label='Float Cap')
@@ -88,7 +88,7 @@ ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
 ax1.legend(edgecolor='w')
 ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 """ ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['dcrbtcadj'], color='w', label='Adj DCRBTC')
@@ -103,8 +103,8 @@ ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)
 ax2.set_title("Market Cap Values Divided by Bitcoin Market Cap", fontsize=20, fontweight='bold', color='w')
 ax2.grid() """
 
-ax1 = plt.subplot(1,1,1)
-""" ax1.plot(df['date'], df['poolcapdcrbtc'], color='w', label='Decred Market Cap') """
+""" ax1 = plt.subplot(1,1,1)
+ax1.plot(df['date'], df['poolcapdcrbtc'], color='w', label='Decred Market Cap')
 ax1.plot(df['date'], df['realcapdcrbtc'], color='lime', label='real Cap')
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
@@ -114,7 +114,7 @@ ax1.tick_params(color='w', labelcolor='w')
 ax1.grid()
 ax1.legend(edgecolor='w')
 ax1.get_yaxis().set_major_formatter(
-    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 """ ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['buyingpower'], color='w', label='Buying Power: ' + str(round(df['buyingpower'].iloc[-2], 4)))

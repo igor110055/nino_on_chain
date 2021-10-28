@@ -23,8 +23,8 @@ asset = "dcr"
 asset1 = "btc"
 asset2 = "ltc"
 asset3 = "eth"
-date1 = "2010-01-01"
-date2 = "2020-09-10"
+date1 = "2015-08-09"
+date2 = "2021-12-30"
 available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
@@ -41,10 +41,11 @@ ltcreal = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset2, "CapRealUS
 ltcblk = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset2, "BlkSizeByte", date1, date2))
 ethmcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset3, "CapMrktCurUSD", date1, date2))
 ethblk = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset3, "BlkSizeByte", date1, date2))
+ethbtc = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset3, "PriceBTC", date1, date2))
 
 df = btcusd.merge(dcrblk, on='date', how='left').merge(btcblk, on='date', how='left').merge(dcrusd, on='date', how='left').merge(dcrmcap, on='date', how='left').merge(btcmcap, on='date', how='left').merge(dcrreal, on='date', how='left').merge(btcreal, on='date', how='left').merge(
-    ltcmcap, on='date', how='left').merge(ltcreal, on='date', how='left').merge(ltcblk, on='date', how='left').merge(ethmcap, on='date', how='left').merge(ethblk, on='date', how='left')
-df.columns = ['date', 'btcusd', 'dcrblk', 'btcblk', 'dcrusd', 'dcrmcap', 'btcmcap', 'dcrreal', 'btcreal', 'ltcmcap', 'ltcreal', 'ltcblk', 'ethmcap', 'ethblk']
+    ltcmcap, on='date', how='left').merge(ltcreal, on='date', how='left').merge(ltcblk, on='date', how='left').merge(ethmcap, on='date', how='left').merge(ethblk, on='date', how='left').merge(ethbtc, on='date', how='left')
+df.columns = ['date', 'btcusd', 'dcrblk', 'btcblk', 'dcrusd', 'dcrmcap', 'btcmcap', 'dcrreal', 'btcreal', 'ltcmcap', 'ltcreal', 'ltcblk', 'ethmcap', 'ethblk', 'ethbtc']
 
 df['dcrbtc'] = df['dcrusd'] / df['btcusd']
 
@@ -55,7 +56,7 @@ df['dcrusd'].mask(df['dcrusd'] == 0, df['PriceUSD'], inplace=True)
 df['dcrbtc'].mask(df['dcrbtc'] == 0, df['PriceBTC'], inplace=True)
 df['dcrmcap'].mask(df['dcrmcap'] == 0, df['CapMrktCurUSD'], inplace=True)
 
-# calc metrics
+# calc metrics  
 
 df['dcrchain'] = df['dcrblk'].cumsum()
 df['btcchain'] = df['btcblk'].cumsum()
@@ -65,6 +66,7 @@ df['dcrvalbyte'] = df['dcrmcap'] / df['dcrchain']
 df['btcvalbyte'] = df['btcmcap'] / df['btcchain']
 df['ltcvalbyte'] = df['ltcmcap'] / df['ltcchain']
 df['ethvalbyte'] = df['ethmcap'] / df['ethchain']
+df['ethbtcvalbyte'] = df['ethvalbyte'] / df['btcvalbyte']
 df['dcrbtcvalbyte'] = df['dcrvalbyte'] / df['btcvalbyte']
 df['dcrrealbyte'] = df['dcrreal'] / df['dcrchain']
 df['btcrealbyte'] = df['btcreal'] / df['btcchain']
@@ -76,6 +78,11 @@ df['mixedratiodcrltc'] = df['dcrvalbyte'] / df['ltcvalbyte']
 df['dcrltcagg'] = df['dcrmcap'] / df['ltcmcap']
 df['dcrbtcagg'] = df['dcrmcap'] / df['btcmcap']
 
+df['ethchainbot1'] = df['ethchain'] * 0.1
+df['ethchainbot2'] = df['ethchain'] * 0.2
+df['ethbtctargetratio'] = 1 / df['ethbtcvalbyte']
+df['ethbtctarget'] = df['ethbtctargetratio'] * df['ethbtc'].rolling(90).mean()
+
 print(df)
 
 # plot
@@ -85,23 +92,41 @@ fig, ax1 = plt.subplots()
 fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
-ax1 = plt.subplot(1,1,1)
-line1 = ax1.plot(df['date'], df['dcrvalbyte'], label='DCR $/Byte', color='w')
-line3 = ax1.plot(df['date'], df['dcrrealbyte'], label='DCR Real $/Byte', linestyle='dashed', color='r')
-line2 = ax1.plot(df['date'], df['btcvalbyte'], label='BTC $/Byte', color='aqua')
-line4 = ax1.plot(df['date'], df['btcrealbyte'], label='BTC Real $/Byte', linestyle='dashed', color='m')
-line5 = ax1.plot(df['date'], df['ltcvalbyte'], label='LTC $/Byte', alpha=0.5)
-line6 = ax1.plot(df['date'], df['ltcrealbyte'], label='LTC Real $/Byte', linestyle='dashed', alpha=0.5)
-line7 = ax1.plot(df['date'], df['ethvalbyte'], label='ETH $/Byte', color='lime')
-ax1.set_ylabel("$ / Byte", fontsize=20, fontweight='bold', color='w')
+ax1 = plt.subplot(2,1,1)
+""" line1 = ax1.plot(df['date'], df['dcrvalbyte'], label='DCR $/Byte: ' + str(round(df['dcrvalbyte'].iloc[-1],2)), color='w')
+line3 = ax1.plot(df['date'], df['dcrrealbyte'], label='DCR Real $/Byte: ' + str(round(df['dcrrealbyte'].iloc[-1],2)), linestyle='dashed', color='r') """
+""" line2 = ax1.plot(df['date'], df['btcvalbyte'], label='BTC $/Byte: ' + str(round(df['btcvalbyte'].iloc[-1],2)), color='aqua')
+line4 = ax1.plot(df['date'], df['btcrealbyte'], label='BTC Real $/Byte: ' + str(round(df['btcrealbyte'].iloc[-1],2)), linestyle='dashed', color='m') """
+""" line5 = ax1.plot(df['date'], df['ltcvalbyte'], label='LTC $/Byte', alpha=0.5)
+line6 = ax1.plot(df['date'], df['ltcrealbyte'], label='LTC Real $/Byte', linestyle='dashed', alpha=0.5) """
+line7 = ax1.plot(df['date'], df['ethbtcvalbyte'], label='ETHBTC Value/Byte: ' + str(round(df['ethbtcvalbyte'].iloc[-1], 3)), color='lime')
+ax1.set_ylabel("Value / Byte", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
-ax1.set_title("$ Stored per Byte Comparison", fontsize=20, fontweight='bold', color='w')
+ax1.set_title("Value Stored per Byte Comparison as of " + str(df['date'].iloc[-1]), fontsize=20, fontweight='bold', color='w')
 ax1.set_yscale('log')
 ax1.tick_params(color='w', labelcolor='w')
 ax1.axhspan(0.95, 1.05, color='w', alpha=0.8)
 ax1.grid()
-ax1.legend(edgecolor='w')
+ax1.legend(loc='upper left')
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+
+ax2 = plt.subplot(2,1,2, sharex=ax1)
+ax2.set_title("ETHBTC vs Value Stored Parity Price w/ BTC " + str(df['date'].iloc[-1]), fontsize=20, fontweight='bold', color='w')
+""" ax2.plot(df['date'], df['ethchain'], color='aqua')
+ax2.plot(df['date'], df['ethchainbot1'], color='lime')
+ax2.plot(df['date'], df['ethchainbot2'], color='lime')
+ax2.fill_between(df['date'], df['ethchainbot1'], df['ethchainbot2'],  where=df['ethchainbot1'] < df['ethchainbot2'], facecolor='lime', alpha=0.4)
+ax2.plot(df['date'], df['ethmcap'], color='w') """
+ax2.plot(df['date'], df['ethbtc'], color='w', label='ETHBTC: ' + str(round(df['ethbtc'].iloc[-1], 4)))
+ax2.plot(df['date'], df['ethbtctarget'], color='aqua', label='ETHBTC Value Stored Parity: ' + str(round(df['ethbtctarget'].iloc[-1], 4)))
+ax2.set_facecolor('black')
+ax2.set_yscale('log')
+ax2.tick_params(color='w', labelcolor='w')
+ax2.grid()
+ax2.legend(loc='upper left')
+ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+""" ax2.get_yaxis().set_major_formatter(
+    mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ','))) """
 
 """ ax2 = plt.subplot(2,1,2, sharex=ax1)
 ax2.plot(df['date'], df['dcrbtcagg'], color='w')

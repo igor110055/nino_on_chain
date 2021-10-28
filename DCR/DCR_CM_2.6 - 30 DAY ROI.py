@@ -18,7 +18,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2016-02-08"
-date_2 = "2020-10-26"
+date_2 = "2021-12-26"
 
 roi = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "ROI30d", date_1, date_2))
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
@@ -38,7 +38,7 @@ fig.patch.set_facecolor('black')
 fig.patch.set_alpha(1)
 
 ax1 = plt.subplot(2,1,1)
-line1 = ax1.plot(df['date'], df['mcap'], color='w', label=asset.upper() + " MCAP")
+line1 = ax1.plot(df['date'], df['mcap'], color='w', label=asset.upper() + " MCAP: " + str(round(df['mcap'].iloc[-1],0)))
 ax1.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax1.set_facecolor('black')
 ax1.set_title(asset.upper() + " Market Cap vs ROI", fontsize=20, fontweight='bold', color='w')
@@ -50,7 +50,7 @@ ax1.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax2 = ax1.twinx()
-ax2.plot(df['date'], df['roi'], color='aqua', alpha=1, linestyle=':', label=asset.upper() + " ROI")
+ax2.plot(df['date'], df['roi'], color='aqua', alpha=1, linestyle=':', label=asset.upper() + " ROI: " + str(round(df['roi'].iloc[-1],0)) + "%")
 ax2.set_ylabel("30 Day ROI (%)", fontsize=20, fontweight='bold', color='w')
 ax2.tick_params(color='w', labelcolor='w')
 ax2.legend(loc='upper left')
@@ -59,7 +59,7 @@ ax2.axhspan(40,50, color='w', alpha=0.5)
 ax2.axhspan(-20,-30, color='lime', alpha=0.5)
 
 ax3 = plt.subplot(2,1,2, sharex=ax1)
-ax3.plot(df['date'], df['altmcap'], color='w', label=asset1.upper() + " MCAP")
+ax3.plot(df['date'], df['altmcap'], color='w', label=asset1.upper() + " MCAP: " + str(round(df['altmcap'].iloc[-1],0)))
 ax3.set_ylabel("Network Value", fontsize=20, fontweight='bold', color='w')
 ax3.set_facecolor('black')
 ax3.set_title(asset1.upper() + " Market Cap vs ROI", fontsize=20, fontweight='bold', color='w')
@@ -71,7 +71,7 @@ ax3.get_yaxis().set_major_formatter(
     mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
 ax4 = ax3.twinx()
-ax4.plot(df['date'], df['altroi'], color='aqua', alpha=1, linestyle=':', label=asset1.upper() + " ROI")
+ax4.plot(df['date'], df['altroi'], color='aqua', alpha=1, linestyle=':', label=asset1.upper() + " ROI: " + str(round(df['altroi'].iloc[-1],0)) + "%")
 ax4.set_ylabel("30 Day ROI (%)", fontsize=20, fontweight='bold', color='w')
 ax4.tick_params(color='w', labelcolor='w')
 ax4.legend(loc='upper left')

@@ -14,7 +14,7 @@ available_data_types = cm.get_available_data_types_for_asset(asset)
 print("available data types:\n", available_data_types)
 
 date_1 = "2010-02-08"
-date_2 = "2020-10-30"
+date_2 = "2021-12-30"
 
 mcap = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "CapMrktCurUSD", date_1, date_2))
 blk = cmdc.combo_convert(cm.get_asset_data_for_time_range(asset, "BlkSizeByte", date_1, date_2))
@@ -61,7 +61,7 @@ ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)
 
 ax11 = plt.subplot(2,1,2, sharex=ax1)
 """ ax11.bar(df['date'], df['cumsumdata'], color='lime', alpha=0.5) """
-ax11.plot(df['date'], df['dataratio'], color='aqua', alpha=1)
+ax11.plot(df['date'], df['dataratio'], label='Data Ratio: ' + str(round(df['dataratio'].iloc[-1],2)), color='aqua', alpha=1)
 ax11.fill_between(df['date'], control, df['dataratio'], where= df['dataratio'] > control, facecolor='aqua', alpha=1) 
 ax11.fill_between(df['date'], control, df['dataratio'], where= df['dataratio'] < control, facecolor='red', alpha=1) 
 ax11.set_facecolor('black')
