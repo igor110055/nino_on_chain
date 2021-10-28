@@ -6,13 +6,13 @@ import cm_data_converter as cmdc
 import coinmetrics 
 import matplotlib.ticker as ticker
 
-dcrdata = DcrdataClient("https://alpha.dcrdata.org/")
+dcrdata = DcrdataClient("https://explorer.dcrdata.org/market")
 
 #   TICKET DATA
-ticketPrice = dcrdata.chart("ticket-price")
+ticketPrice = dcrdata.chart('depth')
 print(ticketPrice.keys())
 
-# Convert to pandas
+""" # Convert to pandas
 df = pd.DataFrame(ticketPrice)
 
 df['t'] = pd.to_datetime(df['t'], unit='s', utc=True).dt.strftime('%Y-%m-%d')
@@ -83,4 +83,4 @@ ax2.grid()
 ax2.set_ylim(500, 950)
 ax2.axhspan(550, 600, color='w', alpha=0.5)
 
-plt.show()
+plt.show() """

@@ -1,3 +1,4 @@
+from numpy.lib.arraysetops import unique
 import pandas as pd
 import requests
 import plotly.express as px
@@ -51,7 +52,7 @@ print(df)
 """ ASSETS """
 
 #df.set_index('name')
-data_limit = df.loc[62,'total_supply']      #cross reference total supply of a given collection name
+data_limit = df.loc[64,'total_supply'] + 1     #cross reference total supply of a given collection name
 
 url_assets = "https://api.opensea.io/api/v1/assets"
 
@@ -61,7 +62,7 @@ limit_assets = 50   #rows in each call
 owner_assets = "0x3fdbeedcbfd67cbc00fc169fcf557f77ea4ad4ed"      #filter by owner
 order_direction_assets = "desc"    #or "asc"
 collection_assets = "cryptopunks"       
-order_by_assets = "sale_count"
+order_by_assets = "sale_date"
 
 clean_list_assets = []
 
@@ -72,7 +73,7 @@ while data_limit > offset_assets:
 
     response_assets = requests.request("GET", url_assets, params=querystring_assets)
     response_assets = response_assets.json()
-    #print(response_assets)         TEST IN CASE SOMETHING GOES WRONG
+    print(response_assets)         #TEST IN CASE SOMETHING GOES WRONG
     df1_assets = pd.DataFrame(response_assets['assets'])
     clean_list_assets.append(df1_assets)
     print(df1_assets)
@@ -80,7 +81,31 @@ while data_limit > offset_assets:
 df_assets = pd.concat(clean_list_assets)
 df_assets.reset_index(inplace=True,drop=True)
 df_assets.to_csv('nft_assets.csv')      #assets csv
-print(df_assets)
+unique_tokens = float(df_assets['token_id'].unique())      #build unique tokens list
+#print(df_assets)
+
+""" IF UNIQUE TOKENS ISNT EQUAL TO TOTAL SUPPLY """
+clean_list_assets_add = []
+
+while unique_tokens < data_limit:
+    offset_assets = len(df_assets)
+    unique_tokens += limit_assets
+
+    offset_assets += limit_assets
+    querystring_assets = {"order_direction":"desc","offset":str(offset_assets),"limit":str(limit_assets),"collection":collection_assets,"order_by":order_by_assets}
+
+    response_assets = requests.request("GET", url_assets, params=querystring_assets)
+    response_assets = response_assets.json()
+    print(response_assets)         #TEST IN CASE SOMETHING GOES WRONG
+    df2_assets = pd.DataFrame(response_assets['assets'])
+    clean_list_assets_add.append(df2_assets)
+    print(df2_assets)
+
+df_assets_add = pd.concat(clean_list_assets_add)
+df_assets_list = [df_assets,df_assets_add]
+df_assets = pd.concat(df_assets_list)
+df_assets.reset_index(inplace=True,drop=True)
+df_assets.to_csv('nft_assets.csv')      #assets csv
 
 """ TRAITS """
 
@@ -95,11 +120,13 @@ for item in df_assets['traits']:
 df_traits = pd.concat(clean_list_traits)        #concatentate traits df
 
 unique_traits = df_traits['value'].unique()     #build unique traits list
-print(unique_traits)
+print(unique_traits)                            #print unique traits
+print(len(unique_traits))                       #count unique traits
+print(len(unique_tokens))                       #count unique tokens
 
 """ METRICS """
 
-df_traits['wt_trait'] = df_traits[df_traits.value == 'Big Shades'].count()
+df_traits['wt_trait'] = df_traits['value'].count()
 print(df_traits['wt_trait'])
 
 df_traits.to_csv('nft_traits.csv')      #traits csv
