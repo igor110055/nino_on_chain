@@ -6,8 +6,8 @@ from plotly.subplots import make_subplots
 import numpy as np
 
 gn = GlassnodeClient()
-interval = '1h'
-period = 336
+interval = '24h'
+period = 28
 list_end = -1
 
 mcap = gn.get(
@@ -68,12 +68,12 @@ fig.add_trace(
 )
 
 fig.add_trace(
-    go.Scatter(x=df['date'].iloc[:list_end], y=df['change_pos'].iloc[:list_end], name="Mkt Real Change Positive", fill="tozeroy"),
+    go.Scatter(x=df['date'].iloc[:list_end], y=df['change_pos'].iloc[:list_end], name="Mkt Real Change Positive", fill="tozeroy", line=dict(color="#00FF00")),
     secondary_y=True,
 )
 
 fig.add_trace(
-    go.Scatter(x=df['date'].iloc[:list_end], y=df['change_neg'].iloc[:list_end], name="Mkt Real Change Negative", fill="tozeroy"),
+    go.Scatter(x=df['date'].iloc[:list_end], y=df['change_neg'].iloc[:list_end], name="Mkt Real Change Negative", fill="tozeroy", line=dict(color="#FF0000")),
     secondary_y=True,
 )
 

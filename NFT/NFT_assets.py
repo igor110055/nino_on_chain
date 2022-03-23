@@ -59,9 +59,9 @@ url_assets = "https://api.opensea.io/api/v1/assets"
 # Build base dataframe
 offset_assets = 0     #takes you to earliest row - api always starts from most recent
 limit_assets = 50   #rows in each call
-owner_assets = "0x3fdbeedcbfd67cbc00fc169fcf557f77ea4ad4ed"      #filter by owner
+owner_assets = "0xa37f9108694e39986f0f9e414e5de2b4c539777a"      #filter by owner
 order_direction_assets = "desc"    #or "asc"
-collection_assets = "cryptopunks"       
+collection_assets = "loomlock"       
 order_by_assets = "sale_date"
 
 clean_list_assets = []

@@ -1,0 +1,15 @@
+3-17
+- Purchased $30k worth of jewel at $4.40
+- Crystalvale coming in a few weeks
+- Double bottom on usd pair in play
+- Daily green heikin ashi
+- BTC shrugged off first rate hike from the fed
+- DeFi plays looking strong
+- Jewel is down 80% from USD ATH
+- Risk: BTC still hasnt broken out yet, so could drag it down
+- Risk: Bought at diagonal USD resistance on the 4 hr chart
+- Risk: I went all in with trading funds due to near term catalyst + BTC bullish break out possibility
+- Stop: Cut on daily heikin ashi flipping red
+- Target: $6.50 looks like a high confluence area on the JEWELUSD chart, $5.25 is another closer level
+- Note: Sold ~$5k of jewel around $4.82 per jewel to make 1v1t seed investment
+- Exit: TBD
