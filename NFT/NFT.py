@@ -9,13 +9,14 @@ url = "https://api.opensea.io/api/v1/collections"
 # Build base dataframe
 offset = 0     #takes you to earliest row - api always starts from most recent
 limit = 300    #rows in each call
-owner = "0x00c71f8c497d8950553fcb874f4a8cf74dc88629"      #filter by owner
+owner = "0xc9894777e2ec7641f2c9fb00c0e6960f16d8e3af"      #filter by owner
 
 merge_list = []
 if offset == 0:
     querystring = {"offset":str(offset),"limit":str(limit),"asset_owner":owner}
     response = requests.request("GET", url, params=querystring)
     response = response.json()
+    print(response)
     df2 = pd.DataFrame(response)
     df2.to_csv('nft.csv')
 else:
@@ -60,11 +61,11 @@ df['thirty_day_price_ratio'] = df['one_day_average_price'] / df['thirty_day_aver
 
 #Charting
 
-""" for col in df.columns:
+for col in df.columns:
 
     fig = px.bar(df, x='name', y=col, title='Stats for Collections Owned by ' + owner, log_y=True, color=col)
-    fig.show() """
+    fig.show()
 
-""" fig = px.bar(df, x='name', y='seven_day_sales_ratio', title='Stats for Collections Owned by ' + owner, log_y=False, color='seven_day_sales_ratio',
+fig = px.bar(df, x='name', y='seven_day_sales_ratio', title='Stats for Collections Owned by ' + owner, log_y=False, color='seven_day_sales_ratio',
 labels={'name':'Collection Name', 'seven_day_sales_ratio':'7-Day Sales / 30-Day Sales'})
-fig.show() """
+fig.show()
