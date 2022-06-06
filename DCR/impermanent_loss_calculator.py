@@ -9,12 +9,12 @@ impermanent_loss = ((2 * np.sqrt(price_ratio) / (1 + price_ratio)) - 1) #Constan
 
 print("Impermanent Loss: " + str(impermanent_loss*100) + "%")
 
-lp_roi = .15
-lp_returns = 1 + impermanent_loss + lp_roi  #Constant, do not change
+lp_roi = .35
+lp_returns = 1 + lp_roi + impermanent_loss  #Constant, do not change
 
 print("LP Net Returns: " + str((lp_returns-1)*100) + "%")   #i.e. HODL outperformance on a % basis
 
-lp_principal = 15000
+lp_principal = 1000
 principal_roi = 2
 principal_lp_returns = lp_principal * principal_roi * lp_returns    #Constant, do not change
 principal_profit = ((principal_lp_returns - lp_principal) / lp_principal) * 100 #Constant, do not change

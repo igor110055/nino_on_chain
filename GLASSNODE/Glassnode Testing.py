@@ -89,4 +89,18 @@ fig.update_xaxes(title_text="Date")
 fig.update_yaxes(title_text="Market Cap ($)", secondary_y=False)
 fig.update_yaxes(title_text="Gradient", secondary_y=True)
 
+fig.add_layout_image(
+        dict(
+            source="https://github.com/permabullnino/nino_on_chain/blob/master/spacewhale_logo.jpg",
+            xref="x",
+            yref="y",
+            x=0,
+            y=3,
+            sizex=2,
+            sizey=2,
+            sizing="stretch",
+            opacity=0.5,
+            layer="below")
+)
+
 fig.show()
