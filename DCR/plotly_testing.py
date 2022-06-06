@@ -1,5 +1,5 @@
 import plotly.graph_objects as go
-
+from PIL import Image
 # Create figure
 fig = go.Figure()
 
@@ -9,17 +9,18 @@ fig.add_trace(
 )
 
 # Add images
+img = Image.open('DCR\spacewhale_logo.png')
 fig.add_layout_image(
         dict(
-            source="https://images.plot.ly/language-icons/api-home/python-logo.png",
+            source=img,
             xref="x",
             yref="y",
             x=0,
             y=3,
             sizex=2,
             sizey=2,
-            sizing="stretch",
-            opacity=0.5,
+            sizing=None,
+            opacity=1,
             layer="below")
 )
 

@@ -8,6 +8,9 @@ from tinydecred.pydecred.dcrdata import DcrdataClient
 from binance.client import Client
 import coinmetrics
 import cm_data_converter as cmdc
+from PIL import Image
+import os
+import base64
 
 #cm = coinmetrics.Community()
 
@@ -63,7 +66,7 @@ print(df)
 
 #PLOT
 
-fig = make_subplots(specs=[[{"secondary_y": True}]])
+fig = go.Figure()
 
 """ fig.add_trace(
     go.Scatter(x=df['start'], y=df['Close'], name="DCRBTC Price", fill="none", line=dict(color="#000000")),
@@ -71,8 +74,7 @@ fig = make_subplots(specs=[[{"secondary_y": True}]])
 ) """
 
 fig.add_trace(
-    go.Scatter(x=df['start'], y=df['supply_demand'], name="Supply_Demand", fill="tozeroy", line=dict(color="#FF0000")),
-    secondary_y=False,
+    go.Scatter(x=df['start'], y=df['supply_demand'], name="Supply_Demand", fill="tozeroy", line=dict(color="#FF0000"))
 )
 
 """ fig.add_trace(
@@ -80,28 +82,23 @@ fig.add_trace(
     secondary_y=True,
 ) """
 
-# Add figure title
-fig.update_layout(
-    title_text="Supply / Demand for DCR Model assuming " + str(min_rew_param) + " Mining Reward Distribution and " + str(stk_rew_param) + " Staking Rewards Dumping from Surpressor"
-)
-
 # Set x-axis title
 fig.update_xaxes(title_text="Date")
 
 # Set y-axes titles
 #fig.update_yaxes(title_text="Price (BTC)", secondary_y=False, showgrid=False)
-fig.update_yaxes(title_text="DCR Surplus / Deficit", secondary_y=False, showgrid=False)
+fig.update_yaxes(title_text="DCR Surplus / Deficit", showgrid=False)
 
 # Add images
-fig.layout.images = [dict(
-        source="https://github.com/permabullnino/nino_on_chain/blob/master/spacewhale_logo.jpg",
-        xref="paper", yref="paper",
-        x=0.5, y=-0.35,
-        sizex=0.3, sizey=0.3,
-        xanchor="center", yanchor="top"
-      )]
+
+
+# Add figure title
+fig.update_layout(
+    title_text="Supply / Demand for DCR Model assuming " + str(min_rew_param) + " Mining Reward Distribution and " + str(stk_rew_param) + " Staking Rewards Dumping from Surpressor"
+)
 
 # Set templates
 fig.update_layout(template="plotly_white")
 
 fig.show()
+
