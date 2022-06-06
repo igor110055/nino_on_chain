@@ -5,6 +5,7 @@ from plotly.subplots import make_subplots
 import datetime as dt
 import numpy as np
 from binance.client import Client
+from PIL import Image
 
 #BINANCE
 asset = 'CRVUSDT'
@@ -81,5 +82,20 @@ fig.update_xaxes(title_text="Date")
 # Set y-axes titles
 fig.update_yaxes(title_text="Price (USD)", secondary_y=False, type="log")
 fig.update_yaxes(title_text="Total Value Locked (USD)", secondary_y=True, type="linear")
+
+img = Image.open('DCR\spacewhale_logo.png')
+fig.add_layout_image(
+        dict(
+            source=img,
+            xref="x",
+            yref="y",
+            x=0,
+            y=3,
+            sizex=2,
+            sizey=2,
+            sizing="stretch",
+            opacity=0.5,
+            layer="below")
+)
 
 fig.show()

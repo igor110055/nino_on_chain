@@ -4,6 +4,7 @@ import time
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
+from PIL import Image
 
 gn = GlassnodeClient()
 interval = '24h'
@@ -89,9 +90,10 @@ fig.update_xaxes(title_text="Date")
 fig.update_yaxes(title_text="Market Cap ($)", secondary_y=False)
 fig.update_yaxes(title_text="Gradient", secondary_y=True)
 
+img = Image.open('DCR\spacewhale_logo.png')
 fig.add_layout_image(
         dict(
-            source="https://github.com/permabullnino/nino_on_chain/blob/master/spacewhale_logo.jpg",
+            source=img,
             xref="x",
             yref="y",
             x=0,
